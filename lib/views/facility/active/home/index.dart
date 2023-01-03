@@ -1,5 +1,7 @@
 // ignore: unnecessary_import
 // import 'package:no_stunting/components/bottom_nav_bar.dart';
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:no_stunting/views/facility/active/home/partials/carousel.dart';
 import 'package:no_stunting/views/facility/active/home/partials/current_day_child_monitoring.dart';
@@ -7,7 +9,9 @@ import 'package:no_stunting/views/facility/active/home/partials/current_day_mom_
 import 'package:no_stunting/views/facility/active/home/partials/facility_info.dart';
 
 class FacilityHomeView extends StatelessWidget {
-  const FacilityHomeView({super.key});
+  final int selectedIndex;
+  final Function setSelectedIndex;
+  const FacilityHomeView(this.selectedIndex, this.setSelectedIndex);
 
   @override
   Widget build(BuildContext context) {

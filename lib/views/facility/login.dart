@@ -53,7 +53,7 @@ Color getColor(Set<MaterialState> states) {
 class _FormLoginFieldState extends State<FormLoginField> {
   final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
-  bool isPasswordSecure = true;
+  bool isPasswordSecure = false;
   String serialNumber = "";
   String password = "";
 
@@ -88,7 +88,7 @@ class _FormLoginFieldState extends State<FormLoginField> {
             Align(
               alignment: Alignment.centerLeft,
               child: Container(
-                margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: Text("Nomor Registrasi Faskes",
                     style: TextStyle(
                         fontSize: 24, color: Color.fromARGB(255, 25, 47, 35))),
@@ -130,7 +130,6 @@ class _FormLoginFieldState extends State<FormLoginField> {
               obscureText: !isPasswordSecure,
               enableSuggestions: false,
               autocorrect: false,
-              style: TextStyle(fontSize: 20),
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.fromLTRB(12, 0, 12, 0),
                 filled: true,
