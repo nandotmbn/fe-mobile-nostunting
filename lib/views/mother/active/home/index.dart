@@ -1,35 +1,61 @@
-// ignore: unnecessary_import
-import 'package:no_stunting/components/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:no_stunting/views/mother/active/home/partials/history_card.dart';
+import 'package:no_stunting/views/mother/active/home/partials/mother_card.dart';
+import 'package:no_stunting/views/mother/active/home/partials/tips_card.dart';
+
 
 class HomeMotherView extends StatelessWidget {
   const HomeMotherView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.all(20.0),
-        child: SizedBox(
-            width: double.infinity,
-            height: 150,
-            child: Column(
-              children: <Widget>[
-                Text(
-                  "Selamat Datang,",
-                  style: TextStyle(
+    return CustomScrollView(
+      slivers: [
+        SliverList(
+          delegate: SliverChildListDelegate([
+            MotherCard(),
+          ]),
+        ),
+        SliverList(
+            delegate: SliverChildListDelegate([
+          Container(
+              margin: const EdgeInsets.all(10),
+              child: const Text(
+                "Riwayat",
+                style: TextStyle(
                     fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Flexible(
-                  flex: 1,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color:
-                            Color.fromRGBO(252, 251, 244, 1)), //BoxDecoration
-                  ), //Container
-                ), //Flexible
-              ],
-            )));
+                    color: Colors.white,
+                    fontSize: 24),
+              ))
+        ])),
+        History(),
+        SliverList(
+            delegate: SliverChildListDelegate([
+          Container(
+              margin: const EdgeInsets.all(10),
+              child: const Text(
+                "Tips",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 24),
+              ))
+        ])),
+        SliverToBoxAdapter(
+          child: SizedBox(
+            height: 270,
+            child: ListView.builder(
+              
+                itemExtent: 150,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) => Container(
+                      margin: EdgeInsets.all(5.0),
+                      color: Colors.orangeAccent,
+                    ),
+                itemCount: 20),
+          ),
+        ),
+      ],
+    );
   }
 }

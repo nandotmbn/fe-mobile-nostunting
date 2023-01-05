@@ -41,6 +41,8 @@ dependencies:
   carousel_slider: ^4.1.1
   intl: ^0.17.0
   localstorage: ^3.0.6
+  table_calendar: ^3.0.8
+  shared_preferences: ^0.5.4+5
 
 dev_dependencies:
   flutter_test:
