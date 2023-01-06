@@ -3,7 +3,6 @@ import 'package:no_stunting/views/mother/active/home/partials/history_card.dart'
 import 'package:no_stunting/views/mother/active/home/partials/mother_card.dart';
 import 'package:no_stunting/views/mother/active/home/partials/tips_card.dart';
 
-
 class HomeMotherView extends StatelessWidget {
   const HomeMotherView({super.key});
 
@@ -41,19 +40,52 @@ class HomeMotherView extends StatelessWidget {
                     fontSize: 24),
               ))
         ])),
-        SliverToBoxAdapter(
-          child: SizedBox(
-            height: 270,
-            child: ListView.builder(
-              
-                itemExtent: 150,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => Container(
-                      margin: EdgeInsets.all(5.0),
-                      color: Colors.orangeAccent,
-                    ),
-                itemCount: 20),
-          ),
+        SliverList(
+          delegate: SliverChildListDelegate([
+            Container(
+                child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(8),
+                    height: 200,
+                    width: 200,
+                    color: Colors.blue,
+                    child: Text("Tips 1"),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(8),
+                    height: 200,
+                    width: 200,
+                    color: Colors.blue,
+                    child: Text("Tips 2"),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(8),
+                    height: 200,
+                    width: 200,
+                    color: Colors.blue,
+                    child: Text("Tips 3"),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(8),
+                    height: 200,
+                    width: 200,
+                    color: Colors.blue,
+                    child: Text("Tips 4"),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(8),
+                    height: 200,
+                    width: 200,
+                    color: Colors.blue,
+                    child: Text("Tips 4"),
+                  ),
+                ],
+              ),
+            ))
+          ]),
         ),
       ],
     );
