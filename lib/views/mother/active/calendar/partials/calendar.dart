@@ -14,6 +14,7 @@ class CalendarCard extends StatelessWidget {
         headerVisible: true,
         daysOfWeekVisible: true,
         sixWeekMonthsEnforced: true,
+        locale: 'pl_PL',
         headerStyle: HeaderStyle(
             titleTextStyle: TextStyle(
                 fontSize: 20,
@@ -39,14 +40,11 @@ class Calendar extends StatefulWidget {
 class _CalendarState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
-   return SliverGrid(
+    return SliverGrid(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, mainAxisExtent: 100),
       delegate: SliverChildListDelegate(
-        [
-          CalendarCard()
-         
-        ],
+        [CalendarCard()],
       ),
     );
   }
