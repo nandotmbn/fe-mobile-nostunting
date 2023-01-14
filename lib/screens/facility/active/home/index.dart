@@ -17,11 +17,6 @@ class _FacilityHomeState extends State<FacilityHome> {
     });
   }
 
-  // static List<Widget> widgetOptions = <Widget>[
-  //   FacilityHomeView(_selectedIndex, setSelectedIndex),
-  //   MotherMonitoringView(_selectedIndex, setSelectedIndex)
-  // ];
-
   Widget takeBuild(setIndex, index) {
     if (index == 0) {
       return FacilityHomeView(0, setSelectedIndex);

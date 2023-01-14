@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:no_stunting/components/bottom_nav_bar.dart';
+import 'package:no_stunting/widgets/bottom_nav_bar.dart';
 import 'package:no_stunting/screens/facility/active/home/index.dart';
 import 'package:no_stunting/screens/facility/active/measure/index.dart';
 import 'package:no_stunting/screens/facility/active/monitor/index.dart';

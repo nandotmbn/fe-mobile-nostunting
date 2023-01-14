@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:no_stunting/views/facility/active/measure/partials/card_list_patient.dart';
-import 'package:no_stunting/views/facility/active/measure/partials/search_bar.dart';
+import 'package:no_stunting/views/mother/active/measure/partials/card_list_patient.dart';
+import 'package:no_stunting/views/mother/active/measure/partials/search_bar.dart';
 
 class FacilityMeasureView extends StatefulWidget {
   const FacilityMeasureView({super.key});
@@ -35,13 +35,13 @@ class _FacilityMeasureViewState extends State<FacilityMeasureView> {
           crossAxisCount: 2,
           childAspectRatio: 1.4,
           children: const [
-            FacilityCardListPatientMeasurement(),
-            FacilityCardListPatientMeasurement(),
-            FacilityCardListPatientMeasurement(),
-            FacilityCardListPatientMeasurement(),
-            FacilityCardListPatientMeasurement(),
-            FacilityCardListPatientMeasurement(),
-            FacilityCardListPatientMeasurement(),
+            // FacilityCardListPatientMeasurement(),
+            // FacilityCardListPatientMeasurement(),
+            // FacilityCardListPatientMeasurement(),
+            // FacilityCardListPatientMeasurement(),
+            // FacilityCardListPatientMeasurement(),
+            // FacilityCardListPatientMeasurement(),
+            // FacilityCardListPatientMeasurement(),
           ],
         ),
       )

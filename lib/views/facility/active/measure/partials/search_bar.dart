@@ -1,22 +1,10 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 
-class FacilityMeasureTextField extends StatefulWidget {
-  const FacilityMeasureTextField({super.key});
-
-  @override
-  State<FacilityMeasureTextField> createState() =>
-      _FacilityMeasureTextFieldState();
-}
-
-class _FacilityMeasureTextFieldState extends State<FacilityMeasureTextField> {
-  @override
-  Widget build(BuildContext context) {
-    return const TextFieldMonitor();
-  }
-}
-
-class TextFieldMonitor extends StatelessWidget {
-  const TextFieldMonitor({super.key});
+class FacilityMeasureTextField extends StatelessWidget {
+  Function setNameState;
+  FacilityMeasureTextField({required this.setNameState});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +16,9 @@ class TextFieldMonitor extends StatelessWidget {
               alignment: Alignment.center,
               margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
               child: TextField(
-                onChanged: (text) {},
+                onChanged: (text) {
+                  setNameState(text);
+                },
                 style: const TextStyle(
                     fontSize: 18, color: Color.fromARGB(255, 86, 86, 86)),
                 decoration: const InputDecoration(

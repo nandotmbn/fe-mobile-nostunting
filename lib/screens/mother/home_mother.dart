@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:no_stunting/components/bottom_nav_bar.dart';
-import 'package:no_stunting/components/bottom_nav_mother.dart';
+import 'package:no_stunting/widgets/bottom_nav_bar.dart';
+import 'package:no_stunting/widgets/bottom_nav_mother.dart';
 import 'package:no_stunting/screens/facility/active/home/index.dart';
 import 'package:no_stunting/views/mother/active/home/index.dart';
-
 
 class HomeMother extends StatefulWidget {
   const HomeMother({super.key});
@@ -16,7 +15,7 @@ class _HomeMotherState extends State<HomeMother> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
-     HomeMotherView()  //Widget Home
+    HomeMotherView() //Widget Home
   ];
 
   void setSelectedIndex(int index) {
@@ -31,8 +30,7 @@ class _HomeMotherState extends State<HomeMother> {
         child: Scaffold(
       backgroundColor: const Color(0xFF4E6C50),
       body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar:
-          MotherNav(_selectedIndex, setSelectedIndex),
+      bottomNavigationBar: MotherNav(_selectedIndex, setSelectedIndex),
     ));
   }
 }
