@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "configurations": [
   {
     "name": "Flutter",
@@ -11,3 +12,17 @@
   }
   ]
 }
+=======
+    "configurations": [
+    {
+      "name": "Flutter",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "args": [
+        "--no-sound-null-safety"
+      ],
+    }
+    ]
+  }
+>>>>>>> 2db3a00f86c74f05c2aa786954eb288865d6960d

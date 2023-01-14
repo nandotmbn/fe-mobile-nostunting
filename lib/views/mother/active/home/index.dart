@@ -1,37 +1,92 @@
-// ignore: unnecessary_import
 import 'package:flutter/material.dart';
+import 'package:no_stunting/views/mother/active/home/partials/history_card.dart';
+import 'package:no_stunting/views/mother/active/home/partials/mother_card.dart';
 
 class HomeMotherView extends StatelessWidget {
   const HomeMotherView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: const EdgeInsets.all(20.0),
-        child: SizedBox(
-            width: double.infinity,
-            height: 150,
-            child: Column(
-              children: <Widget>[
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: const Text(
-                    "Selamat Datang",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
+    return CustomScrollView(
+      slivers: [
+        SliverList(
+          delegate: SliverChildListDelegate([
+            MotherCard(),
+          ]),
+        ),
+        SliverList(
+            delegate: SliverChildListDelegate([
+          Container(
+              margin: const EdgeInsets.all(10),
+              child: const Text(
+                "Riwayat",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 24),
+              ))
+        ])),
+        History(),
+        SliverList(
+            delegate: SliverChildListDelegate([
+          Container(
+              margin: const EdgeInsets.all(10),
+              child: const Text(
+                "Tips",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 24),
+              ))
+        ])),
+        SliverList(
+          delegate: SliverChildListDelegate([
+            Container(
+                child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(8),
+                    height: 200,
+                    width: 200,
+                    color: Colors.blue,
+                    child: Text("Tips 1"),
                   ),
-                ),
-                Flexible(
-                  flex: 1,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: const Color.fromRGBO(
-                            252, 251, 244, 1)), //BoxDecoration
-                  ), //Container
-                ), //Flexible
-              ],
-            )));
+                  Container(
+                    margin: EdgeInsets.all(8),
+                    height: 200,
+                    width: 200,
+                    color: Colors.blue,
+                    child: Text("Tips 2"),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(8),
+                    height: 200,
+                    width: 200,
+                    color: Colors.blue,
+                    child: Text("Tips 3"),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(8),
+                    height: 200,
+                    width: 200,
+                    color: Colors.blue,
+                    child: Text("Tips 4"),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(8),
+                    height: 200,
+                    width: 200,
+                    color: Colors.blue,
+                    child: Text("Tips 4"),
+                  ),
+                ],
+              ),
+            ))
+          ]),
+        ),
+      ],
+    );
   }
 }
