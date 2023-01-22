@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:no_stunting/constant/color.dart';
 import 'package:no_stunting/services/facility_measure.dart';
 import 'package:no_stunting/widgets/skeleton.dart';
 
@@ -50,16 +51,18 @@ class _FacilityMeasurePatientDetailState
                 child: Container(
                     padding: const EdgeInsets.all(10),
                     margin: const EdgeInsets.only(right: 10),
-                    decoration: const BoxDecoration(
-                        color: Color(0xFFAA8B56),
-                        borderRadius: BorderRadius.all(Radius.circular(10))))),
+                    decoration: BoxDecoration(
+                        color: MyColor.level1,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10))))),
             Expanded(
                 flex: 2,
                 child: Container(
                   padding: const EdgeInsets.all(10),
-                  decoration: const BoxDecoration(
-                      color: Color(0xFF395144),
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  decoration: BoxDecoration(
+                      color: MyColor.level1,
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(10))),
                   child: Column(
                     children: [
                       Container(
@@ -104,7 +107,7 @@ class _FacilityMeasurePatientDetailState
                             : Text(
                                 '${userData["address"]}',
                                 style: const TextStyle(
-                                    color: Color(0xFFAA8B56),
+                                    color: Colors.white,
                                     fontSize: 14,
                                     fontWeight: FontWeight.normal),
                               ),

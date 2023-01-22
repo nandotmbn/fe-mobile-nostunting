@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:no_stunting/constant/color.dart';
 
 class BaseScaffold extends StatefulWidget {
   final Widget _widget;
@@ -17,7 +18,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      backgroundColor: const Color(0xFF4E6C50),
+      backgroundColor: Colors.white,
       body: widget._widget,
     ));
   }

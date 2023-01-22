@@ -1,6 +1,7 @@
 // ignore_for_file: sized_box_for_whitespace, prefer_const_constructors, avoid_unnecessary_containers, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:no_stunting/constant/color.dart';
 import 'package:no_stunting/views/facility/login.dart';
 
 class LoginFacility extends StatelessWidget {
@@ -19,8 +20,8 @@ class LoginFacility extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Container(
-              decoration: const BoxDecoration(
-                color: Color(0xFFAA8B56),
+              decoration: BoxDecoration(
+                color: MyColor.level3,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
@@ -31,7 +32,7 @@ class LoginFacility extends StatelessWidget {
           )
         ],
       ),
-      backgroundColor: const Color(0xFF4E6C50),
+      backgroundColor: MyColor.level4,
     );
   }
 }

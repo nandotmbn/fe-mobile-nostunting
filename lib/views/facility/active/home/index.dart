@@ -33,7 +33,7 @@ class FacilityHomeView extends StatelessWidget {
                 "Pemantauan ibu hari ini",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: Color(0xFF06283D),
                     fontSize: 24),
               ))
         ])),
@@ -46,7 +46,7 @@ class FacilityHomeView extends StatelessWidget {
                 "Pemantauan bayi hari ini",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: Color(0xFF06283D),
                     fontSize: 24),
               ))
         ])),

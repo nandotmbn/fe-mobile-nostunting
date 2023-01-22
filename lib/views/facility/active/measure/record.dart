@@ -1,9 +1,7 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:no_stunting/views/facility/active/measure/partials/bluetooth_finder.dart';
+import 'package:no_stunting/constant/color.dart';
 import 'package:no_stunting/views/facility/active/measure/partials/patients_detail.dart';
 import 'package:no_stunting/views/facility/active/measure/partials/record_form.dart';
 
@@ -31,9 +29,9 @@ class _FaciliityMeasureRecordViewState
             flex: 10,
             child: Container(
               margin: const EdgeInsets.only(top: 24),
-              decoration: const BoxDecoration(
-                color: Color(0xFFF0EBCE),
-                borderRadius: BorderRadius.only(
+              decoration: BoxDecoration(
+                color: MyColor.level1,
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
                 ),

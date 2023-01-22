@@ -8,6 +8,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 // import 'package:localstorage/localstorage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:no_stunting/constant/color.dart';
 import 'package:no_stunting/widgets/input_text_field.dart';
 import '../../screens/facility/active/index.dart';
 
@@ -55,9 +56,9 @@ Color getColor(Set<MaterialState> states) {
     MaterialState.focused,
   };
   if (states.any(interactiveStates.contains)) {
-    return Colors.red;
+    return MyColor.level2;
   }
-  return const Color.fromARGB(255, 243, 114, 33);
+  return MyColor.level2;
 }
 
 class _FormLoginFieldState extends State<FormLoginField> {
@@ -112,9 +113,8 @@ class _FormLoginFieldState extends State<FormLoginField> {
             alignment: Alignment.centerLeft,
             child: Container(
               margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: const Text("Kata Sandi",
-                  style: TextStyle(
-                      fontSize: 24, color: Color.fromARGB(255, 25, 47, 35))),
+              child: Text("Kata Sandi",
+                  style: TextStyle(fontSize: 24, color: MyColor.level2)),
             ),
           ),
           TextFormField(
@@ -153,10 +153,9 @@ class _FormLoginFieldState extends State<FormLoginField> {
                     });
                   },
                 ),
-                const Text(
+                Text(
                   "Tampilkan sandi",
-                  style: TextStyle(
-                      fontSize: 18, color: Color.fromARGB(255, 83, 12, 2)),
+                  style: TextStyle(fontSize: 18, color: MyColor.level1),
                 )
               ],
             ),
@@ -166,13 +165,13 @@ class _FormLoginFieldState extends State<FormLoginField> {
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromHeight(50),
-                  backgroundColor: const Color(0xFF395144),
+                  backgroundColor: MyColor.level2,
                 ),
                 onPressed: () async {
                   setLoading();
                   if (_formKey.currentState!.validate()) {
                     final response = await http.post(
-                      Uri.parse('http://10.252.132.40:6000/v1/auth/login'),
+                      Uri.parse('http://192.168.159.87:8080/v1/auth/login'),
                       headers: <String, String>{
                         'Content-Type': 'application/json; charset=UTF-8',
                       },

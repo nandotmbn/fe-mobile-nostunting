@@ -2,10 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:no_stunting/constant/color.dart';
+import 'package:no_stunting/services/facility_monitor.dart';
 import 'package:no_stunting/views/facility/active/monitor/partials/menu.dart';
 import 'package:no_stunting/views/facility/active/monitor/partials/monitoring_list_child.dart';
 import 'package:no_stunting/views/facility/active/monitor/partials/monitoring_list_mom.dart';
 import 'package:no_stunting/views/facility/active/monitor/partials/search_bar.dart';
+
+FacilityMonitorService facilityService = FacilityMonitorService();
 
 class FacilityMonitorView extends StatefulWidget {
   const FacilityMonitorView({super.key});
@@ -26,20 +30,32 @@ class _FacilityMonitorViewState extends State<FacilityMonitorView> {
 
   DateTime _dateTime = DateTime.now().toLocal();
 
+  void getMasterData() async {
+    var resultData = await facilityService.getMasterRolesData();
+    print(resultData);
+    // List<Tag> tagObjs =
+    //     resultData.map((tagJson) => Tag.fromJson(tagJson)).toList();
+    // setState(() {
+    //   childrenData = tagObjs;
+    // });
+  }
+
+  @override
+  void initState() {
+    getMasterData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
       Container(
-        alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.all(10),
-        child: Container(
-            height: 80,
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                color: const Color(0xFFF0EBCE),
-                borderRadius: BorderRadius.circular(10)),
-            child: FacilityMonitorTextField()),
-      ),
+          alignment: Alignment.centerLeft,
+          child: Container(
+              height: 80,
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(color: MyColor.level3),
+              child: FacilityMonitorTextField())),
       Container(
           alignment: Alignment.centerLeft,
           padding: const EdgeInsets.all(10),
@@ -53,7 +69,7 @@ class _FacilityMonitorViewState extends State<FacilityMonitorView> {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Color.fromARGB(255, 227, 227, 227),
+                    color: MyColor.level3,
                   ),
                   child: FacilityMonitorMenuView(
                     dropdownValue: dropdownValueRoles,
@@ -70,7 +86,7 @@ class _FacilityMonitorViewState extends State<FacilityMonitorView> {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Color.fromARGB(255, 227, 227, 227),
+                    color: MyColor.level3,
                   ),
                   child: (dropdownValueRoles == "Ibu")
                       ? FacilityMonitorMenuView(
@@ -111,12 +127,15 @@ class _FacilityMonitorViewState extends State<FacilityMonitorView> {
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Color.fromARGB(255, 227, 227, 227),
+                        color: MyColor.level3,
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(DateFormat.yMEd().format(_dateTime)),
+                          Text(
+                            DateFormat.yMEd().format(_dateTime),
+                            style: TextStyle(color: Colors.white),
+                          ),
                           Icon(
                             Icons.calendar_month,
                             color: Color.fromARGB(255, 51, 51, 51),

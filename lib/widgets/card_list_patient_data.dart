@@ -1,6 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:no_stunting/constant/color.dart';
 
 class CardListPatientData extends StatelessWidget {
   final String title, content;
@@ -17,10 +18,10 @@ class CardListPatientData extends StatelessWidget {
             margin: const EdgeInsets.only(bottom: 5),
             child: Text(
               title,
-              style: const TextStyle(
-                  color: Color(0xFFAA8B56),
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: MyColor.level2,
+                fontSize: 12,
+              ),
             ),
           ),
         ),
@@ -30,10 +31,11 @@ class CardListPatientData extends StatelessWidget {
             margin: const EdgeInsets.only(bottom: 5),
             child: Text(
               content,
-              style: const TextStyle(
-                  color: Color(0xFF395144),
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: MyColor.level2,
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+              ),
             ),
           ),
         )

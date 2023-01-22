@@ -34,7 +34,7 @@ class _FacilityActiveState extends State<FacilityActive> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      backgroundColor: const Color(0xFF4E6C50),
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar:
           CustomNavigationBar(_selectedIndex, setSelectedIndex),

@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_unnecessary_containers, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:no_stunting/constant/color.dart';
 import 'package:no_stunting/screens/facility/login.dart';
 import 'package:no_stunting/screens/mother/login.dart';
 import 'package:no_stunting/widgets/roles_box.dart';
@@ -18,12 +19,12 @@ class ChooseRolesView extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
+                Text(
                   "Masuk Sebagai",
                   style: TextStyle(
                       fontSize: 36,
                       fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 232, 255, 225)),
+                      color: MyColor.level1),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 50),
@@ -33,9 +34,9 @@ class ChooseRolesView extends StatelessWidget {
                           'assets/img/hospital_white.png',
                           'Fasilitas Kesehatan',
                           'Memberikan pelayanan dengan fitur unggulan seperti petunjuk, pengukuran dan pemantauan.',
-                          const Color(0xFF395144),
-                          const Color(0xFFFFFFFF),
-                          const Color(0xFF9F9B9B), () {
+                          MyColor.level1,
+                          MyColor.level2,
+                          MyColor.level4, () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -46,9 +47,9 @@ class ChooseRolesView extends StatelessWidget {
                           'assets/img/pregnancy_white.png',
                           'Ibu Hamil',
                           'Mendapatkan informasi terkait gizi ibu hamil yang terpantau dari fasilitas kesehatan..',
-                          const Color(0xFFAA8B56),
-                          const Color(0xFFFFFFFF),
-                          const Color(0xFF395144), () {
+                          MyColor.level2,
+                          MyColor.level4,
+                          MyColor.level4, () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -59,9 +60,9 @@ class ChooseRolesView extends StatelessWidget {
                           'assets/img/baby_brown.png',
                           'Bayi/Balita',
                           'Mendapatkan fasilitas pemantauan gizi bayi / balita, rekapitulasi dan petunjuk pencegahan stunting dari fasilitas kesehatan.',
-                          const Color(0xFFF0EBCE),
-                          const Color(0xFFAA8B56),
-                          const Color(0xFF395144), () {
+                          MyColor.level4,
+                          MyColor.level3,
+                          MyColor.level2, () {
                         // Navigator.push(
                         //   context,
                         //   MaterialPageRoute(

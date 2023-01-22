@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:no_stunting/constant/color.dart';
 import 'package:no_stunting/screens/facility/active/measure/record.dart';
 import 'package:no_stunting/widgets/card_list_patient_data.dart';
 
@@ -14,9 +15,17 @@ class FacilityCardListPatientMeasurement extends StatelessWidget {
     String convertedDatetime = DateFormat('yMMMMEEEEd').format(
         DateFormat("yyyy-MM-dd").parse(DateTime.parse(updatedAt).toString()));
     return Container(
-        decoration: const BoxDecoration(
-            color: Color(0xFFF0EBCE),
-            borderRadius: BorderRadius.all(Radius.circular(10))),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            boxShadow: [
+              BoxShadow(
+                color: MyColor.level1.withOpacity(0.3),
+                spreadRadius: 1,
+                blurRadius: 5,
+                offset: const Offset(0, 3), // changes position of shadow
+              ),
+            ]),
         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         padding: const EdgeInsets.all(10.0),
         child: Column(
@@ -38,9 +47,10 @@ class FacilityCardListPatientMeasurement extends StatelessWidget {
                   )
                 },
                 child: Container(
-                  decoration: const BoxDecoration(
-                      color: Color(0xFF395144),
-                      borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                  decoration: BoxDecoration(
+                      color: MyColor.level2,
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(10.0))),
                   padding:
                       const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
                   child: const Text(

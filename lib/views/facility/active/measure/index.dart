@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:no_stunting/constant/color.dart';
 import 'package:no_stunting/services/facility_measure.dart';
 import 'package:no_stunting/views/facility/active/measure/partials/card_list_patient.dart';
 import 'package:no_stunting/views/facility/active/measure/partials/search_bar.dart';
@@ -62,13 +63,10 @@ class _FacilityMeasureViewState extends State<FacilityMeasureView> {
     return Column(children: [
       Container(
         alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.all(10),
         child: Container(
             height: 80,
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                color: const Color(0xFFF0EBCE),
-                borderRadius: BorderRadius.circular(10)),
+            decoration: BoxDecoration(color: MyColor.level3),
             child: FacilityMeasureTextField(setNameState: (String text) {
               setState(() {
                 name = text;

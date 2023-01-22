@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:no_stunting/constant/color.dart';
 
 FlutterBluePlus flutterBlue = FlutterBluePlus.instance;
 
@@ -30,12 +31,12 @@ class _BluetoothFinderState extends State<BluetoothFinder> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
+            Text(
               "Pilihan koneksi pengukuran",
               style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xFF395144)),
+                  color: MyColor.level4),
             ),
             ElevatedButton(
                 onPressed: () {
@@ -65,7 +66,7 @@ class _BluetoothFinderState extends State<BluetoothFinder> {
                         alignment: Alignment.centerLeft,
                         padding: const EdgeInsets.all(10),
                         margin: const EdgeInsets.symmetric(vertical: 2),
-                        decoration: const BoxDecoration(color: Colors.white),
+                        decoration: BoxDecoration(color: MyColor.level4),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -132,10 +133,11 @@ class _BluetoothFinderState extends State<BluetoothFinder> {
                                         child: Container(
                                             margin: const EdgeInsets.symmetric(
                                                 vertical: 4),
-                                            decoration: const BoxDecoration(
-                                                color: Color(0xFF395144),
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(10.0))),
+                                            decoration: BoxDecoration(
+                                                color: MyColor.level1,
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(10.0))),
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 5, horizontal: 16),
                                             child: Text(

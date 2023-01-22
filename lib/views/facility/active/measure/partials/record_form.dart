@@ -7,6 +7,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:app_settings/app_settings.dart';
+import 'package:no_stunting/constant/color.dart';
 import 'package:no_stunting/views/facility/active/measure/partials/bluetooth_finder.dart';
 import 'package:no_stunting/widgets/record_form_head.dart';
 
@@ -42,13 +43,13 @@ class FacilityMeasureRecordForm extends StatelessWidget {
               bottom: 0.0,
             ),
             child: Column(children: [
-              const Align(
+              Align(
                 alignment: Alignment.centerLeft,
                 child: Text("Pengukuran Bayi / Balita",
                     style: TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.w700,
-                        color: Color.fromARGB(255, 25, 47, 35))),
+                        color: MyColor.level4)),
               ),
               Align(
                   alignment: Alignment.centerRight,
@@ -86,11 +87,11 @@ class FacilityMeasureRecordForm extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: Container(
                   margin: const EdgeInsets.only(bottom: 20, top: 5),
-                  child: const Text("Menggunakan Bluetooth Low Energy (BLE)",
+                  child: Text("Menggunakan Bluetooth Low Energy (BLE)",
                       style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w700,
-                          color: Color.fromARGB(255, 77, 102, 89))),
+                          color: MyColor.level4)),
                 ),
               ),
               const Align(
@@ -231,7 +232,7 @@ class _FacilityMeasureRecordFormFieldState
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromHeight(50),
-                  backgroundColor: const Color(0xFF395144),
+                  backgroundColor: MyColor.level2,
                 ),
                 onPressed: () async {
                   setLoading();

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:no_stunting/constant/color.dart';
 
 class FacilityHomeInfo extends StatefulWidget {
   const FacilityHomeInfo({super.key});
@@ -21,18 +22,18 @@ class _FacilityHomeInfoState extends State<FacilityHomeInfo> {
                 child: Container(
                   padding: const EdgeInsets.all(10),
                   margin: const EdgeInsets.only(right: 10),
-                  decoration: const BoxDecoration(
-                      color: Color(0xFFAA8B56),
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  decoration: BoxDecoration(
+                      color: MyColor.level3,
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(10))),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: const [
                         Align(
-                          alignment: Alignment.centerLeft,
+                          alignment: Alignment.center,
                           child: Text(
-                            "Hari ini",
-                            style: TextStyle(
-                                color: Color(0xFF395144), fontSize: 20),
+                            "Hari Ini",
+                            style: TextStyle(color: Colors.white, fontSize: 20),
                             textAlign: TextAlign.right,
                           ),
                         ),
@@ -48,7 +49,7 @@ class _FacilityHomeInfoState extends State<FacilityHomeInfo> {
                           ),
                         ),
                         Align(
-                          alignment: Alignment.centerRight,
+                          alignment: Alignment.center,
                           child: Text(
                             "Pelayanan",
                             style: TextStyle(
@@ -61,12 +62,14 @@ class _FacilityHomeInfoState extends State<FacilityHomeInfo> {
                       ]),
                 )),
             Expanded(
-                flex: 2,
+                flex: 3,
                 child: Container(
                   padding: const EdgeInsets.all(10),
-                  decoration: const BoxDecoration(
-                      color: Color(0xFF395144),
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  margin: const EdgeInsets.only(left: 0),
+                  decoration: BoxDecoration(
+                      color: MyColor.level3,
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(10))),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -74,7 +77,7 @@ class _FacilityHomeInfoState extends State<FacilityHomeInfo> {
                           alignment: Alignment.centerLeft,
                           child: Text("Puskesmas Mongolia Kuno Selatan",
                               style: TextStyle(
-                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  color: Colors.white,
                                   fontSize: 20,
                                   fontStyle: FontStyle.italic,
                                   fontWeight: FontWeight.bold)),
@@ -83,7 +86,7 @@ class _FacilityHomeInfoState extends State<FacilityHomeInfo> {
                           alignment: Alignment.centerLeft,
                           child: Text("DINKES/SBY/231273",
                               style: TextStyle(
-                                color: Color.fromARGB(255, 255, 255, 255),
+                                color: Colors.white,
                                 fontSize: 14,
                                 fontStyle: FontStyle.italic,
                               )),
@@ -95,7 +98,7 @@ class _FacilityHomeInfoState extends State<FacilityHomeInfo> {
                               child: Text(
                                   "Jl Keputih Tegal, no 14, Keputih, Kec Sukolilo, Surabaya.",
                                   style: TextStyle(
-                                    color: Color(0xFFAA8B56),
+                                    color: Colors.white,
                                     fontSize: 14,
                                     fontStyle: FontStyle.italic,
                                   )),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:no_stunting/constant/color.dart';
 
 class FacilityMonitorTextField extends StatefulWidget {
   const FacilityMonitorTextField({super.key});
@@ -29,14 +30,13 @@ class TextFieldMonitor extends StatelessWidget {
               margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
               child: TextField(
                 onChanged: (text) {},
-                style: const TextStyle(
-                    fontSize: 18, color: Color.fromARGB(255, 86, 86, 86)),
-                decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.fromLTRB(12, 0, 12, 0),
+                style: TextStyle(fontSize: 18, color: MyColor.level1),
+                decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
                     filled: true,
                     border: InputBorder.none,
                     hintText: "Cari nama bayi/balita",
-                    fillColor: Color(0xFFD9D9D9)),
+                    fillColor: MyColor.level4),
               ),
             )),
         Expanded(
@@ -46,7 +46,7 @@ class TextFieldMonitor extends StatelessWidget {
                 margin: const EdgeInsets.fromLTRB(0, 6, 0, 6),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    color: const Color(0xFF395144)),
+                    color: MyColor.level1),
                 alignment: Alignment.center,
                 child: const Text(
                   "Cari",

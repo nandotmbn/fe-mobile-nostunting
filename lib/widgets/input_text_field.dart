@@ -1,6 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:no_stunting/constant/color.dart';
 
 class InputTextField extends StatefulWidget {
   final TextEditingController serialNumberController;
@@ -23,8 +24,7 @@ class _InputTextFieldState extends State<InputTextField> {
           child: Container(
             margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
             child: Text(widget.label,
-                style: const TextStyle(
-                    fontSize: 24, color: Color.fromARGB(255, 25, 47, 35))),
+                style: TextStyle(fontSize: 24, color: MyColor.level2)),
           ),
         ),
         TextFormField(

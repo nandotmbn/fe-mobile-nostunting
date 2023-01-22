@@ -21,6 +21,14 @@ class _RolesBoxState extends State<RolesBox> {
           margin: const EdgeInsets.only(top: 10, bottom: 10),
           decoration: BoxDecoration(
               color: widget.bgColor,
+              boxShadow: [
+                BoxShadow(
+                  color: Color.fromARGB(255, 129, 173, 255).withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: const Offset(0, 3), // changes position of shadow
+                ),
+              ],
               borderRadius: const BorderRadius.all(Radius.circular(10))),
           child: Padding(
             padding:

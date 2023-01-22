@@ -9,7 +9,7 @@ class ChooseRolesLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: Color(0xFF4E6C50),
+      backgroundColor: Color(0xFFFFFFFF),
       body: ChooseRolesView(),
     );
   }
