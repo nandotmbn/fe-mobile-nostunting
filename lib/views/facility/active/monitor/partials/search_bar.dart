@@ -1,8 +1,15 @@
+// ignore_for_file: use_key_in_widget_constructors, must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:no_stunting/constant/color.dart';
 
 class FacilityMonitorTextField extends StatefulWidget {
-  const FacilityMonitorTextField({super.key});
+  Function onChange, onFilterChange;
+  bool filter;
+  FacilityMonitorTextField(
+      {required this.onChange,
+      required this.onFilterChange,
+      required this.filter});
 
   @override
   State<FacilityMonitorTextField> createState() =>
@@ -12,24 +19,33 @@ class FacilityMonitorTextField extends StatefulWidget {
 class _FacilityMonitorTextFieldState extends State<FacilityMonitorTextField> {
   @override
   Widget build(BuildContext context) {
-    return const TextFieldMonitor();
-  }
-}
-
-class TextFieldMonitor extends StatelessWidget {
-  const TextFieldMonitor({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
+    return IntrinsicHeight(
+        child: Row(
       children: [
+        Expanded(
+            flex: 1,
+            child: InkWell(
+              onTap: () => widget.onFilterChange(),
+              child: Container(
+                  margin: const EdgeInsets.fromLTRB(0, 6, 0, 6),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: widget.filter ? MyColor.level4 : MyColor.level1),
+                  alignment: Alignment.center,
+                  child: Icon(
+                    widget.filter ? Icons.filter_list_off : Icons.filter_list,
+                    color: !widget.filter ? Colors.white : MyColor.level3,
+                  )),
+            )),
         Expanded(
             flex: 4,
             child: Container(
               alignment: Alignment.center,
               margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
               child: TextField(
-                onChanged: (text) {},
+                onChanged: (text) {
+                  widget.onChange(text);
+                },
                 style: TextStyle(fontSize: 18, color: MyColor.level1),
                 decoration: InputDecoration(
                     contentPadding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
@@ -39,25 +55,7 @@ class TextFieldMonitor extends StatelessWidget {
                     fillColor: MyColor.level4),
               ),
             )),
-        Expanded(
-            flex: 1,
-            child: InkWell(
-              child: Container(
-                margin: const EdgeInsets.fromLTRB(0, 6, 0, 6),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: MyColor.level1),
-                alignment: Alignment.center,
-                child: const Text(
-                  "Cari",
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
-              ),
-            )),
       ],
-    );
+    ));
   }
 }

@@ -9,6 +9,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:no_stunting/constant/color.dart';
+import 'package:no_stunting/services/constant.dart';
 import 'package:no_stunting/widgets/input_text_field.dart';
 import '../../screens/facility/active/index.dart';
 
@@ -171,7 +172,7 @@ class _FormLoginFieldState extends State<FormLoginField> {
                   setLoading();
                   if (_formKey.currentState!.validate()) {
                     final response = await http.post(
-                      Uri.parse('http://192.168.159.87:8080/v1/auth/login'),
+                      Uri.parse('http://$URL_ENDPOINT:8080/v1/auth/login'),
                       headers: <String, String>{
                         'Content-Type': 'application/json; charset=UTF-8',
                       },

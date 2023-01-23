@@ -38,7 +38,7 @@ class _FacilityMonitorViewState extends State<FacilityMonitorView> {
             decoration: BoxDecoration(
                 color: const Color(0xFFF0EBCE),
                 borderRadius: BorderRadius.circular(10)),
-            child: FacilityMonitorTextField()),
+            child: Container()),
       ),
       Container(
           alignment: Alignment.centerLeft,
@@ -47,47 +47,25 @@ class _FacilityMonitorViewState extends State<FacilityMonitorView> {
             child: Row(
               children: [
                 Container(
-                  width: 120,
-                  padding: EdgeInsets.symmetric(horizontal: 12),
-                  margin: EdgeInsets.only(right: 4),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Color.fromARGB(255, 227, 227, 227),
-                  ),
-                  child: FacilityMonitorMenuView(
-                    dropdownValue: dropdownValueRoles,
-                    options: optionsRoles,
-                    onChange: (String value) => {
-                      setState(() => {dropdownValueRoles = value})
-                    },
-                  ),
-                ),
+                    width: 120,
+                    padding: EdgeInsets.symmetric(horizontal: 12),
+                    margin: EdgeInsets.only(right: 4),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color.fromARGB(255, 227, 227, 227),
+                    ),
+                    child: Container()),
                 Container(
-                  width: 120,
-                  padding: EdgeInsets.symmetric(horizontal: 12),
-                  margin: EdgeInsets.only(right: 4),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Color.fromARGB(255, 227, 227, 227),
-                  ),
-                  child: (dropdownValueRoles == "Ibu")
-                      ? FacilityMonitorMenuView(
-                          dropdownValue: dropdownValueMom,
-                          options: optionsMom,
-                          onChange: (String value) => {
-                            setState(() => {dropdownValueMom = value})
-                          },
-                        )
-                      : FacilityMonitorMenuView(
-                          dropdownValue: dropdownValueChild,
-                          options: optionsChild,
-                          onChange: (String value) => {
-                            setState(() => {dropdownValueChild = value})
-                          },
-                        ),
-                ),
+                    width: 120,
+                    padding: EdgeInsets.symmetric(horizontal: 12),
+                    margin: EdgeInsets.only(right: 4),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color.fromARGB(255, 227, 227, 227),
+                    ),
+                    child: Container()),
                 InkWell(
                   onTap: () => {
                     showDatePicker(
@@ -136,16 +114,7 @@ class _FacilityMonitorViewState extends State<FacilityMonitorView> {
           mainAxisSpacing: 5,
           crossAxisCount: 2,
           childAspectRatio: 1.8,
-          children: [
-            BoxMonitoringChild(),
-            BoxMonitoringMom(),
-            BoxMonitoringChild(),
-            BoxMonitoringMom(),
-            BoxMonitoringMom(),
-            BoxMonitoringMom(),
-            BoxMonitoringChild(),
-            BoxMonitoringChild(),
-          ],
+          children: [],
         ),
       )
     ]);

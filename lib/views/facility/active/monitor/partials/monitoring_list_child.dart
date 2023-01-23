@@ -1,12 +1,26 @@
-// ignore_for_file: use_key_in_widget_constructors
+// ignore_for_file: use_key_in_widget_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:no_stunting/constant/color.dart';
+import 'package:no_stunting/screens/facility/active/monitor/detail.dart';
+import 'package:no_stunting/views/facility/active/monitor/index.dart';
 
 class BoxMonitoringChild extends StatelessWidget {
+  MonitorPatientData childData;
+
+  BoxMonitoringChild(this.childData);
+
   @override
   Widget build(BuildContext context) {
+    String convertedDate = DateFormat('yMMMMd').format(DateFormat("yyyy-MM-dd")
+        .parse(DateTime.parse(childData.createdAt).toString()));
+    String convertedTime = DateFormat('HH:mm')
+        .format(
+            DateTime.parse(childData.createdAt).add(const Duration(hours: 7)))
+        .toString();
     return Container(
+        height: 160,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -33,23 +47,25 @@ class BoxMonitoringChild extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "30 November 2022",
+                          convertedDate,
                           style: TextStyle(
                             color: MyColor.level1,
                             fontSize: 10,
                           ),
                         ),
                         Text(
-                          "55.55",
+                          convertedTime,
                           style: TextStyle(
                               color: MyColor.level1,
                               fontSize: 24,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          "Faskes",
+                          childData.isChecked ? "Sudah di cek" : "Belum di cek",
                           style: TextStyle(
-                              color: MyColor.level2,
+                              color: childData.isChecked
+                                  ? MyColor.level2
+                                  : Colors.red,
                               fontStyle: FontStyle.italic,
                               fontSize: 12),
                         ),
@@ -63,7 +79,7 @@ class BoxMonitoringChild extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Adik Adik",
+                          'Adik ${childData.firstName} ${childData.lastName}',
                           style: TextStyle(
                               color: MyColor.level1,
                               fontSize: 14,
@@ -78,7 +94,14 @@ class BoxMonitoringChild extends StatelessWidget {
             Container(
               alignment: Alignment.centerRight,
               child: InkWell(
-                onTap: () => {},
+                onTap: () => {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            FacilityMonitorDetail(childData.patientId)),
+                  )
+                },
                 child: Container(
                   decoration: BoxDecoration(
                       color: MyColor.level3,
