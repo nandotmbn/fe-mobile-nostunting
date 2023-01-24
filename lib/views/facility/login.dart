@@ -115,7 +115,7 @@ class _FormLoginFieldState extends State<FormLoginField> {
             child: Container(
               margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
               child: Text("Kata Sandi",
-                  style: TextStyle(fontSize: 24, color: MyColor.level2)),
+                  style: TextStyle(fontSize: 24, color: MyColor.level4)),
             ),
           ),
           TextFormField(
@@ -156,7 +156,7 @@ class _FormLoginFieldState extends State<FormLoginField> {
                 ),
                 Text(
                   "Tampilkan sandi",
-                  style: TextStyle(fontSize: 18, color: MyColor.level1),
+                  style: TextStyle(fontSize: 18, color: MyColor.level4),
                 )
               ],
             ),
@@ -172,7 +172,7 @@ class _FormLoginFieldState extends State<FormLoginField> {
                   setLoading();
                   if (_formKey.currentState!.validate()) {
                     final response = await http.post(
-                      Uri.parse('http://$URL_ENDPOINT:8080/v1/auth/login'),
+                      Uri.parse('$URL_ENDPOINT/auth/login'),
                       headers: <String, String>{
                         'Content-Type': 'application/json; charset=UTF-8',
                       },

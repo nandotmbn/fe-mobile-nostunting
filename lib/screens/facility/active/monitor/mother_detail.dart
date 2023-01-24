@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:no_stunting/views/facility/active/monitor/calendar.dart';
 // import 'package:no_stunting/views/facility/active/measure/record.dart';
 import 'package:no_stunting/widgets/base_scaffold.dart';
 
@@ -14,6 +15,9 @@ class FacilityMonitorDetail extends StatefulWidget {
 class _FacilityMonitorDetailState extends State<FacilityMonitorDetail> {
   @override
   Widget build(BuildContext context) {
-    return BaseScaffold(Text(widget._id));
+    return BaseScaffold(FacilityMonitorCalendar(
+      id: widget._id,
+      mode: "Ibu",
+    ));
   }
 }

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:no_stunting/constant/color.dart';
-import 'package:no_stunting/screens/facility/active/monitor/detail.dart';
+import 'package:no_stunting/screens/facility/active/monitor/mother_detail.dart';
 import 'package:no_stunting/views/facility/active/monitor/index.dart';
 
 class BoxMonitoringMom extends StatelessWidget {
@@ -13,7 +13,9 @@ class BoxMonitoringMom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String convertedDate = DateFormat('yMMMMd').format(DateFormat("yyyy-MM-dd")
-        .parse(DateTime.parse(childData.createdAt).toString()));
+        .parse(DateTime.parse(childData.createdAt)
+            .add(const Duration(hours: 7))
+            .toString()));
     String convertedTime = DateFormat('HH:mm')
         .format(
             DateTime.parse(childData.createdAt).add(const Duration(hours: 7)))

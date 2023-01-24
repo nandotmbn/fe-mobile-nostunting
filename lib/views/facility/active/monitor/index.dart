@@ -81,7 +81,8 @@ class _FacilityMonitorViewState extends State<FacilityMonitorView> {
 
   void getInitData() async {
     var date__ = DateFormat("yyyy-MM-dd").format(_dateTime);
-    var newDate = DateTime.parse(date__).toIso8601String();
+    var newDate =
+        DateTime.parse(date__).add(const Duration(hours: -7)).toIso8601String();
     var resultData = await facilityService.getInitData(
       datetime: '${newDate}Z',
       isChecked: dropdownValue == "Semua"

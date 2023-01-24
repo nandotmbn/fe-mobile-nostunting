@@ -24,7 +24,7 @@ class _InputTextFieldState extends State<InputTextField> {
           child: Container(
             margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
             child: Text(widget.label,
-                style: TextStyle(fontSize: 24, color: MyColor.level2)),
+                style: TextStyle(fontSize: 24, color: MyColor.level4)),
           ),
         ),
         TextFormField(

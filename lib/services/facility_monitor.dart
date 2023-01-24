@@ -42,4 +42,66 @@ class FacilityMonitorService {
       throw Exception('Failed to load member');
     }
   }
+
+  Future<dynamic> getAllDataById({String id = ""}) async {
+    String? jwt = await storage.read(key: "jwt");
+    Map<String, String> requestHeaders = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ${jwt!}'
+    };
+    final response = await http.get(
+        Uri.parse('$URL_ENDPOINT/facility/monitor/calendar/$id'),
+        headers: requestHeaders);
+    if (response.statusCode == 200) {
+      return jsonDecode(jsonEncode({
+        "User": jsonDecode(response.body)["User"],
+        "Monitor": jsonDecode(response.body)["Monitor"],
+      }));
+    } else {
+      throw Exception('Failed to load member');
+    }
+  }
+
+  Future<dynamic> getPreviousComment(
+      {required String patientId, required String postId}) async {
+    Map<String, String> requestHeaders = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    final response = await http.get(
+        Uri.parse(
+            '$URL_ENDPOINT/facility/monitor/calendar/$patientId/comment/$postId'),
+        headers: requestHeaders);
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)["Data"];
+    } else {
+      throw Exception('Error');
+    }
+  }
+
+  Future<dynamic> postComment(
+      {required String patientId,
+      required String postId,
+      required String comment}) async {
+    Map<String, String> requestHeaders = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    final response = await http.post(
+      Uri.parse(
+          '$URL_ENDPOINT/facility/monitor/calendar/$patientId/comment/$postId'),
+      headers: requestHeaders,
+      body: jsonEncode(<String, String>{
+        'content': comment,
+      }),
+    );
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)["Data"];
+    } else {
+      throw Exception('Error');
+    }
+  }
 }
