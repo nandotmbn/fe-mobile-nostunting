@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:no_stunting/constant/color.dart';
 import 'package:no_stunting/screens/facility/active/monitor/child_detail.dart';
+import 'package:no_stunting/screens/facility/active/monitor/child_record_detail.dart';
 import 'package:no_stunting/views/facility/active/monitor/index.dart';
 
 class BoxMonitoringChild extends StatelessWidget {
   MonitorPatientData childData;
+  String type;
 
-  BoxMonitoringChild(this.childData);
+  BoxMonitoringChild(this.childData, this.type);
 
   @override
   Widget build(BuildContext context) {
@@ -99,9 +101,11 @@ class BoxMonitoringChild extends StatelessWidget {
                 onTap: () => {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            FacilityMonitorDetail(childData.patientId)),
+                    MaterialPageRoute(builder: (context) {
+                      return type == "Monitor"
+                          ? FacilityMonitorDetail(childData.patientId)
+                          : FacilityChildRecordDetail(childData.patientId);
+                    }),
                   )
                 },
                 child: Container(

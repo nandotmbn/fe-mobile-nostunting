@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:no_stunting/constant/color.dart';
 import 'package:no_stunting/services/facility_monitor.dart';
-import 'package:no_stunting/views/facility/active/monitor/calendar.dart';
 import 'package:no_stunting/views/facility/active/monitor/partials/bottom_comment.dart';
 
 FacilityMonitorService facilityService = FacilityMonitorService();
 
 class CardMonitoringChild extends StatefulWidget {
-  MonitorPatientDataById monitor;
+  dynamic monitor;
+  String type; // Record || Monitor
 
-  CardMonitoringChild({required this.monitor});
+  CardMonitoringChild({required this.monitor, required this.type});
 
   @override
   State<CardMonitoringChild> createState() => _CardMonitoringChildState();
@@ -22,6 +22,18 @@ class _CardMonitoringChildState extends State<CardMonitoringChild> {
   String selectedId = "";
 
   bool isChecked = true;
+
+  void toggleChecked() async {
+    String type = widget.type == "Record" ? "record" : "monitor";
+    var result = await facilityService.toggleChecked(
+        type: type,
+        patientId: widget.monitor.patientId,
+        postId: widget.monitor.id);
+
+    setState(() {
+      isChecked = result["isChecked"];
+    });
+  }
 
   @override
   void initState() {
@@ -94,18 +106,44 @@ class _CardMonitoringChildState extends State<CardMonitoringChild> {
                   scrollDirection: Axis.vertical,
                   child: Container(
                       padding: const EdgeInsets.all(8),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Text(
-                              widget.monitor.content,
-                              style: TextStyle(
-                                  color: MyColor.level4, wordSpacing: 2),
-                            ),
-                          )
-                        ],
-                      )),
+                      child: widget.type == "Monitor"
+                          ? Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    widget.monitor.content,
+                                    style: TextStyle(
+                                        color: MyColor.level4, wordSpacing: 2),
+                                  ),
+                                )
+                              ],
+                            )
+                          : Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        widget.monitor.height.toString(),
+                                        style: TextStyle(
+                                            color: MyColor.level4,
+                                            wordSpacing: 2),
+                                      ),
+                                      Text(
+                                        widget.monitor.weight.toString(),
+                                        style: TextStyle(
+                                            color: MyColor.level4,
+                                            wordSpacing: 2),
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            )),
                 )),
           ),
           Expanded(
@@ -142,16 +180,21 @@ class _CardMonitoringChildState extends State<CardMonitoringChild> {
                     ),
                   ),
                   InkWell(
+                    onTap: () {
+                      toggleChecked();
+                    },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                           vertical: 6, horizontal: 16),
                       margin: const EdgeInsets.symmetric(horizontal: 2),
                       decoration: BoxDecoration(
-                          color: MyColor.level1,
+                          border: Border.all(color: MyColor.level1),
+                          color: !isChecked ? MyColor.level1 : MyColor.level4,
                           borderRadius: BorderRadius.circular(8)),
                       child: Text(
-                        "Cek",
-                        style: TextStyle(color: MyColor.level4),
+                        isChecked ? "Batal Cek" : "Cek",
+                        style: TextStyle(
+                            color: isChecked ? MyColor.level1 : MyColor.level4),
                       ),
                     ),
                   ),

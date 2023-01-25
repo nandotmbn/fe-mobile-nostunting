@@ -17,7 +17,8 @@ class _FacilityMonitorDetailState extends State<FacilityMonitorDetail> {
   Widget build(BuildContext context) {
     return BaseScaffold(FacilityMonitorCalendar(
       id: widget._id,
-      mode: "Ibu",
+      role: "Ibu",
+      type: "Monitor",
     ));
   }
 }

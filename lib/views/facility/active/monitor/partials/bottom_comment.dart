@@ -9,7 +9,7 @@ import 'package:no_stunting/views/facility/active/monitor/calendar.dart';
 FacilityMonitorService facilityService = FacilityMonitorService();
 
 class FacilityMonitorCommentBottom extends StatefulWidget {
-  MonitorPatientDataById monitor;
+  dynamic monitor;
   Function changeCheck;
   FacilityMonitorCommentBottom(
       {required this.monitor, required this.changeCheck});
@@ -29,6 +29,8 @@ class _FacilityMonitorCommentBottomState
         patientId: widget.monitor.patientId, postId: widget.monitor.id);
 
     _controller.text = result["content"];
+    _controller.selection = TextSelection.fromPosition(
+        TextPosition(offset: _controller.text.length));
   }
 
   void postComment() async {
@@ -67,15 +69,19 @@ class _FacilityMonitorCommentBottomState
             bottom: MediaQuery.of(context).viewInsets.bottom),
         // padding: const EdgeInsets.all(12),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
           // mainAxisSize: MainAxisSize.min,
           children: [
             Expanded(
               flex: 5,
               child: Container(
-                color: MyColor.level4,
                 margin: const EdgeInsets.only(bottom: 20),
                 padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: MyColor.level4,
+                ),
                 child: TextField(
                   maxLines: 4, //or null
                   autofocus: true,
@@ -88,21 +94,28 @@ class _FacilityMonitorCommentBottomState
               ),
             ),
             Expanded(
-                flex: 1,
-                child: InkWell(
-                  onTap: () => postComment(),
-                  child: !isLoading
-                      ? Icon(
-                          Icons.send,
-                          size: 24,
-                          color: MyColor.level4,
-                        )
-                      : LoadingAnimationWidget.dotsTriangle(
-                          // LoadingAnimationwidget that call the
-                          color: Colors.white, // staggeredditwave animation
-                          size: 20,
-                        ),
-                ))
+              flex: 1,
+              child: Container(
+                  margin: const EdgeInsets.only(bottom: 20, left: 8, right: 8),
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                      color: MyColor.level1,
+                      borderRadius: BorderRadius.circular(8)),
+                  child: InkWell(
+                    onTap: () => postComment(),
+                    child: !isLoading
+                        ? Icon(
+                            Icons.send,
+                            size: 24,
+                            color: MyColor.level4,
+                          )
+                        : LoadingAnimationWidget.dotsTriangle(
+                            // LoadingAnimationwidget that call the
+                            color: Colors.white, // staggeredditwave animation
+                            size: 20,
+                          ),
+                  )),
+            )
           ],
         ));
   }

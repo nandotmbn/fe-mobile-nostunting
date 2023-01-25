@@ -22,7 +22,8 @@ class FacilityMonitorService {
   }
 
   Future<dynamic> getInitData(
-      {String name = "",
+      {String mode = "calendar",
+      String name = "",
       String isChecked = "",
       String datetime = "",
       String type = ""}) async {
@@ -34,7 +35,7 @@ class FacilityMonitorService {
     };
     final response = await http.get(
         Uri.parse(
-            '$URL_ENDPOINT/facility/monitor/calendar?checked=$isChecked&type=$type&datetime=$datetime&name=$name'),
+            '$URL_ENDPOINT/facility/monitor/$mode?checked=$isChecked&type=$type&datetime=$datetime&name=$name'),
         headers: requestHeaders);
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
@@ -43,7 +44,8 @@ class FacilityMonitorService {
     }
   }
 
-  Future<dynamic> getAllDataById({String id = ""}) async {
+  Future<dynamic> getAllDataById(
+      {String id = "", String type = "calendar"}) async {
     String? jwt = await storage.read(key: "jwt");
     Map<String, String> requestHeaders = {
       'Content-type': 'application/json',
@@ -51,12 +53,13 @@ class FacilityMonitorService {
       'Authorization': 'Bearer ${jwt!}'
     };
     final response = await http.get(
-        Uri.parse('$URL_ENDPOINT/facility/monitor/calendar/$id'),
+        Uri.parse('$URL_ENDPOINT/facility/monitor/$type/$id'),
         headers: requestHeaders);
     if (response.statusCode == 200) {
       return jsonDecode(jsonEncode({
         "User": jsonDecode(response.body)["User"],
         "Monitor": jsonDecode(response.body)["Monitor"],
+        "Record": jsonDecode(response.body)["Record"],
       }));
     } else {
       throw Exception('Failed to load member');
@@ -73,6 +76,26 @@ class FacilityMonitorService {
     final response = await http.get(
         Uri.parse(
             '$URL_ENDPOINT/facility/monitor/calendar/$patientId/comment/$postId'),
+        headers: requestHeaders);
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)["Data"];
+    } else {
+      throw Exception('Error');
+    }
+  }
+
+  Future<dynamic> toggleChecked(
+      {required String patientId,
+      required String postId,
+      required String type}) async {
+    Map<String, String> requestHeaders = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    final response = await http.get(
+        Uri.parse(
+            '$URL_ENDPOINT/facility/monitor/$type/$patientId/comment/$postId/check'),
         headers: requestHeaders);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)["Data"];

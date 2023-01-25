@@ -53,7 +53,7 @@ class _FacilityMonitorViewState extends State<FacilityMonitorView> {
   List<String> options = <String>['Semua', 'Sudah', 'Belum'];
   String dropdownValue = 'Semua';
 
-  bool isFilterOpen = false;
+  bool isFilterOpen = true;
 
   String motherId = "";
   String childId = "";
@@ -84,6 +84,7 @@ class _FacilityMonitorViewState extends State<FacilityMonitorView> {
     var newDate =
         DateTime.parse(date__).add(const Duration(hours: -7)).toIso8601String();
     var resultData = await facilityService.getInitData(
+      mode: dropdownValueType == "Kalender" ? "calendar" : "record",
       datetime: '${newDate}Z',
       isChecked: dropdownValue == "Semua"
           ? ""
@@ -91,11 +92,13 @@ class _FacilityMonitorViewState extends State<FacilityMonitorView> {
               ? "true"
               : "false",
       name: name,
-      type: dropdownValueRoles == "Semua"
-          ? ""
-          : dropdownValueRoles == "Ibu"
-              ? motherId
-              : childId,
+      type: dropdownValueType == "Kalender"
+          ? dropdownValueRoles == "Semua"
+              ? ""
+              : dropdownValueRoles == "Ibu"
+                  ? motherId
+                  : childId
+          : "",
     );
     if (resultData == null) {
       return setState(() {
@@ -187,7 +190,18 @@ class _FacilityMonitorViewState extends State<FacilityMonitorView> {
                         options: monitoringType,
                         onChange: (String value) {
                           setState(() => {dropdownValueType = value});
-                          // getInitData();
+                          if (value == "Pengukuran") {
+                            setState(() {
+                              dropdownValueRoles = "Anak";
+                              optionsRoles = ["Anak"];
+                            });
+                          } else {
+                            setState(() {
+                              dropdownValueRoles = "Semua";
+                              optionsRoles = ["Semua", "Ibu", "Anak"];
+                            });
+                          }
+                          getInitData();
                         },
                       ),
                     ),
@@ -217,7 +231,9 @@ class _FacilityMonitorViewState extends State<FacilityMonitorView> {
                         dropdownValue: dropdownValueRoles,
                         options: optionsRoles,
                         onChange: (String value) {
-                          setState(() => {dropdownValueRoles = value});
+                          setState(() {
+                            dropdownValueRoles = value;
+                          });
                           getInitData();
                         },
                       ),
@@ -330,22 +346,27 @@ class _FacilityMonitorViewState extends State<FacilityMonitorView> {
               ))
           : Expanded(
               child: GridView.count(
-                primary: false,
-                padding: const EdgeInsets.all(5),
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 5,
-                crossAxisCount: 2,
-                childAspectRatio: 1.8,
-                children: monitorPatientData.map(
-                  (r) {
-                    if (r.typeId == childId) {
-                      return BoxMonitoringChild(r);
-                    } else {
-                      return BoxMonitoringMom(r);
-                    }
-                  },
-                ).toList(),
-              ),
+                  primary: false,
+                  padding: const EdgeInsets.all(5),
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 5,
+                  crossAxisCount: 2,
+                  childAspectRatio: 1.8,
+                  children: dropdownValueType == "Kalender"
+                      ? monitorPatientData.map(
+                          (r) {
+                            if (r.typeId == childId) {
+                              return BoxMonitoringChild(r, "Monitor");
+                            } else {
+                              return BoxMonitoringMom(r);
+                            }
+                          },
+                        ).toList()
+                      : monitorPatientData.map(
+                          (r) {
+                            return BoxMonitoringChild(r, "Record");
+                          },
+                        ).toList()),
             )
     ]);
   }
