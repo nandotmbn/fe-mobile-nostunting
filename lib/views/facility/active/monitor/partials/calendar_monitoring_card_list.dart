@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, use_key_in_widget_constructors
+// ignore_for_file: must_be_immutable, use_key_in_widget_constructors, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -127,17 +127,49 @@ class _CardMonitoringChildState extends State<CardMonitoringChild> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        widget.monitor.height.toString(),
-                                        style: TextStyle(
-                                            color: MyColor.level4,
-                                            wordSpacing: 2),
+                                      Container(
+                                        margin: const EdgeInsets.symmetric(
+                                            vertical: 4),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Tinggi badan",
+                                              style: TextStyle(
+                                                  color: MyColor.level4,
+                                                  wordSpacing: 2),
+                                            ),
+                                            Text(
+                                              "${widget.monitor.height} cm",
+                                              style: TextStyle(
+                                                  fontSize: 30,
+                                                  color: MyColor.level4,
+                                                  wordSpacing: 2),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                      Text(
-                                        widget.monitor.weight.toString(),
-                                        style: TextStyle(
-                                            color: MyColor.level4,
-                                            wordSpacing: 2),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Berat badan",
+                                              style: TextStyle(
+                                                  color: MyColor.level4,
+                                                  wordSpacing: 2),
+                                            ),
+                                            Text(
+                                              "${widget.monitor.weight} Kg",
+                                              style: TextStyle(
+                                                  fontSize: 30,
+                                                  color: MyColor.level4,
+                                                  wordSpacing: 2),
+                                            ),
+                                          ],
+                                        ),
                                       )
                                     ],
                                   ),

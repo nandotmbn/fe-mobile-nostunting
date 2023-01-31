@@ -27,7 +27,7 @@ class _FacilityMonitorTextFieldState extends State<FacilityMonitorTextField> {
             child: InkWell(
               onTap: () => widget.onFilterChange(),
               child: Container(
-                  margin: const EdgeInsets.fromLTRB(0, 6, 0, 6),
+                  margin: const EdgeInsets.fromLTRB(5, 6, 0, 6),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       color: widget.filter ? MyColor.level4 : MyColor.level1),
@@ -41,7 +41,7 @@ class _FacilityMonitorTextFieldState extends State<FacilityMonitorTextField> {
             flex: 4,
             child: Container(
               alignment: Alignment.center,
-              margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
+              margin: const EdgeInsets.fromLTRB(5, 6, 0, 6),
               child: TextField(
                 onChanged: (text) {
                   widget.onChange(text);

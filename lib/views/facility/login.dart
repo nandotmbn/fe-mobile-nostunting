@@ -1,7 +1,6 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
 
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -11,6 +10,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:no_stunting/constant/color.dart';
 import 'package:no_stunting/services/constant.dart';
 import 'package:no_stunting/widgets/input_text_field.dart';
+import 'package:no_stunting/widgets/password_text_field.dart';
 import '../../screens/facility/active/index.dart';
 
 // Create storage
@@ -110,36 +110,14 @@ class _FormLoginFieldState extends State<FormLoginField> {
         children: [
           InputTextField(setSerialNumber, serialNumberController,
               "Nomor Registrasi Faskes", "Nama tidak boleh kosong"),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Container(
-              margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: Text("Kata Sandi",
-                  style: TextStyle(fontSize: 24, color: MyColor.level4)),
-            ),
-          ),
-          TextFormField(
-            controller: passwordController,
-            onChanged: (text) {
-              setPassword(text);
-            },
-            obscureText: !isPasswordSecure,
-            enableSuggestions: false,
-            autocorrect: false,
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
-              filled: true,
-              fillColor: const Color(0xFFD9D9D9),
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
-            ),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Kata sandi boleh kosong';
-              }
-              return null;
-            },
-          ),
+          PasswordTextField(
+              controller: passwordController,
+              setter: (text) {
+                setPassword(text);
+              },
+              isPasswordSecure: isPasswordSecure,
+              message: "Kata sandi tidak boleh kosong",
+              title: "Kata Sandi"),
           Container(
             margin: const EdgeInsets.only(top: 12),
             child: Row(

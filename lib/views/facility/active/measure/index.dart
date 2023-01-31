@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:no_stunting/constant/color.dart';
 import 'package:no_stunting/services/facility_measure.dart';
-import 'package:no_stunting/views/facility/active/measure/partials/card_list_patient.dart';
+import 'package:no_stunting/views/facility/active/monitor/partials/card_list_patient.dart';
 import 'package:no_stunting/views/facility/active/measure/partials/search_bar.dart';
 
 const storage = FlutterSecureStorage();
@@ -47,9 +47,15 @@ class _FacilityMeasureViewState extends State<FacilityMeasureView> {
     var resultData = await facilityService.getChildrenData(name: name);
     List<Tag> tagObjs =
         resultData.map((tagJson) => Tag.fromJson(tagJson)).toList();
-    setState(() {
-      childrenData = tagObjs;
-    });
+    if (resultData == null) {
+      setState(() {
+        childrenData = [];
+      });
+    } else {
+      setState(() {
+        childrenData = tagObjs;
+      });
+    }
   }
 
   @override
@@ -75,25 +81,39 @@ class _FacilityMeasureViewState extends State<FacilityMeasureView> {
               getChildrenData();
             })),
       ),
-      Expanded(
-        child: GridView.count(
-          primary: false,
-          padding: const EdgeInsets.all(5),
-          crossAxisSpacing: 5,
-          mainAxisSpacing: 5,
-          crossAxisCount: 2,
-          childAspectRatio: 1.4,
-          children: childrenData.map(
-            (r) {
-              return FacilityCardListPatientMeasurement(
-                  'Adik ${r.firstName} ${r.lastName}',
-                  r.identifier,
-                  r.updatedAt,
-                  r._id);
-            },
-          ).toList(),
-        ),
-      )
+      childrenData.length < 1
+          ? Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.symmetric(vertical: 50),
+              child: Column(
+                children: [
+                  Image.asset('assets/img/not-found.png',
+                      width: 100.0, height: 100.0),
+                  Text(
+                    "Pasien tidak ditemukan",
+                    style: TextStyle(color: MyColor.level1, fontSize: 18),
+                  )
+                ],
+              ))
+          : Expanded(
+              child: GridView.count(
+                primary: false,
+                padding: const EdgeInsets.all(5),
+                crossAxisSpacing: 5,
+                mainAxisSpacing: 5,
+                crossAxisCount: 2,
+                childAspectRatio: 1.4,
+                children: childrenData.map(
+                  (r) {
+                    return FacilityCardListPatientMeasurement(
+                        'Adik ${r.firstName} ${r.lastName}',
+                        r.identifier,
+                        r.updatedAt,
+                        r._id);
+                  },
+                ).toList(),
+              ),
+            )
     ]);
   }
 }

@@ -30,7 +30,7 @@ class _FacilityHomeCarouselState extends State<FacilityHomeCarousel> {
             color: MyColor.level1.withOpacity(0.4),
             spreadRadius: 2,
             blurRadius: 10,
-            offset: Offset(0, 8), // changes position of shadow
+            offset: const Offset(0, 8), // changes position of shadow
           ),
         ],
       ),

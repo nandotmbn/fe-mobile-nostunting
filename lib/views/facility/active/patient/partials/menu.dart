@@ -1,45 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:no_stunting/constant/color.dart';
 
 class FacilityPatientMenuView extends StatelessWidget {
-  final String dropdownValue;
+  final String dropdownValue, title;
   final List<String> options;
   final Function onChange;
   const FacilityPatientMenuView(
       {super.key,
+      required this.title,
       required this.dropdownValue,
       required this.options,
       required this.onChange});
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      isExpanded: true,
-      dropdownColor: const Color(0xFFF0EBCE),
-      value: dropdownValue,
-      onChanged: (String? value) {
-        onChange(value);
-      },
-      style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-      selectedItemBuilder: (BuildContext context) {
-        // This is the widget that will be shown when you select an item.
-        // Here custom text style, alignment and layout size can be applied
-        // to selected item string.
-        return options.map((String value) {
-          return Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              dropdownValue,
-              style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-            ),
-          );
-        }).toList();
-      },
-      items: options.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
+    return Column(
+      children: [
+        Container(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            title,
+            style: TextStyle(color: MyColor.level4, fontSize: 10),
+          ),
+        ),
+        DropdownButton<String>(
+          isExpanded: true,
+          dropdownColor: MyColor.level1,
+          value: dropdownValue,
+          onChanged: (String? value) {
+            onChange(value);
+          },
+          style: TextStyle(color: MyColor.level4),
+          selectedItemBuilder: (BuildContext context) {
+            return options.map((String value) {
+              return Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  dropdownValue,
+                  style: const TextStyle(color: Colors.white),
+                ),
+              );
+            }).toList();
+          },
+          items: options.map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+        )
+      ],
     );
   }
 }
