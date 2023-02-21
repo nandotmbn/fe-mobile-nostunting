@@ -13,8 +13,16 @@ import 'package:no_stunting/widgets/record_form_head.dart';
 
 // Create storage
 const storage = FlutterSecureStorage();
-const String _uuid = "6E400001-B5A3-F393-E0A9-E50E24DCCA9E";
-const String _uuidDesc = "6E400003-B5A3-F393-E0A9-E50E24DCCA9E";
+const String _uuid = "0000FFF0-0000-1000-8000-00805F9B34FB";
+const String _uuidDesc = "0000FFF1-0000-1000-8000-00805F9B34FB";
+
+// 00001800-0000-1000-8000-00805F9B34FB
+// 00001801-0000-1000-8000-00805F9B34FB
+// 0000FFF0-0000-1000-8000-00805F9B34FB
+// F000FFC0-0451-4000-B000-000000000000
+
+// 0000FFF2-0000-1000-8000-00805F9B34FB
+// 0000FFF1-0000-1000-8000-00805F9B34FB
 
 FlutterBluePlus flutterBlue = FlutterBluePlus.instance;
 
@@ -198,22 +206,24 @@ class _FacilityMeasureRecordFormFieldState
                           initialData: characteristic.lastValue,
                           builder: (c, snapshot) {
                             final value = snapshot.data;
-                            String txt = "";
-                            for (var v in value!) {
-                              txt = txt + String.fromCharCode(v);
-                            }
+                            // String txt = "";
+                            // for (var v in value!) {
+                            //   txt = txt + String.fromCharCode(v);
+                            // }
 
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                RecordFormHead(
-                                    title: "Berat badan",
-                                    content: '${jsonDecode(txt)["w"]} Kg'),
-                                RecordFormHead(
-                                    title: "Tinggi badan",
-                                    content: '${jsonDecode(txt)["h"]} cm'),
-                              ],
-                            );
+                            return Container();
+
+                            // return Column(
+                            //   crossAxisAlignment: CrossAxisAlignment.start,
+                            //   children: [
+                            //     RecordFormHead(
+                            //         title: "Berat badan",
+                            //         content: '${jsonDecode(txt)["w"]} Kg'),
+                            //     RecordFormHead(
+                            //         title: "Tinggi badan",
+                            //         content: '${jsonDecode(txt)["h"]} cm'),
+                            //   ],
+                            // );
                           })),
               Expanded(
                   flex: 3,

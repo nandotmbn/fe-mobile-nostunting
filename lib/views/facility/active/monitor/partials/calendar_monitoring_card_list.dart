@@ -24,7 +24,7 @@ class _CardMonitoringChildState extends State<CardMonitoringChild> {
   bool isChecked = true;
 
   void toggleChecked() async {
-    String type = widget.type == "Record" ? "record" : "monitor";
+    String type = widget.type == "Record" ? "record" : "calendar";
     var result = await facilityService.toggleChecked(
         type: type,
         patientId: widget.monitor.patientId,
@@ -213,6 +213,7 @@ class _CardMonitoringChildState extends State<CardMonitoringChild> {
                   ),
                   InkWell(
                     onTap: () {
+                      // print("O");
                       toggleChecked();
                     },
                     child: Container(

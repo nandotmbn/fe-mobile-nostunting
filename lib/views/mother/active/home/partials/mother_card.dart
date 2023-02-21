@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:no_stunting/constant/color.dart';
 
 class MotherCard extends StatefulWidget {
-  MotherCard({Key? key}) : super(key: key);
+  const MotherCard({Key? key}) : super(key: key);
 
   @override
   State<MotherCard> createState() => _MotherCardState();
@@ -11,7 +12,7 @@ class _MotherCardState extends State<MotherCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(10.0),
       child: SizedBox(
           width: double.infinity,
           height: 250,
@@ -20,46 +21,45 @@ class _MotherCardState extends State<MotherCard> {
               Container(
                 alignment: Alignment.centerLeft,
                 margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-                child: const Text(
+                child: Text(
                   "Selamat Datang,",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: MyColor.level1,
                       fontSize: 20),
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Color.fromARGB(255, 242, 232, 232),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color.fromARGB(255, 53, 50, 50),
-                      blurRadius: 15.0, // soften the shadow
-                      spreadRadius: 5.0, //extend the shadow
-                      offset: Offset(
-                        5.0, // Move to right 5  horizontally
-                        5.0, // Move to bottom 5 Vertically
-                      ),
-                    )
-                  ],
-                ),
+              // Container(
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(10),
+              //     color: const Color.fromARGB(255, 242, 232, 232),
+              //     boxShadow: const [
+              //       BoxShadow(
+              //         color: Color.fromARGB(255, 53, 50, 50),
+              //         blurRadius: 2.0, // soften the shadow
+              //         offset: Offset(
+              //           0.0, // Move to right 5  horizontally
+              //           2.0, // Move to bottom 5 Vertically
+              //         ),
+              //       )
+              //     ],
+              //   ),
 
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
-                      HomeBox(
-                        'assets/img/profile.png',
-                        'Ningsih',
-                        '26 Tahun',
-                        'Keputih Gg 3 B, Surabaya, Jawa Timur',
-                        Color.fromARGB(255, 242, 232, 232),
-                        const Color(0xFF395144),
-                        const Color(0xFF395144),
-                        Color.fromARGB(255, 0, 0, 0),
-                      )
-                    ]), //Container
-              ),
+              //   child: Column(
+              //       mainAxisAlignment: MainAxisAlignment.start,
+              //       children: const [
+              //         HomeBox(
+              //           'assets/img/profile.png',
+              //           'Ningsih',
+              //           '26 Tahun',
+              //           'Keputih Gg 3 B, Surabaya, Jawa Timur',
+              //           Color.fromARGB(255, 242, 232, 232),
+              //           Color(0xFF395144),
+              //           Color(0xFF395144),
+              //           Color.fromARGB(255, 0, 0, 0),
+              //         )
+              //       ]), //Container
+              // ),
             ],
           )),
     );
@@ -89,8 +89,9 @@ class HomeBox extends StatelessWidget {
                     flex: 1,
                     child: CircleAvatar(
                       radius: 58,
-                      backgroundImage: AssetImage("assets/img/profile.png"),
-                      child: Stack(children: [
+                      backgroundImage:
+                          const AssetImage("assets/img/profile.png"),
+                      child: Stack(children: const [
                         Align(
                           alignment: Alignment.bottomRight,
                           child: CircleAvatar(

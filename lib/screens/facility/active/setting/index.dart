@@ -22,7 +22,7 @@ class _FacilitySettingState extends State<FacilitySetting> {
   String jwt = "";
 
   void getJwtToken() async {
-    var jwtToken = await storage.read(key: "jwt");
+    var jwtToken = await storage.read(key: "jwtFacility");
     setState(() {
       jwt = jwtToken!;
     });
@@ -45,7 +45,7 @@ class _FacilitySettingState extends State<FacilitySetting> {
             backgroundColor: const Color(0xFF395144),
           ),
           onPressed: () async {
-            await storage.write(key: 'jwt', value: null);
+            await storage.write(key: "jwtFacility", value: null);
             // ignore: use_build_context_synchronously
             Navigator.pushReplacement(
               context,

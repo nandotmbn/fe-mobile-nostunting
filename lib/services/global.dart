@@ -6,7 +6,7 @@ import 'package:no_stunting/services/constant.dart';
 
 const storage = FlutterSecureStorage();
 
-class FacilityPatientsService {
+class GlobalService {
   Future<dynamic> getInitData({
     String name = "",
     String role = "",

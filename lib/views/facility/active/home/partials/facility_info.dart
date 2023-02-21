@@ -1,8 +1,18 @@
+// ignore_for_file: use_key_in_widget_constructors, must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:no_stunting/constant/color.dart';
 
 class FacilityHomeInfo extends StatefulWidget {
-  const FacilityHomeInfo({super.key});
+  int totalService = 0;
+  dynamic facility = {
+    "firstname": "Puskesmas",
+    "lastName": "",
+    "address": "",
+    "identifier": "",
+  };
+
+  FacilityHomeInfo({required this.totalService, required this.facility});
 
   @override
   State<FacilityHomeInfo> createState() => _FacilityHomeInfoState();
@@ -28,8 +38,8 @@ class _FacilityHomeInfoState extends State<FacilityHomeInfo> {
                           const BorderRadius.all(Radius.circular(10))),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
-                        Align(
+                      children: [
+                        const Align(
                           alignment: Alignment.center,
                           child: Text(
                             "Hari Ini",
@@ -40,15 +50,15 @@ class _FacilityHomeInfoState extends State<FacilityHomeInfo> {
                         Align(
                           alignment: Alignment.center,
                           child: Text(
-                            "37",
-                            style: TextStyle(
+                            widget.totalService.toString(),
+                            style: const TextStyle(
                                 color: Color.fromARGB(255, 255, 255, 255),
                                 fontSize: 64,
                                 fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,
                           ),
                         ),
-                        Align(
+                        const Align(
                           alignment: Alignment.center,
                           child: Text(
                             "Pelayanan",
@@ -73,19 +83,20 @@ class _FacilityHomeInfoState extends State<FacilityHomeInfo> {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const Align(
+                        Align(
                           alignment: Alignment.centerLeft,
-                          child: Text("Puskesmas Mongolia Kuno Selatan",
-                              style: TextStyle(
+                          child: Text(
+                              '${widget.facility["firstName"]} ${widget.facility["lastName"]}',
+                              style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
                                   fontStyle: FontStyle.italic,
                                   fontWeight: FontWeight.bold)),
                         ),
-                        const Align(
+                        Align(
                           alignment: Alignment.centerLeft,
-                          child: Text("DINKES/SBY/231273",
-                              style: TextStyle(
+                          child: Text('${widget.facility["identifier"]}',
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 14,
                                 fontStyle: FontStyle.italic,
@@ -93,11 +104,10 @@ class _FacilityHomeInfoState extends State<FacilityHomeInfo> {
                         ),
                         Container(
                             margin: const EdgeInsets.only(top: 14),
-                            child: const Align(
+                            child: Align(
                               alignment: Alignment.centerLeft,
-                              child: Text(
-                                  "Jl Keputih Tegal, no 14, Keputih, Kec Sukolilo, Surabaya.",
-                                  style: TextStyle(
+                              child: Text('${widget.facility["address"]}',
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 14,
                                     fontStyle: FontStyle.italic,

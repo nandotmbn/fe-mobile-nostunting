@@ -1,11 +1,26 @@
-// ignore_for_file: use_key_in_widget_constructors
+// ignore_for_file: use_key_in_widget_constructors, must_be_immutable
+
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:no_stunting/constant/color.dart';
 
-class BoxMonitoringChild extends StatelessWidget {
+class BoxMonitoringChild extends StatefulWidget {
+  dynamic data;
+  BoxMonitoringChild({required this.data});
+
+  @override
+  State<BoxMonitoringChild> createState() => _BoxMonitoringChildState();
+}
+
+class _BoxMonitoringChildState extends State<BoxMonitoringChild> {
   @override
   Widget build(BuildContext context) {
+    String convertedTime = DateFormat('HH:mm')
+        .format(DateTime.parse(widget.data["createdAt"])
+            .add(const Duration(hours: 7)))
+        .toString();
     return Container(
         decoration: BoxDecoration(
             color: Colors.white,
@@ -32,7 +47,7 @@ class BoxMonitoringChild extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "55.55",
+                          convertedTime,
                           style: TextStyle(
                               color: MyColor.level3,
                               fontSize: 24,
@@ -55,7 +70,7 @@ class BoxMonitoringChild extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Adik Adik",
+                          'Adik ${widget.data["patient"][0]["firstName"]} ${widget.data["patient"][0]["lastName"]}',
                           style: TextStyle(
                               color: MyColor.level3,
                               fontSize: 14,
@@ -94,7 +109,8 @@ class BoxMonitoringChild extends StatelessWidget {
 }
 
 class FacilityCurrentDayChildMonitoring extends StatefulWidget {
-  const FacilityCurrentDayChildMonitoring({super.key});
+  dynamic monitor;
+  FacilityCurrentDayChildMonitoring({required this.monitor});
 
   @override
   State<FacilityCurrentDayChildMonitoring> createState() =>
@@ -109,12 +125,12 @@ class _FacilityCurrentDayChildMonitoringState
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, mainAxisExtent: 100),
       delegate: SliverChildListDelegate(
-        [
-          BoxMonitoringChild(),
-          BoxMonitoringChild(),
-          BoxMonitoringChild(),
-          BoxMonitoringChild(),
-        ],
+        widget.monitor.map<Widget>((mon) {
+          // print(mon);
+          return BoxMonitoringChild(
+            data: mon,
+          );
+        }).toList(),
       ),
     );
   }

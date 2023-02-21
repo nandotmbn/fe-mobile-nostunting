@@ -4,19 +4,17 @@ import 'package:no_stunting/widgets/bottom_nav_mother.dart';
 import 'package:no_stunting/screens/facility/active/home/index.dart';
 import 'package:no_stunting/views/mother/active/home/index.dart';
 
-class HomeMother extends StatefulWidget {
-  const HomeMother({super.key});
+class MotherHome extends StatefulWidget {
+  const MotherHome({super.key});
 
   @override
-  State<HomeMother> createState() => _HomeMotherState();
+  State<MotherHome> createState() => _MotherHomeState();
 }
 
-class _HomeMotherState extends State<HomeMother> {
+class _MotherHomeState extends State<MotherHome> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    HomeMotherView() //Widget Home
-  ];
+  static const List<Widget> _widgetOptions = <Widget>[MotherHomeView()];
 
   void setSelectedIndex(int index) {
     setState(() {
@@ -28,7 +26,7 @@ class _HomeMotherState extends State<HomeMother> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      backgroundColor: const Color(0xFF4E6C50),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: MotherNav(_selectedIndex, setSelectedIndex),
     ));

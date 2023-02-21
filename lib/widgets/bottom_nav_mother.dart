@@ -1,6 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:no_stunting/constant/color.dart';
 
 class MotherNav extends StatelessWidget {
   final int selectedIndex;
@@ -28,8 +29,8 @@ class MotherNav extends StatelessWidget {
         ),
       ],
       selectedItemColor: const Color(0xffffffff),
-      unselectedItemColor: const Color.fromARGB(255, 237, 216, 181),
-      backgroundColor: const Color(0xff395144),
+      unselectedItemColor: MyColor.level1,
+      backgroundColor: const Color(0xff1363DF),
     );
   }
 }

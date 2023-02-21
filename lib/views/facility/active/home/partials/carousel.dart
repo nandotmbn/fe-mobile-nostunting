@@ -1,23 +1,27 @@
-import 'package:carousel_slider/carousel_slider.dart';
+// ignore_for_file: must_be_immutable, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:no_stunting/constant/color.dart';
 
-final List<String> imgList = [
-  'assets/img/carousel1.jpg',
-  'assets/img/carousel2.jpg',
-  'assets/img/carousel3.jpg',
-  'assets/img/carousel4.jpg',
-  'assets/img/carousel5.jpg',
-];
-
 class FacilityHomeCarousel extends StatefulWidget {
-  const FacilityHomeCarousel({super.key});
+  dynamic facility = {
+    "firstname": "Puskesmas",
+    "lastName": "",
+  };
+
+  FacilityHomeCarousel({required this.facility});
 
   @override
   State<FacilityHomeCarousel> createState() => _FacilityHomeCarouselState();
 }
 
 class _FacilityHomeCarouselState extends State<FacilityHomeCarousel> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -56,10 +60,10 @@ class _FacilityHomeCarouselState extends State<FacilityHomeCarousel> {
               Container(
                 alignment: Alignment.centerLeft,
                 margin: const EdgeInsets.only(top: 12),
-                child: const Text(
-                  "Puskesmas Mongolia Kuno Selatan Administrator",
+                child: Text(
+                  '${widget.facility["firstName"]} ${widget.facility["lastName"]}',
                   textAlign: TextAlign.left,
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                  style: const TextStyle(color: Colors.white, fontSize: 16),
                 ),
               )
             ]))

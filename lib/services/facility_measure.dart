@@ -8,7 +8,7 @@ const storage = FlutterSecureStorage();
 
 class FacilityMeasureService {
   Future<List> getChildrenData({String name = ""}) async {
-    String? jwt = await storage.read(key: "jwt");
+    String? jwt = await storage.read(key: "jwtFacility");
     Map<String, String> requestHeaders = {
       'Content-type': 'application/json',
       'Accept': 'application/json',
@@ -25,7 +25,7 @@ class FacilityMeasureService {
   }
 
   Future<dynamic> getPatientData({required String id}) async {
-    String? jwt = await storage.read(key: "jwt");
+    String? jwt = await storage.read(key: "jwtFacility");
     Map<String, String> requestHeaders = {
       'Content-type': 'application/json',
       'Accept': 'application/json',

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:no_stunting/constant/color.dart';
 import 'package:no_stunting/views/mother/active/home/partials/history_card.dart';
 import 'package:no_stunting/views/mother/active/home/partials/mother_card.dart';
 
-class HomeMotherView extends StatelessWidget {
-  const HomeMotherView({super.key});
+class MotherHomeView extends StatelessWidget {
+  const MotherHomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,18 +12,18 @@ class HomeMotherView extends StatelessWidget {
       slivers: [
         SliverList(
           delegate: SliverChildListDelegate([
-            MotherCard(),
+            const MotherCard(),
           ]),
         ),
         SliverList(
             delegate: SliverChildListDelegate([
           Container(
               margin: const EdgeInsets.all(10),
-              child: const Text(
+              child: Text(
                 "Riwayat",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: MyColor.level1,
                     fontSize: 24),
               ))
         ])),
@@ -31,59 +32,58 @@ class HomeMotherView extends StatelessWidget {
             delegate: SliverChildListDelegate([
           Container(
               margin: const EdgeInsets.all(10),
-              child: const Text(
+              child: Text(
                 "Tips",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: MyColor.level1,
                     fontSize: 24),
               ))
         ])),
         SliverList(
           delegate: SliverChildListDelegate([
-            Container(
-                child: SingleChildScrollView(
+            SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.all(8),
-                    height: 200,
-                    width: 200,
-                    color: Colors.blue,
-                    child: Text("Tips 1"),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(8),
-                    height: 200,
-                    width: 200,
-                    color: Colors.blue,
-                    child: Text("Tips 2"),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(8),
-                    height: 200,
-                    width: 200,
-                    color: Colors.blue,
-                    child: Text("Tips 3"),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(8),
-                    height: 200,
-                    width: 200,
-                    color: Colors.blue,
-                    child: Text("Tips 4"),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(8),
-                    height: 200,
-                    width: 200,
-                    color: Colors.blue,
-                    child: Text("Tips 4"),
-                  ),
-                ],
+            children: [
+              Container(
+                margin: const EdgeInsets.all(8),
+                height: 200,
+                width: 200,
+                color: Colors.blue,
+                child: const Text("Tips 1"),
               ),
-            ))
+              Container(
+                margin: const EdgeInsets.all(8),
+                height: 200,
+                width: 200,
+                color: Colors.blue,
+                child: const Text("Tips 2"),
+              ),
+              Container(
+                margin: const EdgeInsets.all(8),
+                height: 200,
+                width: 200,
+                color: Colors.blue,
+                child: const Text("Tips 3"),
+              ),
+              Container(
+                margin: const EdgeInsets.all(8),
+                height: 200,
+                width: 200,
+                color: Colors.blue,
+                child: const Text("Tips 4"),
+              ),
+              Container(
+                margin: const EdgeInsets.all(8),
+                height: 200,
+                width: 200,
+                color: Colors.blue,
+                child: const Text("Tips 4"),
+              ),
+            ],
+              ),
+            )
           ]),
         ),
       ],

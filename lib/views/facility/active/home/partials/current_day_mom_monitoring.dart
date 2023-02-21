@@ -1,11 +1,28 @@
-// ignore_for_file: use_key_in_widget_constructors
+// ignore_for_file: use_key_in_widget_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:no_stunting/constant/color.dart';
+import 'package:no_stunting/services/facility_monitor.dart';
 
-class BoxMonitoringMom extends StatelessWidget {
+FacilityMonitorService monitorService = FacilityMonitorService();
+
+class BoxMonitoringMom extends StatefulWidget {
+  dynamic data;
+  String type;
+  BoxMonitoringMom({required this.data, required this.type});
+
+  @override
+  State<BoxMonitoringMom> createState() => _BoxMonitoringMomState();
+}
+
+class _BoxMonitoringMomState extends State<BoxMonitoringMom> {
   @override
   Widget build(BuildContext context) {
+    String convertedTime = DateFormat('HH:mm')
+        .format(DateTime.parse(widget.data["createdAt"])
+            .add(const Duration(hours: 7)))
+        .toString();
     return Container(
         decoration: BoxDecoration(
             color: Colors.white,
@@ -32,14 +49,14 @@ class BoxMonitoringMom extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "55.55",
+                          convertedTime,
                           style: TextStyle(
                               color: MyColor.level3,
                               fontSize: 24,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          "Belum di cek",
+                          "Faskes",
                           style: TextStyle(
                               color: MyColor.level3,
                               fontStyle: FontStyle.italic,
@@ -55,7 +72,7 @@ class BoxMonitoringMom extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Ibu John Notonegoro",
+                          '${widget.type} ${widget.data["patient"][0]["firstName"]} ${widget.data["patient"][0]["lastName"]}',
                           style: TextStyle(
                               color: MyColor.level3,
                               fontSize: 14,
@@ -94,7 +111,8 @@ class BoxMonitoringMom extends StatelessWidget {
 }
 
 class FacilityCurrentDayMomMonitoring extends StatefulWidget {
-  const FacilityCurrentDayMomMonitoring({super.key});
+  dynamic monitor;
+  FacilityCurrentDayMomMonitoring({required this.monitor});
 
   @override
   State<FacilityCurrentDayMomMonitoring> createState() =>
@@ -103,18 +121,52 @@ class FacilityCurrentDayMomMonitoring extends StatefulWidget {
 
 class _FacilityCurrentDayMomMonitoringState
     extends State<FacilityCurrentDayMomMonitoring> {
+  String motherId = "";
+  String childId = "";
+  void getMasterRoles() async {
+    var response = await monitorService.getMasterRolesData();
+
+    for (var res in response) {
+      if (res["name"] == "Mother") {
+        setState(() {
+          motherId = res["_id"];
+        });
+      }
+      if (res["name"] == "Child") {
+        setState(() {
+          childId = res["_id"];
+        });
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getMasterRoles();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SliverGrid(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, mainAxisExtent: 100),
       delegate: SliverChildListDelegate(
-        [
-          BoxMonitoringMom(),
-          BoxMonitoringMom(),
-          BoxMonitoringMom(),
-          BoxMonitoringMom(),
-        ],
+        widget.monitor.map<Widget>((mon) {
+          if (mon["patient"][0]["rolesId"] == motherId) {
+            return BoxMonitoringMom(
+              type: "Ibu",
+              data: mon,
+            );
+          } else if (mon["patient"][0]["rolesId"] == childId) {
+            return BoxMonitoringMom(
+              type: "Adik",
+              data: mon,
+            );
+          }
+          // if (mon) {}
+        }).toList(),
       ),
     );
   }

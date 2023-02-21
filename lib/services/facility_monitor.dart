@@ -16,8 +16,6 @@ class FacilityMonitorService {
         headers: requestHeaders);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)["Data"]["Roles"];
-    } else {
-      throw Exception('Failed to load member');
     }
   }
 
@@ -27,7 +25,7 @@ class FacilityMonitorService {
       String isChecked = "",
       String datetime = "",
       String type = ""}) async {
-    String? jwt = await storage.read(key: "jwt");
+    String? jwt = await storage.read(key: "jwtFacility");
     Map<String, String> requestHeaders = {
       'Content-type': 'application/json',
       'Accept': 'application/json',
@@ -39,14 +37,12 @@ class FacilityMonitorService {
         headers: requestHeaders);
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
-    } else {
-      throw Exception('Failed to load member');
     }
   }
 
   Future<dynamic> getAllDataById(
       {String id = "", String type = "calendar"}) async {
-    String? jwt = await storage.read(key: "jwt");
+    String? jwt = await storage.read(key: "jwtFacility");
     Map<String, String> requestHeaders = {
       'Content-type': 'application/json',
       'Accept': 'application/json',
@@ -61,8 +57,6 @@ class FacilityMonitorService {
         "Monitor": jsonDecode(response.body)["Monitor"],
         "Record": jsonDecode(response.body)["Record"],
       }));
-    } else {
-      throw Exception('Failed to load member');
     }
   }
 
@@ -79,8 +73,6 @@ class FacilityMonitorService {
         headers: requestHeaders);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)["Data"];
-    } else {
-      throw Exception('Error');
     }
   }
 
@@ -99,8 +91,6 @@ class FacilityMonitorService {
         headers: requestHeaders);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)["Data"];
-    } else {
-      throw Exception('Error');
     }
   }
 
@@ -123,8 +113,6 @@ class FacilityMonitorService {
     );
     if (response.statusCode == 200) {
       return jsonDecode(response.body)["Data"];
-    } else {
-      throw Exception('Error');
     }
   }
 }
