@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, unnecessary_const, unnecessary_null_comparison
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, unnecessary_const, unnecessary_null_comparison, prefer_conditional_assignment
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -45,7 +45,9 @@ class _FacilityMeasureViewState extends State<FacilityMeasureView> {
 
   void getChildrenData() async {
     var resultData = await facilityService.getChildrenData(name: name);
-    resultData ??= [];
+    if (resultData == null) {
+      resultData = [];
+    }
     List<Tag> tagObjs =
         resultData.map((tagJson) => Tag.fromJson(tagJson)).toList();
     if (resultData == null) {
