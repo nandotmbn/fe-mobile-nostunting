@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, use_key_in_widget_constructors, avoid_unnecessary_containers
+// ignore_for_file: must_be_immutable, use_key_in_widget_constructors, avoid_unnecessary_containers, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -11,8 +11,10 @@ FacilityMonitorService facilityService = FacilityMonitorService();
 class CardMonitoringChild extends StatefulWidget {
   dynamic monitor;
   String type; // Record || Monitor
+  Function refresher;
 
-  CardMonitoringChild({required this.monitor, required this.type});
+  CardMonitoringChild(
+      {required this.monitor, required this.type, required this.refresher});
 
   @override
   State<CardMonitoringChild> createState() => _CardMonitoringChildState();
@@ -33,6 +35,45 @@ class _CardMonitoringChildState extends State<CardMonitoringChild> {
     setState(() {
       isChecked = result["isChecked"];
     });
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Hapus Pemantauan Pengukuran Bayi?'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('Anda tidak dapat mengembalikan penghapusan.'),
+                Text('Apakah anda benar-benar ingin menghapus pengukuran ini?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ya'),
+              onPressed: () async {
+                var result = await facilityService.deleteMeasureByID(
+                    postId: widget.monitor.id);
+                if (result["data"] == "Record successfully deleted!") {
+                  widget.refresher();
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+            TextButton(
+              child: const Text('Tidak'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -185,6 +226,23 @@ class _CardMonitoringChildState extends State<CardMonitoringChild> {
                 children: [
                   InkWell(
                     onTap: (() {
+                      _showMyDialog();
+                    }),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 6, horizontal: 6),
+                      margin: const EdgeInsets.symmetric(horizontal: 2),
+                      decoration: BoxDecoration(
+                          color: Colors.redAccent,
+                          borderRadius: BorderRadius.circular(8)),
+                      child: Text(
+                        "Hapus",
+                        style: TextStyle(color: MyColor.level4, fontSize: 12),
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: (() {
                       showModalBottomSheet(
                           context: context,
                           builder: (context) {
@@ -200,25 +258,24 @@ class _CardMonitoringChildState extends State<CardMonitoringChild> {
                     }),
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 6, horizontal: 16),
+                          vertical: 6, horizontal: 6),
                       margin: const EdgeInsets.symmetric(horizontal: 2),
                       decoration: BoxDecoration(
                           color: MyColor.level2,
                           borderRadius: BorderRadius.circular(8)),
                       child: Text(
                         "Komentari",
-                        style: TextStyle(color: MyColor.level4),
+                        style: TextStyle(color: MyColor.level4, fontSize: 12),
                       ),
                     ),
                   ),
                   InkWell(
                     onTap: () {
-                      // print("O");
                       toggleChecked();
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 6, horizontal: 16),
+                          vertical: 6, horizontal: 6),
                       margin: const EdgeInsets.symmetric(horizontal: 2),
                       decoration: BoxDecoration(
                           border: Border.all(color: MyColor.level1),
@@ -227,6 +284,7 @@ class _CardMonitoringChildState extends State<CardMonitoringChild> {
                       child: Text(
                         isChecked ? "Batal Cek" : "Cek",
                         style: TextStyle(
+                            fontSize: 12,
                             color: isChecked ? MyColor.level1 : MyColor.level4),
                       ),
                     ),

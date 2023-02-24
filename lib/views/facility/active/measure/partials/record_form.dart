@@ -1,13 +1,12 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe, prefer_const_literals_to_create_immutables, prefer_typing_uninitialized_variables, non_constant_identifier_names, unnecessary_null_comparison
-
-import 'dart:convert';
+// ignore_for_file: import_of_legacy_library_into_null_safe, prefer_const_literals_to_create_immutables, prefer_typing_uninitialized_variables, non_constant_identifier_names, unnecessary_null_comparison, must_be_immutable, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:app_settings/app_settings.dart';
 import 'package:no_stunting/constant/color.dart';
+import 'package:no_stunting/screens/facility/active/monitor/child_record_detail.dart';
+import 'package:no_stunting/services/facility_measure.dart';
 import 'package:no_stunting/views/facility/active/measure/partials/bluetooth_finder.dart';
 import 'package:no_stunting/widgets/record_form_head.dart';
 
@@ -15,6 +14,7 @@ import 'package:no_stunting/widgets/record_form_head.dart';
 const storage = FlutterSecureStorage();
 const String _uuid = "0000FFF0-0000-1000-8000-00805F9B34FB";
 const String _uuidDesc = "0000FFF1-0000-1000-8000-00805F9B34FB";
+FacilityMeasureService facilityService = FacilityMeasureService();
 
 // 00001800-0000-1000-8000-00805F9B34FB
 // 00001801-0000-1000-8000-00805F9B34FB
@@ -26,9 +26,16 @@ const String _uuidDesc = "0000FFF1-0000-1000-8000-00805F9B34FB";
 
 FlutterBluePlus flutterBlue = FlutterBluePlus.instance;
 
-class FacilityMeasureRecordForm extends StatelessWidget {
-  const FacilityMeasureRecordForm({super.key});
+class FacilityMeasureRecordForm extends StatefulWidget {
+  String id;
+  FacilityMeasureRecordForm({required this.id});
 
+  @override
+  State<FacilityMeasureRecordForm> createState() =>
+      _FacilityMeasureRecordFormState();
+}
+
+class _FacilityMeasureRecordFormState extends State<FacilityMeasureRecordForm> {
   void openBluetoothSettings(BluetoothState state) async {
     if (state == BluetoothState.on) {
       flutterBlue.turnOff();
@@ -102,9 +109,9 @@ class FacilityMeasureRecordForm extends StatelessWidget {
                           color: MyColor.level4)),
                 ),
               ),
-              const Align(
+              Align(
                   alignment: Alignment.centerLeft,
-                  child: FacilityMeasureRecordFormField()),
+                  child: FacilityMeasureRecordFormField(id: widget.id)),
             ])),
       ),
     );
@@ -124,7 +131,8 @@ Color getColor(Set<MaterialState> states) {
 }
 
 class FacilityMeasureRecordFormField extends StatefulWidget {
-  const FacilityMeasureRecordFormField({super.key});
+  String id;
+  FacilityMeasureRecordFormField({required this.id});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -172,15 +180,19 @@ class _FacilityMeasureRecordFormFieldState
     });
   }
 
-  void setLoading() {
-    choosenDevice.requestMtu(512);
-    setState(() {
-      isLoading = !isLoading;
-    });
+  void navigatorToRecordList() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) {
+        return FacilityChildRecordDetail(widget.id);
+      }),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    double height = 0, weight = 0;
+
     return Form(
       key: _formKey,
       child: Column(
@@ -205,25 +217,25 @@ class _FacilityMeasureRecordFormFieldState
                           stream: characteristic.value,
                           initialData: characteristic.lastValue,
                           builder: (c, snapshot) {
-                            final value = snapshot.data;
-                            // String txt = "";
-                            // for (var v in value!) {
-                            //   txt = txt + String.fromCharCode(v);
-                            // }
+                            final value = snapshot.data!;
+                            weight = (value[2] * 256 + value[3]) / 1000;
+                            height = (value[6] * 256 + value[7]) / 10;
 
-                            return Container();
+                            // setMeasurement(value);
 
-                            // return Column(
-                            //   crossAxisAlignment: CrossAxisAlignment.start,
-                            //   children: [
-                            //     RecordFormHead(
-                            //         title: "Berat badan",
-                            //         content: '${jsonDecode(txt)["w"]} Kg'),
-                            //     RecordFormHead(
-                            //         title: "Tinggi badan",
-                            //         content: '${jsonDecode(txt)["h"]} cm'),
-                            //   ],
-                            // );
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                RecordFormHead(
+                                    title: "Berat badan",
+                                    content:
+                                        '${(value[2] * 256 + value[3]) / 1000} Kg'),
+                                RecordFormHead(
+                                    title: "Tinggi badan",
+                                    content:
+                                        '${(value[6] * 256 + value[7]) / 10} cm'),
+                              ],
+                            );
                           })),
               Expanded(
                   flex: 3,
@@ -245,15 +257,15 @@ class _FacilityMeasureRecordFormFieldState
                   backgroundColor: MyColor.level2,
                 ),
                 onPressed: () async {
-                  setLoading();
+                  // print(weight);
+                  // print(height);
+                  dynamic result = await facilityService.recordMeasurement(
+                      id: widget.id, height: height, weight: weight);
+                  if (result["status"] == 201) {
+                    navigatorToRecordList();
+                  }
                 },
-                child: !isLoading
-                    ? const Text("Refresh")
-                    : LoadingAnimationWidget.staggeredDotsWave(
-                        // LoadingAnimationwidget that call the
-                        color: Colors.white, // staggeredditwave animation
-                        size: 30,
-                      )),
+                child: const Text("Rekam")),
           ),
         ],
       ),

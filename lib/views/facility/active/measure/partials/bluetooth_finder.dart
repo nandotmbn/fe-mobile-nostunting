@@ -61,6 +61,9 @@ class _BluetoothFinderState extends State<BluetoothFinder> {
                     if (deviceName.type != BluetoothDeviceType.le) {
                       return const SizedBox.shrink();
                     }
+                    if (deviceName.name != "SENSSUN Growth") {
+                      return const SizedBox.shrink();
+                    }
 
                     return Container(
                         alignment: Alignment.centerLeft,

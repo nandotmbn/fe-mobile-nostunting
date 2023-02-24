@@ -19,9 +19,9 @@ class FacilityMeasureService {
         headers: requestHeaders);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)["Data"] as List;
-    } else {
-      throw Exception('Failed to load member');
     }
+
+    return [];
   }
 
   Future<dynamic> getPatientData({required String id}) async {
@@ -36,8 +36,34 @@ class FacilityMeasureService {
         headers: requestHeaders);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)["Data"];
-    } else {
-      throw Exception('Failed to load member');
     }
+
+    return [];
+  }
+
+  Future<dynamic> recordMeasurement(
+      {required String id,
+      required double height,
+      required double weight}) async {
+    String? jwt = await storage.read(key: "jwtFacility");
+    Map<String, String> requestHeaders = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ${jwt!}'
+    };
+    final response = await http.post(
+      Uri.parse('$URL_ENDPOINT/facility/measure/record'),
+      headers: requestHeaders,
+      body: jsonEncode(<String, dynamic>{
+        'height': height,
+        'weight': weight,
+        'patientid': id,
+      }),
+    );
+    if (response.statusCode == 201) {
+      return jsonDecode(response.body);
+    }
+
+    return [];
   }
 }

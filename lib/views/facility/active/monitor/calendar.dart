@@ -37,7 +37,7 @@ class MonitorPatientDataById {
 class RecordPatientDataById {
   String id, patientId, createdAt;
   bool isChecked;
-  int height, weight;
+  num height, weight;
 
   RecordPatientDataById(this.id, this.patientId, this.createdAt, this.isChecked,
       this.height, this.weight);
@@ -48,8 +48,8 @@ class RecordPatientDataById {
       json['patientId'] as String,
       json['createdAt'] as String,
       json['isChecked'] as bool,
-      json['height'] as int,
-      json['weight'] as int,
+      json['height'] as num,
+      json['weight'] as num,
     );
   }
 
@@ -77,6 +77,7 @@ class _FacilityMonitorCalendarState extends State<FacilityMonitorCalendar> {
     var resultData = await facilityService.getAllDataById(
       id: widget.id,
     );
+    // print(widget.id);
     int _count = 0;
     for (var element in resultData[widget.type]) {
       _count += 1;
@@ -97,6 +98,10 @@ class _FacilityMonitorCalendarState extends State<FacilityMonitorCalendar> {
       monitorCount = _count;
       monitorPatientData = widget.type == "Monitor" ? tagObjs : tagObjs2;
     });
+  }
+
+  void refresher() {
+    getAllData();
   }
 
   @override
@@ -158,7 +163,7 @@ class _FacilityMonitorCalendarState extends State<FacilityMonitorCalendar> {
                           Container(
                               margin: const EdgeInsets.only(top: 12),
                               child: Text(
-                                'Total Pengisian Kalender: $monitorCount',
+                                'Total ${widget.type == "Monitor" ? "Pengisian Kalender" : "Pengukuran Bayi"}: $monitorCount',
                                 style: TextStyle(
                                     fontSize: 16, color: MyColor.level4),
                               ))
@@ -199,6 +204,7 @@ class _FacilityMonitorCalendarState extends State<FacilityMonitorCalendar> {
                     (r) {
                       return CardMonitoringChild(
                         type: widget.type,
+                        refresher: refresher,
                         monitor: r,
                       );
                     },

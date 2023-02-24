@@ -36,8 +36,10 @@ class _FaciliityMeasureRecordViewState
                   topRight: Radius.circular(20),
                 ),
               ),
-              child: const SingleChildScrollView(
-                  child: FacilityMeasureRecordForm()),
+              child: SingleChildScrollView(
+                  child: FacilityMeasureRecordForm(
+                id: widget._id,
+              )),
             ))
       ]),
     );

@@ -47,15 +47,6 @@ class _FacilityMeasurePatientDetailState
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
-                flex: 1,
-                child: Container(
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.only(right: 10),
-                    decoration: BoxDecoration(
-                        color: MyColor.level1,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10))))),
-            Expanded(
                 flex: 2,
                 child: Container(
                   padding: const EdgeInsets.all(10),

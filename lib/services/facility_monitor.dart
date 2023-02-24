@@ -115,4 +115,21 @@ class FacilityMonitorService {
       return jsonDecode(response.body)["Data"];
     }
   }
+
+  Future<dynamic> deleteMeasureByID({
+    required String postId,
+  }) async {
+    Map<String, String> requestHeaders = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    final response = await http.delete(
+      Uri.parse('$URL_ENDPOINT/facility/measure/record/$postId'),
+      headers: requestHeaders,
+    );
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)["data"];
+    }
+  }
 }
