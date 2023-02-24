@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:no_stunting/constant/color.dart';
 
-class MotherCard extends StatefulWidget {
-  const MotherCard({Key? key}) : super(key: key);
+class ChildCard extends StatefulWidget {
+  const ChildCard({Key? key}) : super(key: key);
 
   @override
-  State<MotherCard> createState() => _MotherCardState();
+  State<ChildCard> createState() => _ChildCardState();
 }
 
-class _MotherCardState extends State<MotherCard> {
+class _ChildCardState extends State<ChildCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,7 +22,7 @@ class _MotherCardState extends State<MotherCard> {
                 alignment: Alignment.centerLeft,
                 margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
                 child: Text(
-                  "Selamat Datang Ibu,",
+                  "Selamat Datang Adik,",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: MyColor.level1,

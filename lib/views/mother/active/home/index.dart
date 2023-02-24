@@ -15,77 +15,77 @@ class MotherHomeView extends StatelessWidget {
             const MotherCard(),
           ]),
         ),
-        SliverList(
-            delegate: SliverChildListDelegate([
-          Container(
-              margin: const EdgeInsets.all(10),
-              child: Text(
-                "Riwayat",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: MyColor.level1,
-                    fontSize: 24),
-              ))
-        ])),
-        History(),
-        SliverList(
-            delegate: SliverChildListDelegate([
-          Container(
-              margin: const EdgeInsets.all(10),
-              child: Text(
-                "Tips",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: MyColor.level1,
-                    fontSize: 24),
-              ))
-        ])),
-        SliverList(
-          delegate: SliverChildListDelegate([
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-            children: [
-              Container(
-                margin: const EdgeInsets.all(8),
-                height: 200,
-                width: 200,
-                color: Colors.blue,
-                child: const Text("Tips 1"),
-              ),
-              Container(
-                margin: const EdgeInsets.all(8),
-                height: 200,
-                width: 200,
-                color: Colors.blue,
-                child: const Text("Tips 2"),
-              ),
-              Container(
-                margin: const EdgeInsets.all(8),
-                height: 200,
-                width: 200,
-                color: Colors.blue,
-                child: const Text("Tips 3"),
-              ),
-              Container(
-                margin: const EdgeInsets.all(8),
-                height: 200,
-                width: 200,
-                color: Colors.blue,
-                child: const Text("Tips 4"),
-              ),
-              Container(
-                margin: const EdgeInsets.all(8),
-                height: 200,
-                width: 200,
-                color: Colors.blue,
-                child: const Text("Tips 4"),
-              ),
-            ],
-              ),
-            )
-          ]),
-        ),
+        // SliverList(
+        //     delegate: SliverChildListDelegate([
+        //   Container(
+        //       margin: const EdgeInsets.all(10),
+        //       child: Text(
+        //         "Riwayat",
+        //         style: TextStyle(
+        //             fontWeight: FontWeight.bold,
+        //             color: MyColor.level1,
+        //             fontSize: 24),
+        //       ))
+        // ])),
+        // History(),
+        // SliverList(
+        //     delegate: SliverChildListDelegate([
+        //   Container(
+        //       margin: const EdgeInsets.all(10),
+        //       child: Text(
+        //         "Tips",
+        //         style: TextStyle(
+        //             fontWeight: FontWeight.bold,
+        //             color: MyColor.level1,
+        //             fontSize: 24),
+        //       ))
+        // ])),
+        // SliverList(
+        //   delegate: SliverChildListDelegate([
+        //     SingleChildScrollView(
+        //       scrollDirection: Axis.horizontal,
+        //       child: Row(
+        //     children: [
+        //       Container(
+        //         margin: const EdgeInsets.all(8),
+        //         height: 200,
+        //         width: 200,
+        //         color: Colors.blue,
+        //         child: const Text("Tips 1"),
+        //       ),
+        //       Container(
+        //         margin: const EdgeInsets.all(8),
+        //         height: 200,
+        //         width: 200,
+        //         color: Colors.blue,
+        //         child: const Text("Tips 2"),
+        //       ),
+        //       Container(
+        //         margin: const EdgeInsets.all(8),
+        //         height: 200,
+        //         width: 200,
+        //         color: Colors.blue,
+        //         child: const Text("Tips 3"),
+        //       ),
+        //       Container(
+        //         margin: const EdgeInsets.all(8),
+        //         height: 200,
+        //         width: 200,
+        //         color: Colors.blue,
+        //         child: const Text("Tips 4"),
+        //       ),
+        //       Container(
+        //         margin: const EdgeInsets.all(8),
+        //         height: 200,
+        //         width: 200,
+        //         color: Colors.blue,
+        //         child: const Text("Tips 4"),
+        //       ),
+        //     ],
+        //       ),
+        //     )
+        //   ]),
+        // ),
       ],
     );
   }

@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:no_stunting/widgets/bottom_nav_bar.dart';
+import 'package:no_stunting/views/mother/active/calendar/index.dart';
+import 'package:no_stunting/views/mother/active/setting/index.dart';
 import 'package:no_stunting/widgets/bottom_nav_mother.dart';
-import 'package:no_stunting/screens/facility/active/home/index.dart';
 import 'package:no_stunting/views/mother/active/home/index.dart';
 
-class MotherHome extends StatefulWidget {
-  const MotherHome({super.key});
+class MotherActive extends StatefulWidget {
+  const MotherActive({super.key});
 
   @override
-  State<MotherHome> createState() => _MotherHomeState();
+  State<MotherActive> createState() => _MotherActiveState();
 }
 
-class _MotherHomeState extends State<MotherHome> {
+class _MotherActiveState extends State<MotherActive> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[MotherHomeView()];
+  static const List<Widget> _widgetOptions = <Widget>[
+    MotherHomeView(),
+    MotherCalendarView(),
+    MotherSettingView()
+  ];
 
   void setSelectedIndex(int index) {
     setState(() {

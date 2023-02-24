@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:no_stunting/constant/color.dart';
+import 'package:no_stunting/screens/child/login.dart';
 import 'package:no_stunting/screens/facility/login.dart';
 import 'package:no_stunting/screens/mother/login.dart';
 import 'package:no_stunting/widgets/roles_box.dart';
@@ -63,11 +64,11 @@ class ChooseRolesView extends StatelessWidget {
                           MyColor.level4,
                           MyColor.level3,
                           MyColor.level2, () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //       builder: (context) => const LoginFacility()),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginChild()),
+                        );
                       }),
                     ],
                   ),

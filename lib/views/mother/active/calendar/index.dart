@@ -1,21 +1,18 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 
-class CalendarView extends StatefulWidget {
-  CalendarView({Key? key}) : super(key: key);
-
+class MotherCalendarView extends StatefulWidget {
+  const MotherCalendarView({super.key});
   @override
-  State<CalendarView> createState() => _CalendarViewState();
+  State<MotherCalendarView> createState() => _MotherCalendarViewState();
 }
 
-class _CalendarViewState extends State<CalendarView> {
+class _MotherCalendarViewState extends State<MotherCalendarView> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          
-        )
-      ],
+    return Container(
+      child: Text("Kalender Ibu"),
     );
   }
 }

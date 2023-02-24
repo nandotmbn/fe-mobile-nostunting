@@ -1,8 +1,8 @@
-// ignore_for_file: use_key_in_widget_constructors
-
 import 'package:flutter/material.dart';
 
-class BoxMonitoringMom extends StatelessWidget {
+class HistoryBox extends StatelessWidget {
+  const HistoryBox({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,17 +23,10 @@ class BoxMonitoringMom extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
                         Text(
-                          "30 November 2022",
+                          "11 November 2022",
                           style: TextStyle(
-                            color: Color(0xFFAA8B56),
-                            fontSize: 10,
-                          ),
-                        ),
-                        Text(
-                          "55.55",
-                          style: TextStyle(
-                              color: Color(0xFFAA8B56),
-                              fontSize: 24,
+                              color: Color.fromARGB(255, 28, 104, 89),
+                              fontSize: 20,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
@@ -45,24 +38,6 @@ class BoxMonitoringMom extends StatelessWidget {
                         ),
                       ],
                     )),
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    margin: const EdgeInsets.only(left: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          "Ibu John Notonegoro",
-                          style: TextStyle(
-                              color: Color(0xFF395144),
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  ),
-                )
               ],
             ),
             Container(
@@ -87,5 +62,32 @@ class BoxMonitoringMom extends StatelessWidget {
             )
           ],
         ));
+  }
+}
+
+class History extends StatefulWidget {
+  History({Key? key}) : super(key: key);
+
+  @override
+  State<History> createState() => _HistoryState();
+}
+
+class _HistoryState extends State<History> {
+  @override
+  Widget build(BuildContext context) {
+    return SliverGrid(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, mainAxisExtent: 100),
+      delegate: SliverChildListDelegate(
+        [
+          HistoryBox(),
+          HistoryBox(),
+          HistoryBox(),
+          HistoryBox(),
+          HistoryBox(),
+          HistoryBox()
+        ],
+      ),
+    );
   }
 }

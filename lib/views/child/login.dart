@@ -8,6 +8,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:no_stunting/constant/color.dart';
+import 'package:no_stunting/screens/child/active/index.dart';
 import 'package:no_stunting/screens/mother/active/index.dart';
 import 'package:no_stunting/services/constant.dart';
 import 'package:no_stunting/services/facility_monitor.dart';
@@ -19,8 +20,8 @@ import '../../screens/facility/active/index.dart';
 const storage = FlutterSecureStorage();
 FacilityMonitorService monitorService = FacilityMonitorService();
 
-class FormLoginMother extends StatelessWidget {
-  const FormLoginMother({super.key});
+class FormLoginChild extends StatelessWidget {
+  const FormLoginChild({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,24 +37,24 @@ class FormLoginMother extends StatelessWidget {
           child: Column(children: [
             Container(
                 alignment: Alignment.centerLeft,
-                child: const Text("Masuk sebagai ibu hamil",
+                child: const Text("Masuk sebagai bayi/balita",
                     style: TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.w700,
                         color: Color.fromARGB(255, 25, 47, 35)))),
             const Align(
-                alignment: Alignment.centerLeft, child: FormLoginMotherField())
+                alignment: Alignment.centerLeft, child: FormLoginChildField())
           ])),
     );
   }
 }
 
-class FormLoginMotherField extends StatefulWidget {
-  const FormLoginMotherField({super.key});
+class FormLoginChildField extends StatefulWidget {
+  const FormLoginChildField({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _FormLoginMotherFieldState createState() => _FormLoginMotherFieldState();
+  _FormLoginChildFieldState createState() => _FormLoginChildFieldState();
 }
 
 Color getColor(Set<MaterialState> states) {
@@ -68,7 +69,7 @@ Color getColor(Set<MaterialState> states) {
   return MyColor.level2;
 }
 
-class _FormLoginMotherFieldState extends State<FormLoginMotherField> {
+class _FormLoginChildFieldState extends State<FormLoginChildField> {
   final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
   bool isPasswordSecure = false;
@@ -81,12 +82,12 @@ class _FormLoginMotherFieldState extends State<FormLoginMotherField> {
   var passwordController = TextEditingController();
 
   void loginChecker(BuildContext context) async {
-    String? jwt = await storage.read(key: "jwtMother");
+    String? jwt = await storage.read(key: "jwtChild");
     if (jwt != null) {
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const MotherActive()),
+        MaterialPageRoute(builder: (context) => const ChildActive()),
       );
     } else {
       getMasterRoles();
@@ -114,7 +115,7 @@ class _FormLoginMotherFieldState extends State<FormLoginMotherField> {
   void getMasterRoles() async {
     var response = await monitorService.getMasterRolesData();
     for (var res in response) {
-      if (res["name"] == "Mother") {
+      if (res["name"] == "Child") {
         setState(() {
           facilityRolesId = res["_id"];
         });
@@ -203,17 +204,17 @@ class _FormLoginMotherFieldState extends State<FormLoginMotherField> {
 
                       if (rolesUser != facilityRolesId) {
                         setState(() {
-                          message = "Anda bukan ibu hamil";
+                          message = "Anda tidak login sebagai bayi/balita";
                         });
                         setLoading();
                       } else {
                         await storage.write(
-                            key: "jwtMother", value: data["Token"]);
+                            key: "jwtChild", value: data["Token"]);
                         // ignore: use_build_context_synchronously
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const MotherActive()),
+                              builder: (context) => const ChildActive()),
                         );
                       }
                     } else {
