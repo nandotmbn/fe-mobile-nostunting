@@ -16,6 +16,7 @@ const String _uuid = "0000FFF0-0000-1000-8000-00805F9B34FB";
 const String _uuidDesc = "0000FFF1-0000-1000-8000-00805F9B34FB";
 FacilityMeasureService facilityService = FacilityMeasureService();
 
+FlutterBluePlus flutterBlue = FlutterBluePlus.instance;
 // 00001800-0000-1000-8000-00805F9B34FB
 // 00001801-0000-1000-8000-00805F9B34FB
 // 0000FFF0-0000-1000-8000-00805F9B34FB
@@ -23,8 +24,6 @@ FacilityMeasureService facilityService = FacilityMeasureService();
 
 // 0000FFF2-0000-1000-8000-00805F9B34FB
 // 0000FFF1-0000-1000-8000-00805F9B34FB
-
-FlutterBluePlus flutterBlue = FlutterBluePlus.instance;
 
 class FacilityMeasureRecordForm extends StatefulWidget {
   String id;
@@ -180,6 +179,20 @@ class _FacilityMeasureRecordFormFieldState
     });
   }
 
+  void disconnectAllBluetooth() async {
+    // Start scanning
+    flutterBlue.startScan(timeout: const Duration(seconds: 4));
+
+    flutterBlue.scanResults.listen((results) {
+      // do something with scan results
+      for (ScanResult r in results) {
+        r.device.disconnect();
+      }
+    });
+
+    flutterBlue.stopScan();
+  }
+
   void navigatorToRecordList() {
     Navigator.push(
       context,
@@ -187,6 +200,12 @@ class _FacilityMeasureRecordFormFieldState
         return FacilityChildRecordDetail(widget.id);
       }),
     );
+  }
+
+  @override
+  void dispose() {
+    disconnectAllBluetooth();
+    super.dispose();
   }
 
   @override

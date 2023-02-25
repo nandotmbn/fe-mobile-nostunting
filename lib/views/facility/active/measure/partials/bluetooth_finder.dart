@@ -65,6 +65,8 @@ class _BluetoothFinderState extends State<BluetoothFinder> {
                       return const SizedBox.shrink();
                     }
 
+                    // deviceName.disconnect();
+
                     return Container(
                         alignment: Alignment.centerLeft,
                         padding: const EdgeInsets.all(10),

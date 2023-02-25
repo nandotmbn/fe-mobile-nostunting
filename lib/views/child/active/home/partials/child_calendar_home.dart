@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:no_stunting/constant/color.dart';
 
 class HistoryBox extends StatelessWidget {
   const HistoryBox({Key? key}) : super(key: key);
@@ -7,9 +6,9 @@ class HistoryBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
-            color: MyColor.level1,
-            borderRadius: const BorderRadius.all(Radius.circular(10))),
+        decoration: const BoxDecoration(
+            color: Color(0xFFF0EBCE),
+            borderRadius: BorderRadius.all(Radius.circular(10))),
         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         padding: const EdgeInsets.all(10.0),
         child: Column(
@@ -22,18 +21,18 @@ class HistoryBox extends StatelessWidget {
                     flex: 1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: const [
                         Text(
                           "11 November 2022",
                           style: TextStyle(
-                              color: MyColor.level4,
+                              color: Color.fromARGB(255, 28, 104, 89),
                               fontSize: 20,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
                           "Belum di cek",
                           style: TextStyle(
-                              color: MyColor.level3,
+                              color: Color(0xFF395144),
                               fontStyle: FontStyle.italic,
                               fontSize: 12),
                         ),
@@ -46,18 +45,17 @@ class HistoryBox extends StatelessWidget {
               child: InkWell(
                 onTap: () => {},
                 child: Container(
-                  decoration: BoxDecoration(
-                      color: MyColor.level4,
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(10.0))),
+                  decoration: const BoxDecoration(
+                      color: Color(0xFF395144),
+                      borderRadius: BorderRadius.all(Radius.circular(10.0))),
                   padding:
                       const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
-                  child: Text(
+                  child: const Text(
                     "Detail",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
-                        color: MyColor.level1),
+                        color: Colors.white),
                   ),
                 ),
               ),
@@ -67,14 +65,14 @@ class HistoryBox extends StatelessWidget {
   }
 }
 
-class History extends StatefulWidget {
-  const History({super.key});
+class ChildCalendarHome extends StatefulWidget {
+  const ChildCalendarHome({super.key});
 
   @override
-  State<History> createState() => _HistoryState();
+  State<ChildCalendarHome> createState() => _ChildCalendarHomeState();
 }
 
-class _HistoryState extends State<History> {
+class _ChildCalendarHomeState extends State<ChildCalendarHome> {
   @override
   Widget build(BuildContext context) {
     return SliverGrid(
