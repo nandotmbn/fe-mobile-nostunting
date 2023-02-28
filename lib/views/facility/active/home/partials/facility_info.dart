@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:no_stunting/constant/color.dart';
+import 'package:no_stunting/widgets/skeleton.dart';
 
 class FacilityHomeInfo extends StatefulWidget {
   int totalService = 0;
@@ -85,33 +86,39 @@ class _FacilityHomeInfoState extends State<FacilityHomeInfo> {
                       children: [
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: Text(
-                              '${widget.facility["firstName"]} ${widget.facility["lastName"]}',
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.bold)),
+                          child: widget.facility["firstName"] == null
+                              ? SkeletonCustom(height: 12, width: 120)
+                              : Text(
+                                  '${widget.facility["firstName"]} ${widget.facility["lastName"]}',
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.bold)),
                         ),
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: Text('${widget.facility["identifier"]}',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontStyle: FontStyle.italic,
-                              )),
-                        ),
-                        Container(
-                            margin: const EdgeInsets.only(top: 14),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text('${widget.facility["address"]}',
+                          child: widget.facility["identifier"] == null
+                              ? SkeletonCustom(height: 12, width: 120)
+                              : Text('${widget.facility["identifier"]}',
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 14,
                                     fontStyle: FontStyle.italic,
                                   )),
+                        ),
+                        Container(
+                            margin: const EdgeInsets.only(top: 14),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: widget.facility["address"] == null
+                                  ? SkeletonCustom(height: 12, width: 120)
+                                  : Text('${widget.facility["address"]}',
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 14,
+                                        fontStyle: FontStyle.italic,
+                                      )),
                             ))
                       ]),
                 )),

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:no_stunting/constant/color.dart';
 import 'package:no_stunting/services/facility_measure.dart';
 import 'package:no_stunting/views/facility/active/monitor/partials/card_list_patient.dart';
@@ -42,8 +43,12 @@ class FacilityMeasureView extends StatefulWidget {
 class _FacilityMeasureViewState extends State<FacilityMeasureView> {
   List<Tag> childrenData = [];
   String name = "";
+  bool isLoading = true;
 
   void getChildrenData() async {
+    setState(() {
+      isLoading = true;
+    });
     var resultData = await facilityService.getChildrenData(name: name);
     if (resultData == null) {
       resultData = [];
@@ -59,6 +64,9 @@ class _FacilityMeasureViewState extends State<FacilityMeasureView> {
         childrenData = tagObjs;
       });
     }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -84,39 +92,52 @@ class _FacilityMeasureViewState extends State<FacilityMeasureView> {
               getChildrenData();
             })),
       ),
-      childrenData.length < 1
-          ? Container(
+      isLoading == false
+          ? childrenData.length < 1
+              ? Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.symmetric(vertical: 50),
+                  child: Column(
+                    children: [
+                      Image.asset('assets/img/not-found.png',
+                          width: 100.0, height: 100.0),
+                      Text(
+                        "Pasien tidak ditemukan",
+                        style: TextStyle(color: MyColor.level1, fontSize: 18),
+                      )
+                    ],
+                  ))
+              : Expanded(
+                  child: GridView.count(
+                    primary: false,
+                    padding: const EdgeInsets.all(5),
+                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 5,
+                    crossAxisCount: 2,
+                    childAspectRatio: 1.4,
+                    children: childrenData.map(
+                      (r) {
+                        return FacilityCardListPatientMeasurement(
+                            'Adik ${r.firstName} ${r.lastName}',
+                            r.identifier,
+                            r.updatedAt,
+                            r._id);
+                      },
+                    ).toList(),
+                  ),
+                )
+          : Container(
               alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(vertical: 50),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: Column(
                 children: [
-                  Image.asset('assets/img/not-found.png',
-                      width: 100.0, height: 100.0),
+                  const SpinKitRing(color: Colors.blue),
                   Text(
-                    "Pasien tidak ditemukan",
+                    "Memuat",
                     style: TextStyle(color: MyColor.level1, fontSize: 18),
                   )
                 ],
               ))
-          : Expanded(
-              child: GridView.count(
-                primary: false,
-                padding: const EdgeInsets.all(5),
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 5,
-                crossAxisCount: 2,
-                childAspectRatio: 1.4,
-                children: childrenData.map(
-                  (r) {
-                    return FacilityCardListPatientMeasurement(
-                        'Adik ${r.firstName} ${r.lastName}',
-                        r.identifier,
-                        r.updatedAt,
-                        r._id);
-                  },
-                ).toList(),
-              ),
-            )
     ]);
   }
 }

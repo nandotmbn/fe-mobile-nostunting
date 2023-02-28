@@ -5,6 +5,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:no_stunting/constant/color.dart';
 import 'package:no_stunting/services/facility_home.dart';
 import 'package:no_stunting/views/facility/active/home/partials/carousel.dart';
@@ -28,6 +29,7 @@ class _FacilityHomeViewState extends State<FacilityHomeView> {
   dynamic monitor = [];
   dynamic measure = [];
   int totalService = 0;
+  bool isLoading = true;
   void getFacilityHome() async {
     var resultData = await facilityService.getData();
     if (resultData["monitor"] == null && resultData["measure"] == null) {
@@ -100,6 +102,7 @@ class _FacilityHomeViewState extends State<FacilityHomeView> {
     setState(() {
       monitor = cards;
       measure = cards_;
+      isLoading = false;
     });
   }
 
@@ -141,21 +144,35 @@ class _FacilityHomeViewState extends State<FacilityHomeView> {
         ),
         SliverList(
             delegate: SliverChildListDelegate([
-          monitor.length == 0
-              ? Container(
+          isLoading == false
+              ? monitor.length == 0
+                  ? Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Column(
+                        children: [
+                          Image.asset('assets/img/not-found.png',
+                              width: 40.0, height: 40.0),
+                          Text(
+                            "Pemantauan belum ada",
+                            style:
+                                TextStyle(color: MyColor.level1, fontSize: 18),
+                          )
+                        ],
+                      ))
+                  : const SizedBox.shrink()
+              : Container(
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Column(
                     children: [
-                      Image.asset('assets/img/not-found.png',
-                          width: 40.0, height: 40.0),
+                      const SpinKitRing(color: Colors.blue),
                       Text(
-                        "Pemantauan belum ada",
+                        "Memuat",
                         style: TextStyle(color: MyColor.level1, fontSize: 18),
                       )
                     ],
                   ))
-              : const SizedBox.shrink()
         ])),
         SliverList(
             delegate: SliverChildListDelegate([
@@ -174,22 +191,36 @@ class _FacilityHomeViewState extends State<FacilityHomeView> {
         ),
         SliverList(
             delegate: SliverChildListDelegate([
-          measure.length == 0
-              ? Container(
+          isLoading == false
+              ? measure.length == 0
+                  ? Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Column(
+                        children: [
+                          Image.asset('assets/img/not-found.png',
+                              width: 40.0, height: 40.0),
+                          Text(
+                            "Pengukuran belum ada",
+                            style:
+                                TextStyle(color: MyColor.level1, fontSize: 18),
+                          )
+                        ],
+                      ))
+                  : const SizedBox.shrink()
+              : Container(
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Column(
                     children: [
-                      Image.asset('assets/img/not-found.png',
-                          width: 40.0, height: 40.0),
+                      const SpinKitRing(color: Colors.blue),
                       Text(
-                        "Pengukuran belum ada",
+                        "Memuat",
                         style: TextStyle(color: MyColor.level1, fontSize: 18),
                       )
                     ],
                   ))
-              : const SizedBox.shrink()
-        ]))
+        ])),
       ],
     );
   }

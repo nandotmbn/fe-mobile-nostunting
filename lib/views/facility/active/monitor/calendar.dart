@@ -4,10 +4,12 @@ import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:no_stunting/constant/color.dart';
 import 'package:no_stunting/services/facility_monitor.dart';
 import 'package:no_stunting/views/facility/active/monitor/partials/calendar_monitoring_card_list.dart';
 import 'package:no_stunting/views/mother/active/home/partials/tips_card.dart';
+import 'package:no_stunting/widgets/skeleton.dart';
 
 FacilityMonitorService facilityService = FacilityMonitorService();
 
@@ -72,8 +74,12 @@ class FacilityMonitorCalendar extends StatefulWidget {
 class _FacilityMonitorCalendarState extends State<FacilityMonitorCalendar> {
   dynamic user = {"firstName": "", "lastName": "", "identifier": ""};
   int monitorCount = 0;
+  bool isLoading = true;
   List<dynamic> monitorPatientData = [];
   void getAllData() async {
+    setState(() {
+      isLoading = true;
+    });
     var resultData = await facilityService.getAllDataById(
       id: widget.id,
     );
@@ -96,6 +102,7 @@ class _FacilityMonitorCalendarState extends State<FacilityMonitorCalendar> {
       user = resultData["User"];
       monitorCount = _count;
       monitorPatientData = widget.type == "Monitor" ? tagObjs : tagObjs2;
+      isLoading = false;
     });
   }
 
@@ -145,20 +152,24 @@ class _FacilityMonitorCalendarState extends State<FacilityMonitorCalendar> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            '${widget.role} ${user["firstName"]} ${user["lastName"]}',
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: MyColor.level4,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            user["identifier"],
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: MyColor.level4,
-                                fontStyle: FontStyle.italic),
-                          ),
+                          user["firstName"] != ""
+                              ? Text(
+                                  '${widget.role} ${user["firstName"]} ${user["lastName"]}',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: MyColor.level4,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              : SkeletonCustom(height: 15, width: 120),
+                          user["firstName"] != ""
+                              ? Text(
+                                  user["identifier"],
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: MyColor.level4,
+                                      fontStyle: FontStyle.italic),
+                                )
+                              : SkeletonCustom(height: 15, width: 120),
                           Container(
                               margin: const EdgeInsets.only(top: 12),
                               child: Text(
@@ -175,41 +186,51 @@ class _FacilityMonitorCalendarState extends State<FacilityMonitorCalendar> {
             )
           ]),
         ),
-        monitorPatientData.length < 1
-            ? Container(
+        isLoading == false
+            ? monitorPatientData.length < 1
+                ? Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.symmetric(vertical: 50),
+                    child: Column(
+                      children: [
+                        Image.asset('assets/img/not-found.png',
+                            width: 100.0, height: 100.0),
+                        Text(
+                          "Pemantauan tidak ditemukan",
+                          style: TextStyle(color: MyColor.level1, fontSize: 18),
+                        )
+                      ],
+                    ))
+                : Expanded(
+                    child: GridView.count(
+                    primary: false,
+                    padding: const EdgeInsets.all(5),
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.8,
+                    children: monitorPatientData.reversed.map(
+                      (r) {
+                        return CardMonitoringChild(
+                          type: widget.type,
+                          refresher: refresher,
+                          monitor: r,
+                        );
+                      },
+                    ).toList(),
+                  ))
+            : Container(
                 alignment: Alignment.center,
-                padding: const EdgeInsets.symmetric(vertical: 50),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Column(
                   children: [
-                    Image.asset('assets/img/not-found.png',
-                        width: 100.0, height: 100.0),
+                    const SpinKitRing(color: Colors.blue),
                     Text(
-                      "Pemantauan tidak ditemukan",
+                      "Memuat",
                       style: TextStyle(color: MyColor.level1, fontSize: 18),
                     )
                   ],
                 ))
-            : Expanded(
-                child: Container(
-                padding: const EdgeInsets.only(bottom: 50),
-                child: GridView.count(
-                  primary: false,
-                  padding: const EdgeInsets.all(5),
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.8,
-                  children: monitorPatientData.reversed.map(
-                    (r) {
-                      return CardMonitoringChild(
-                        type: widget.type,
-                        refresher: refresher,
-                        monitor: r,
-                      );
-                    },
-                  ).toList(),
-                ),
-              ))
       ],
     );
   }

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:no_stunting/constant/color.dart';
+import 'package:no_stunting/widgets/skeleton.dart';
 
 class FacilityHomeCarousel extends StatefulWidget {
   dynamic facility = {
@@ -60,11 +61,14 @@ class _FacilityHomeCarouselState extends State<FacilityHomeCarousel> {
               Container(
                 alignment: Alignment.centerLeft,
                 margin: const EdgeInsets.only(top: 12),
-                child: Text(
-                  '${widget.facility["firstName"]} ${widget.facility["lastName"]}',
-                  textAlign: TextAlign.left,
-                  style: const TextStyle(color: Colors.white, fontSize: 16),
-                ),
+                child: widget.facility["firstName"] == null
+                    ? SkeletonCustom(height: 12, width: 120)
+                    : Text(
+                        '${widget.facility["firstName"]} ${widget.facility["lastName"]}',
+                        textAlign: TextAlign.left,
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 16),
+                      ),
               )
             ]))
       ]),

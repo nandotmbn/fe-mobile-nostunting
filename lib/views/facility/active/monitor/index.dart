@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, no_leading_underscores_for_local_identifiers, unused_element, unrelated_type_equality_checks, unused_local_variable, non_constant_identifier_names, prefer_is_empty
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:no_stunting/constant/color.dart';
 import 'package:no_stunting/services/facility_monitor.dart';
@@ -54,6 +55,7 @@ class _FacilityMonitorViewState extends State<FacilityMonitorView> {
   String dropdownValue = 'Semua';
 
   bool isFilterOpen = true;
+  bool isLoading = true;
 
   String motherId = "";
   String childId = "";
@@ -80,6 +82,9 @@ class _FacilityMonitorViewState extends State<FacilityMonitorView> {
   }
 
   void getInitData() async {
+    setState(() {
+      isLoading = true;
+    });
     var date__ = DateFormat("yyyy-MM-dd").format(_dateTime);
     var newDate =
         DateTime.parse(date__).add(const Duration(hours: -7)).toIso8601String();
@@ -128,6 +133,7 @@ class _FacilityMonitorViewState extends State<FacilityMonitorView> {
     }
 
     setState(() {
+      isLoading = false;
       monitorPatientData = cards;
     });
   }
@@ -330,44 +336,57 @@ class _FacilityMonitorViewState extends State<FacilityMonitorView> {
                 ),
               ))
           : SizedBox.shrink(),
-      monitorPatientData.length < 1
-          ? Container(
+      isLoading == false
+          ? monitorPatientData.length < 1
+              ? Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.symmetric(vertical: 50),
+                  child: Column(
+                    children: [
+                      Image.asset('assets/img/not-found.png',
+                          width: 100.0, height: 100.0),
+                      Text(
+                        "Pemantauan tidak ditemukan",
+                        style: TextStyle(color: MyColor.level1, fontSize: 18),
+                      )
+                    ],
+                  ))
+              : Expanded(
+                  child: GridView.count(
+                      primary: false,
+                      padding: const EdgeInsets.all(5),
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 5,
+                      crossAxisCount: 2,
+                      childAspectRatio: 1.8,
+                      children: dropdownValueType == "Kalender"
+                          ? monitorPatientData.map(
+                              (r) {
+                                if (r.typeId == childId) {
+                                  return BoxMonitoringChild(r, "Monitor");
+                                } else {
+                                  return BoxMonitoringMom(r);
+                                }
+                              },
+                            ).toList()
+                          : monitorPatientData.map(
+                              (r) {
+                                return BoxMonitoringChild(r, "Record");
+                              },
+                            ).toList()),
+                )
+          : Container(
               alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(vertical: 50),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: Column(
                 children: [
-                  Image.asset('assets/img/not-found.png',
-                      width: 100.0, height: 100.0),
+                  const SpinKitRing(color: Colors.blue),
                   Text(
-                    "Pemantauan tidak ditemukan",
+                    "Memuat",
                     style: TextStyle(color: MyColor.level1, fontSize: 18),
                   )
                 ],
               ))
-          : Expanded(
-              child: GridView.count(
-                  primary: false,
-                  padding: const EdgeInsets.all(5),
-                  crossAxisSpacing: 5,
-                  mainAxisSpacing: 5,
-                  crossAxisCount: 2,
-                  childAspectRatio: 1.8,
-                  children: dropdownValueType == "Kalender"
-                      ? monitorPatientData.map(
-                          (r) {
-                            if (r.typeId == childId) {
-                              return BoxMonitoringChild(r, "Monitor");
-                            } else {
-                              return BoxMonitoringMom(r);
-                            }
-                          },
-                        ).toList()
-                      : monitorPatientData.map(
-                          (r) {
-                            return BoxMonitoringChild(r, "Record");
-                          },
-                        ).toList()),
-            )
     ]);
   }
 }
