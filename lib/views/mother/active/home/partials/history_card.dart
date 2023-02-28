@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:no_stunting/constant/color.dart';
 
@@ -68,7 +70,8 @@ class HistoryBox extends StatelessWidget {
 }
 
 class History extends StatefulWidget {
-  const History({super.key});
+  dynamic history = [];
+  History({required this.history});
 
   @override
   State<History> createState() => _HistoryState();
@@ -81,14 +84,9 @@ class _HistoryState extends State<History> {
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, mainAxisExtent: 100),
       delegate: SliverChildListDelegate(
-        [
-          HistoryBox(),
-          HistoryBox(),
-          HistoryBox(),
-          HistoryBox(),
-          HistoryBox(),
-          HistoryBox()
-        ],
+        widget.history.map<Widget>((mon) {
+          return const HistoryBox();
+        }).toList(),
       ),
     );
   }

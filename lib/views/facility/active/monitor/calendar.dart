@@ -77,7 +77,6 @@ class _FacilityMonitorCalendarState extends State<FacilityMonitorCalendar> {
     var resultData = await facilityService.getAllDataById(
       id: widget.id,
     );
-    // print(widget.id);
     int _count = 0;
     for (var element in resultData[widget.type]) {
       _count += 1;

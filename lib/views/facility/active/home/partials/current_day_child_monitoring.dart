@@ -126,7 +126,6 @@ class _FacilityCurrentDayChildMonitoringState
           crossAxisCount: 2, mainAxisExtent: 100),
       delegate: SliverChildListDelegate(
         widget.monitor.map<Widget>((mon) {
-          // print(mon);
           return BoxMonitoringChild(
             data: mon,
           );

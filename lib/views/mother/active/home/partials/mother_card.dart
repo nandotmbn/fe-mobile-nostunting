@@ -1,8 +1,12 @@
+// ignore_for_file: must_be_immutable, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:no_stunting/constant/color.dart';
 
 class MotherCard extends StatefulWidget {
-  const MotherCard({Key? key}) : super(key: key);
+  dynamic mother = {};
+  dynamic facility = {};
+  MotherCard({required this.mother, required this.facility});
 
   @override
   State<MotherCard> createState() => _MotherCardState();
@@ -74,34 +78,37 @@ class _MotherCardState extends State<MotherCard> {
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  const Align(
+                                  Align(
                                     alignment: Alignment.centerLeft,
-                                    child: Text('Nongsih Katakuri',
-                                        style: TextStyle(
+                                    child: Text(
+                                        '${widget.mother["firstName"]} ${widget.mother["lastName"]}',
+                                        style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 20,
                                             fontStyle: FontStyle.italic,
                                             fontWeight: FontWeight.bold)),
                                   ),
-                                  const Align(
+                                  Align(
                                     alignment: Alignment.centerLeft,
-                                    child: Text('1111-1111-1114',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                          fontStyle: FontStyle.italic,
-                                        )),
-                                  ),
-                                  Container(
-                                      margin: const EdgeInsets.only(top: 14),
-                                      child: const Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text('Jalan Inkubasi Hahahihi',
-                                            style: TextStyle(
+                                    child:
+                                        Text('${widget.mother["identifier"]}',
+                                            style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 14,
                                               fontStyle: FontStyle.italic,
                                             )),
+                                  ),
+                                  Container(
+                                      margin: const EdgeInsets.only(top: 14),
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child:
+                                            Text('${widget.mother["address"]}',
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14,
+                                                  fontStyle: FontStyle.italic,
+                                                )),
                                       ))
                                 ]),
                           ),
@@ -125,30 +132,33 @@ class _MotherCardState extends State<MotherCard> {
                                             fontStyle: FontStyle.italic,
                                             fontWeight: FontWeight.bold)),
                                   ),
-                                  const Align(
+                                  Align(
                                     alignment: Alignment.centerLeft,
-                                    child: Text('Puskesmas Nagatomo',
-                                        style: TextStyle(
+                                    child: Text(
+                                        '${widget.facility["firstName"]} ${widget.facility["lastName"]}',
+                                        style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 14,
                                           fontStyle: FontStyle.italic,
                                         )),
                                   ),
-                                  const Align(
+                                  Align(
                                     alignment: Alignment.centerLeft,
-                                    child: Text('1111-1111-1114',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                          fontStyle: FontStyle.italic,
-                                        )),
+                                    child:
+                                        Text('${widget.facility["identifier"]}',
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontStyle: FontStyle.italic,
+                                            )),
                                   ),
                                   Container(
                                       margin: const EdgeInsets.only(top: 14),
-                                      child: const Align(
+                                      child: Align(
                                         alignment: Alignment.centerLeft,
-                                        child: Text('Jalan Inkubasi Hahahihi',
-                                            style: TextStyle(
+                                        child: Text(
+                                            '${widget.facility["address"]}',
+                                            style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 14,
                                               fontStyle: FontStyle.italic,
@@ -165,138 +175,3 @@ class _MotherCardState extends State<MotherCard> {
     );
   }
 }
-
-
-/*
-SizedBox(
-          width: double.infinity,
-          // height: 250,
-          child: Column(
-            children: <Widget>[
-              Container(
-                alignment: Alignment.centerLeft,
-                margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-                child: Text(
-                  "Selamat Datang Ibu,",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: MyColor.level1,
-                      fontSize: 20),
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: MyColor.level3,
-                  boxShadow: [
-                    BoxShadow(
-                      color: MyColor.level3,
-                      blurRadius: 5.0, // soften the shadow
-                      offset: const Offset(
-                        0.0,
-                        5.0,
-                      ),
-                    )
-                  ],
-                ),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        margin: const EdgeInsets.only(left: 0),
-                        decoration: BoxDecoration(
-                            color: MyColor.level3,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10))),
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text('Nongsih Katakuri',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontStyle: FontStyle.italic,
-                                        fontWeight: FontWeight.bold)),
-                              ),
-                              const Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text('1111-1111-1114',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      fontStyle: FontStyle.italic,
-                                    )),
-                              ),
-                              Container(
-                                  margin: const EdgeInsets.only(top: 14),
-                                  child: const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text('Jalan Inkubasi Hahahihi',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                          fontStyle: FontStyle.italic,
-                                        )),
-                                  ))
-                            ]),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        margin: const EdgeInsets.only(left: 0),
-                        decoration: BoxDecoration(
-                            color: MyColor.level3,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10))),
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                    'Anda terdaftar pada fasilitas kesehatan:',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontStyle: FontStyle.italic,
-                                        fontWeight: FontWeight.bold)),
-                              ),
-                              const Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text('Puskesmas Nagatomo',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      fontStyle: FontStyle.italic,
-                                    )),
-                              ),
-                              const Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text('1111-1111-1114',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      fontStyle: FontStyle.italic,
-                                    )),
-                              ),
-                              Container(
-                                  margin: const EdgeInsets.only(top: 14),
-                                  child: const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text('Jalan Inkubasi Hahahihi',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                          fontStyle: FontStyle.italic,
-                                        )),
-                                  ))
-                            ]),
-                      ),
-                    ]), //Container
-              ),
-            ],
-          )),
-    )
-*/

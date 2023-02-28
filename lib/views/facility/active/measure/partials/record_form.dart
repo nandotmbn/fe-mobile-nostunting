@@ -276,8 +276,6 @@ class _FacilityMeasureRecordFormFieldState
                   backgroundColor: MyColor.level2,
                 ),
                 onPressed: () async {
-                  // print(weight);
-                  // print(height);
                   dynamic result = await facilityService.recordMeasurement(
                       id: widget.id, height: height, weight: weight);
                   if (result["status"] == 201) {

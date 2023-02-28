@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:no_stunting/constant/color.dart';
 
 class HistoryBox extends StatelessWidget {
   const HistoryBox({Key? key}) : super(key: key);
@@ -6,9 +7,9 @@ class HistoryBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: const BoxDecoration(
-            color: Color(0xFFF0EBCE),
-            borderRadius: BorderRadius.all(Radius.circular(10))),
+        decoration: BoxDecoration(
+            color: MyColor.level1,
+            borderRadius: const BorderRadius.all(Radius.circular(10))),
         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         padding: const EdgeInsets.all(10.0),
         child: Column(
@@ -21,18 +22,18 @@ class HistoryBox extends StatelessWidget {
                     flex: 1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
-                          "11 November 2022",
+                          "25 Februari 2023",
                           style: TextStyle(
-                              color: Color.fromARGB(255, 28, 104, 89),
+                              color: MyColor.level4,
                               fontSize: 20,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
                           "Belum di cek",
                           style: TextStyle(
-                              color: Color(0xFF395144),
+                              color: MyColor.level3,
                               fontStyle: FontStyle.italic,
                               fontSize: 12),
                         ),
@@ -45,17 +46,18 @@ class HistoryBox extends StatelessWidget {
               child: InkWell(
                 onTap: () => {},
                 child: Container(
-                  decoration: const BoxDecoration(
-                      color: Color(0xFF395144),
-                      borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                  decoration: BoxDecoration(
+                      color: MyColor.level4,
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(10.0))),
                   padding:
                       const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
-                  child: const Text(
+                  child: Text(
                     "Detail",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
-                        color: Colors.white),
+                        color: MyColor.level1),
                   ),
                 ),
               ),

@@ -100,7 +100,6 @@ class _FacilityMonitorViewState extends State<FacilityMonitorView> {
                   : childId
           : "",
     );
-    // print(dropdownValue);
     if (resultData == null) {
       return setState(() {
         monitorPatientData = [];
