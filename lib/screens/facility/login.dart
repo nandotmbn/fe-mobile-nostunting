@@ -15,7 +15,10 @@ class LoginFacility extends StatelessWidget {
         children: [
           Expanded(
             flex: 1,
-            child: Container(),
+            child: Expanded(
+                flex: 1,
+                child: Image.asset('assets/img/hospital.png',
+                    width: 250.0, height: 250.0)),
           ),
           Expanded(
             flex: 2,
