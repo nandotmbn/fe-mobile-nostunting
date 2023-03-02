@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:no_stunting/constant/color.dart';
-import 'package:no_stunting/screens/facility/login.dart';
 import 'package:no_stunting/screens/mother/login.dart';
-import 'package:no_stunting/services/facility_home.dart';
+import 'package:no_stunting/services/mother_home.dart';
 
-FacilityHomeService facilityService = FacilityHomeService();
+MotherHomeService facilityService = MotherHomeService();
 
 const storage = FlutterSecureStorage();
 
@@ -31,9 +31,13 @@ class _MotherngViewState extends State<MotherSettingView> {
   }
 
   void getFacilityHome() async {
+    setState(() {
+      isLoading = true;
+    });
     var resultData = await facilityService.getData();
     setState(() {
-      facility = resultData["facility"];
+      facility = resultData["mother"];
+      isLoading = false;
     });
   }
 
@@ -47,6 +51,25 @@ class _MotherngViewState extends State<MotherSettingView> {
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading == true) {
+      return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Column(
+                  children: [
+                    const SpinKitRing(color: Colors.blue),
+                    Text(
+                      "Memuat",
+                      style: TextStyle(color: MyColor.level1, fontSize: 18),
+                    )
+                  ],
+                ))
+          ]);
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,

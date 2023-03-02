@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:no_stunting/constant/color.dart';
 import 'package:no_stunting/screens/child/login.dart';
-import 'package:no_stunting/screens/facility/login.dart';
-import 'package:no_stunting/services/facility_home.dart';
+import 'package:no_stunting/services/child_home.dart';
 
-FacilityHomeService facilityService = FacilityHomeService();
+ChildHomeService facilityService = ChildHomeService();
 
 const storage = FlutterSecureStorage();
 
@@ -31,9 +30,13 @@ class ChildSettingViewState extends State<ChildSettingView> {
   }
 
   void getFacilityHome() async {
+    setState(() {
+      isLoading = true;
+    });
     var resultData = await facilityService.getData();
     setState(() {
-      facility = resultData["facility"];
+      facility = resultData["child"];
+      isLoading = false;
     });
   }
 

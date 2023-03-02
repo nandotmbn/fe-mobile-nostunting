@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:no_stunting/constant/color.dart';
+import 'package:no_stunting/widgets/skeleton.dart';
 
 class MotherCard extends StatefulWidget {
   dynamic mother = {};
@@ -80,35 +81,43 @@ class _MotherCardState extends State<MotherCard> {
                                 children: [
                                   Align(
                                     alignment: Alignment.centerLeft,
-                                    child: Text(
-                                        '${widget.mother["firstName"]} ${widget.mother["lastName"]}',
-                                        style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20,
-                                            fontStyle: FontStyle.italic,
-                                            fontWeight: FontWeight.bold)),
+                                    child: widget.mother["firstName"] != null
+                                        ? Text(
+                                            '${widget.mother["firstName"]} ${widget.mother["lastName"]}',
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20,
+                                                fontStyle: FontStyle.italic,
+                                                fontWeight: FontWeight.bold))
+                                        : SkeletonCustom(
+                                            height: 18, width: 170),
                                   ),
                                   Align(
                                     alignment: Alignment.centerLeft,
-                                    child:
-                                        Text('${widget.mother["identifier"]}',
+                                    child: widget.mother["identifier"] != null
+                                        ? Text('${widget.mother["identifier"]}',
                                             style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 14,
                                               fontStyle: FontStyle.italic,
-                                            )),
+                                            ))
+                                        : SkeletonCustom(
+                                            height: 18, width: 170),
                                   ),
                                   Container(
                                       margin: const EdgeInsets.only(top: 14),
                                       child: Align(
                                         alignment: Alignment.centerLeft,
-                                        child:
-                                            Text('${widget.mother["address"]}',
+                                        child: widget.mother["address"] != null
+                                            ? Text(
+                                                '${widget.mother["address"]}',
                                                 style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 14,
                                                   fontStyle: FontStyle.italic,
-                                                )),
+                                                ))
+                                            : SkeletonCustom(
+                                                height: 18, width: 170),
                                       ))
                                 ]),
                           ),
@@ -134,35 +143,45 @@ class _MotherCardState extends State<MotherCard> {
                                   ),
                                   Align(
                                     alignment: Alignment.centerLeft,
-                                    child: Text(
-                                        '${widget.facility["firstName"]} ${widget.facility["lastName"]}',
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                          fontStyle: FontStyle.italic,
-                                        )),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child:
-                                        Text('${widget.facility["identifier"]}',
+                                    child: widget.facility["firstName"] != null
+                                        ? Text(
+                                            '${widget.facility["firstName"]} ${widget.facility["lastName"]}',
                                             style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 14,
                                               fontStyle: FontStyle.italic,
-                                            )),
+                                            ))
+                                        : SkeletonCustom(
+                                            height: 18, width: 170),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: widget.facility["identifier"] != null
+                                        ? Text(
+                                            '${widget.facility["identifier"]}',
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontStyle: FontStyle.italic,
+                                            ))
+                                        : SkeletonCustom(
+                                            height: 18, width: 170),
                                   ),
                                   Container(
                                       margin: const EdgeInsets.only(top: 14),
                                       child: Align(
                                         alignment: Alignment.centerLeft,
-                                        child: Text(
-                                            '${widget.facility["address"]}',
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 14,
-                                              fontStyle: FontStyle.italic,
-                                            )),
+                                        child: widget.facility["address"] !=
+                                                null
+                                            ? Text(
+                                                '${widget.facility["address"]}',
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14,
+                                                  fontStyle: FontStyle.italic,
+                                                ))
+                                            : SkeletonCustom(
+                                                height: 18, width: 170),
                                       ))
                                 ]),
                           ),

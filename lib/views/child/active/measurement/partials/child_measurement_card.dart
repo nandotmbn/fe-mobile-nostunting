@@ -18,53 +18,20 @@ class ChildMeasurementCard extends StatefulWidget {
 class _ChildMeasurementCardState extends State<ChildMeasurementCard> {
   String selectedId = "";
 
-  bool isChecked = true;
-
-  void toggleChecked() async {}
-
-  Future<void> _showMyDialog() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Hapus Pemantauan Pengukuran Bayi?'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: const <Widget>[
-                Text('Anda tidak dapat mengembalikan penghapusan.'),
-                Text('Apakah anda benar-benar ingin menghapus pengukuran ini?'),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(child: const Text('Ya'), onPressed: () async {}),
-            TextButton(
-              child: const Text('Tidak'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   void initState() {
-    // setState(() {
-    //   isChecked = widget.monitor.isChecked;
-    // });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     String convertedDate = DateFormat('yMMMMd').format(DateFormat("yyyy-MM-dd")
-        .parse(DateTime.now().add(const Duration(hours: 7)).toString()));
+        .parse(DateTime.parse(widget.monitor["createdAt"])
+            .add(const Duration(hours: 7))
+            .toString()));
     String convertedTime = DateFormat('HH:mm')
-        .format(DateTime.now().add(const Duration(hours: 7)))
+        .format(DateTime.parse(widget.monitor["createdAt"])
+            .add(const Duration(hours: 7)))
         .toString();
 
     return Container(
@@ -104,12 +71,14 @@ class _ChildMeasurementCardState extends State<ChildMeasurementCard> {
           Expanded(
               flex: 1,
               child: Text(
-                isChecked ? "Sudah di cek" : "Belum di cek",
-                style:
-                    TextStyle(color: isChecked ? MyColor.level2 : Colors.red),
+                widget.monitor["isChecked"] ? "Sudah di cek" : "Belum di cek",
+                style: TextStyle(
+                    color: widget.monitor["isChecked"]
+                        ? MyColor.level2
+                        : Colors.red),
               )),
           Expanded(
-            flex: 10,
+            flex: 15,
             child: Container(
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 decoration: BoxDecoration(
@@ -140,7 +109,7 @@ class _ChildMeasurementCardState extends State<ChildMeasurementCard> {
                                             wordSpacing: 2),
                                       ),
                                       Text(
-                                        "55 cm",
+                                        '${widget.monitor["height"]} cm',
                                         style: TextStyle(
                                             fontSize: 30,
                                             color: MyColor.level4,
@@ -159,13 +128,38 @@ class _ChildMeasurementCardState extends State<ChildMeasurementCard> {
                                           wordSpacing: 2),
                                     ),
                                     Text(
-                                      "7 Kg",
+                                      "${widget.monitor["weight"]} Kg",
                                       style: TextStyle(
                                           fontSize: 30,
                                           color: MyColor.level4,
                                           wordSpacing: 2),
                                     ),
                                   ],
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(top: 12),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Komentar Faskes",
+                                        style: TextStyle(
+                                            color: MyColor.level4,
+                                            wordSpacing: 2),
+                                      ),
+                                      Text(
+                                        widget.monitor["comment"].length != 0
+                                            ? widget.monitor!["comment"][0]
+                                                ["content"]
+                                            : "-",
+                                        style: TextStyle(
+                                            color: MyColor.level4,
+                                            fontSize: 18,
+                                            wordSpacing: 2),
+                                      ),
+                                    ],
+                                  ),
                                 )
                               ],
                             ),
@@ -174,78 +168,6 @@ class _ChildMeasurementCardState extends State<ChildMeasurementCard> {
                       )),
                 )),
           ),
-          Expanded(
-              flex: 2,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  InkWell(
-                    onTap: (() {
-                      _showMyDialog();
-                    }),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 6, horizontal: 6),
-                      margin: const EdgeInsets.symmetric(horizontal: 2),
-                      decoration: BoxDecoration(
-                          color: Colors.redAccent,
-                          borderRadius: BorderRadius.circular(8)),
-                      child: Text(
-                        "Hapus",
-                        style: TextStyle(color: MyColor.level4, fontSize: 12),
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: (() {
-                      // showModalBottomSheet(
-                      //     context: context,
-                      //     builder: (context) {
-                      //       return FacilityMonitorCommentBottom(
-                      //         monitor: widget.monitor,
-                      //         changeCheck: (state) {
-                      //           setState(() {
-                      //             isChecked = state;
-                      //           });
-                      //         },
-                      //       );
-                      //     });
-                    }),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 6, horizontal: 6),
-                      margin: const EdgeInsets.symmetric(horizontal: 2),
-                      decoration: BoxDecoration(
-                          color: MyColor.level2,
-                          borderRadius: BorderRadius.circular(8)),
-                      child: Text(
-                        "Komentari",
-                        style: TextStyle(color: MyColor.level4, fontSize: 12),
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      toggleChecked();
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 6, horizontal: 6),
-                      margin: const EdgeInsets.symmetric(horizontal: 2),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: MyColor.level1),
-                          color: !isChecked ? MyColor.level1 : MyColor.level4,
-                          borderRadius: BorderRadius.circular(8)),
-                      child: Text(
-                        isChecked ? "Batal Cek" : "Cek",
-                        style: TextStyle(
-                            fontSize: 12,
-                            color: isChecked ? MyColor.level1 : MyColor.level4),
-                      ),
-                    ),
-                  ),
-                ],
-              )),
         ],
       ),
     );

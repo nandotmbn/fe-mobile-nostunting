@@ -20,16 +20,6 @@ class _MotherCalendarCardState extends State<MotherCalendarCard> {
 
   bool isChecked = true;
 
-  void toggleChecked() async {}
-
-  @override
-  void initState() {
-    // setState(() {
-    //   isChecked = widget.monitor.isChecked;
-    // });
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     String convertedDate = DateFormat('yMMMMd').format(DateFormat("yyyy-MM-dd")

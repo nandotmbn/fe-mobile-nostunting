@@ -1,8 +1,13 @@
+// ignore_for_file: must_be_immutable, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:no_stunting/constant/color.dart';
+import 'package:no_stunting/widgets/skeleton.dart';
 
 class ChildCard extends StatefulWidget {
-  const ChildCard({Key? key}) : super(key: key);
+  dynamic child = {};
+  dynamic facility = {};
+  ChildCard({required this.child, required this.facility});
 
   @override
   State<ChildCard> createState() => _ChildCardState();
@@ -74,34 +79,44 @@ class _ChildCardState extends State<ChildCard> {
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  const Align(
+                                  Align(
                                     alignment: Alignment.centerLeft,
-                                    child: Text('Nongsih Katakuri',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20,
-                                            fontStyle: FontStyle.italic,
-                                            fontWeight: FontWeight.bold)),
+                                    child: widget.child["firstName"] != null
+                                        ? Text(
+                                            '${widget.child["firstName"]} ${widget.child["lastName"]}',
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20,
+                                                fontStyle: FontStyle.italic,
+                                                fontWeight: FontWeight.bold))
+                                        : SkeletonCustom(
+                                            height: 18, width: 170),
                                   ),
-                                  const Align(
+                                  Align(
                                     alignment: Alignment.centerLeft,
-                                    child: Text('1111-1111-1114',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                          fontStyle: FontStyle.italic,
-                                        )),
-                                  ),
-                                  Container(
-                                      margin: const EdgeInsets.only(top: 14),
-                                      child: const Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text('Jalan Inkubasi Hahahihi',
-                                            style: TextStyle(
+                                    child: widget.child["identifier"] != null
+                                        ? Text('${widget.child["identifier"]}',
+                                            style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 14,
                                               fontStyle: FontStyle.italic,
-                                            )),
+                                            ))
+                                        : SkeletonCustom(
+                                            height: 18, width: 170),
+                                  ),
+                                  Container(
+                                      margin: const EdgeInsets.only(top: 14),
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: widget.child["address"] != null
+                                            ? Text('${widget.child["address"]}',
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14,
+                                                  fontStyle: FontStyle.italic,
+                                                ))
+                                            : SkeletonCustom(
+                                                height: 18, width: 170),
                                       ))
                                 ]),
                           ),
@@ -125,34 +140,47 @@ class _ChildCardState extends State<ChildCard> {
                                             fontStyle: FontStyle.italic,
                                             fontWeight: FontWeight.bold)),
                                   ),
-                                  const Align(
+                                  Align(
                                     alignment: Alignment.centerLeft,
-                                    child: Text('Puskesmas Nagatomo',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                          fontStyle: FontStyle.italic,
-                                        )),
-                                  ),
-                                  const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text('1111-1111-1114',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                          fontStyle: FontStyle.italic,
-                                        )),
-                                  ),
-                                  Container(
-                                      margin: const EdgeInsets.only(top: 14),
-                                      child: const Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text('Jalan Inkubasi Hahahihi',
-                                            style: TextStyle(
+                                    child: widget.facility["firstName"] != null
+                                        ? Text(
+                                            '${widget.facility["firstName"]} ${widget.facility["lastName"]}',
+                                            style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 14,
                                               fontStyle: FontStyle.italic,
-                                            )),
+                                            ))
+                                        : SkeletonCustom(
+                                            height: 18, width: 170),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: widget.facility["identifier"] != null
+                                        ? Text(
+                                            '${widget.facility["identifier"]}',
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontStyle: FontStyle.italic,
+                                            ))
+                                        : SkeletonCustom(
+                                            height: 18, width: 170),
+                                  ),
+                                  Container(
+                                      margin: const EdgeInsets.only(top: 14),
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: widget.facility["address"] !=
+                                                null
+                                            ? Text(
+                                                '${widget.facility["address"]}',
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14,
+                                                  fontStyle: FontStyle.italic,
+                                                ))
+                                            : SkeletonCustom(
+                                                height: 18, width: 170),
                                       ))
                                 ]),
                           ),

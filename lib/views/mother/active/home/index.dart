@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:no_stunting/constant/color.dart';
 import 'package:no_stunting/services/mother_home.dart';
 import 'package:no_stunting/views/mother/active/home/partials/history_card.dart';
@@ -18,23 +19,27 @@ class _MotherHomeViewState extends State<MotherHomeView> {
   dynamic facility = {};
   dynamic monitor = [];
   dynamic measure = [];
+  bool isLoading = true;
   void getMotherHome() async {
+    setState(() {
+      isLoading = true;
+    });
     var resultData = await motherService.getData();
     if (resultData["monitor"] == null) {
       setState(() {
         facility = resultData["facility"];
         mother = resultData["mother"];
+        monitor = [];
+        isLoading = false;
       });
     } else {
       setState(() {
         mother = resultData["mother"];
         facility = resultData["facility"];
+        monitor = resultData["monitor"];
+        isLoading = false;
       });
     }
-
-    setState(() {
-      monitor = resultData["monitor"];
-    });
   }
 
   @override
@@ -67,21 +72,35 @@ class _MotherHomeViewState extends State<MotherHomeView> {
         ])),
         SliverList(
             delegate: SliverChildListDelegate([
-          monitor.length == 0
-              ? Container(
+          isLoading == false
+              ? monitor.length == 0
+                  ? Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Column(
+                        children: [
+                          Image.asset('assets/img/not-found.png',
+                              width: 40.0, height: 40.0),
+                          Text(
+                            "Pengisian hari ini belum dilakukan",
+                            style:
+                                TextStyle(color: MyColor.level1, fontSize: 18),
+                          )
+                        ],
+                      ))
+                  : const SizedBox.shrink()
+              : Container(
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Column(
                     children: [
-                      Image.asset('assets/img/not-found.png',
-                          width: 40.0, height: 40.0),
+                      const SpinKitRing(color: Colors.blue),
                       Text(
-                        "Pengisian hari ini belum dilakukan",
+                        "Memuat",
                         style: TextStyle(color: MyColor.level1, fontSize: 18),
                       )
                     ],
                   ))
-              : const SizedBox.shrink()
         ])),
         History(history: monitor),
       ],

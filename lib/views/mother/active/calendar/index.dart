@@ -1,9 +1,11 @@
-// ignore_for_file: use_key_in_widget_constructors, use_build_context_synchronously
+// ignore_for_file: use_key_in_widget_constructors, use_build_context_synchronously, unused_local_variable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:no_stunting/constant/color.dart';
 import 'package:no_stunting/services/mother_calendar.dart';
 import 'package:no_stunting/views/mother/active/calendar/partials/mother_monitoring_card.dart';
+import 'package:no_stunting/widgets/skeleton.dart';
 
 MotherCalendarService motherService = MotherCalendarService();
 
@@ -17,6 +19,7 @@ class _MotherCalendarViewState extends State<MotherCalendarView> {
   dynamic mother = {};
   dynamic monitor = [];
   bool isPostLoading = false;
+  bool isLoading = true;
   final TextEditingController _controller = TextEditingController();
 
   void postComment() async {
@@ -25,7 +28,6 @@ class _MotherCalendarViewState extends State<MotherCalendarView> {
     });
     var result = await motherService.postMonitoring(
         comment: _controller.text.toString());
-    print(result);
     setState(() {
       isPostLoading = false;
     });
@@ -35,6 +37,9 @@ class _MotherCalendarViewState extends State<MotherCalendarView> {
   }
 
   void getMotherHome() async {
+    setState(() {
+      isLoading = true;
+    });
     var resultData = await motherService.getData();
     if (resultData["monitor"] == null) {
       setState(() {
@@ -48,6 +53,7 @@ class _MotherCalendarViewState extends State<MotherCalendarView> {
 
     setState(() {
       mother = resultData["mother"];
+      isLoading = false;
     });
   }
 
@@ -93,17 +99,17 @@ class _MotherCalendarViewState extends State<MotherCalendarView> {
           ),
           actions: <Widget>[
             TextButton(
-                child: Text(isPostLoading == true ? 'Mengirim' : 'Kirim'),
-                onPressed: () async {
-                  if (isPostLoading == true) return;
-                  postComment();
-                }),
-            TextButton(
               child: const Text('Batal'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
+            TextButton(
+                child: Text(isPostLoading == true ? 'Mengirim' : 'Kirim'),
+                onPressed: () async {
+                  if (isPostLoading == true) return;
+                  postComment();
+                }),
           ],
         );
       },
@@ -141,20 +147,24 @@ class _MotherCalendarViewState extends State<MotherCalendarView> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Ibu ${mother["firstName"]} ${mother["lastName"]}',
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: MyColor.level4,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            "${mother["identifier"]}",
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: MyColor.level4,
-                                fontStyle: FontStyle.italic),
-                          ),
+                          mother["firstName"] != null
+                              ? Text(
+                                  'Ibu ${mother["firstName"]} ${mother["lastName"]}',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: MyColor.level4,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              : SkeletonCustom(height: 18, width: 160),
+                          mother["identifier"] != null
+                              ? Text(
+                                  "${mother["identifier"]}",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: MyColor.level4,
+                                      fontStyle: FontStyle.italic),
+                                )
+                              : SkeletonCustom(height: 18, width: 160),
                           Container(
                               margin: const EdgeInsets.only(top: 12),
                               child: Text(
@@ -193,37 +203,50 @@ class _MotherCalendarViewState extends State<MotherCalendarView> {
             )
           ]),
         ),
-        monitor.length < 1
-            ? Container(
+        isLoading == false
+            ? monitor.length < 1
+                ? Container(
+                    alignment: Alignment.center,
+                    child: Column(
+                      children: [
+                        Image.asset('assets/img/not-found.png',
+                            width: 100.0, height: 100.0),
+                        Text(
+                          "Pemantauan tidak ditemukan",
+                          style: TextStyle(color: MyColor.level1, fontSize: 18),
+                        )
+                      ],
+                    ))
+                : Expanded(
+                    child: GridView.count(
+                    primary: false,
+                    padding: const EdgeInsets.all(5),
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.8,
+                    children: monitor.reversed.map<Widget>(
+                      (r) {
+                        return MotherCalendarCard(
+                          type: "Monitor",
+                          refresher: refresher,
+                          monitor: r,
+                        );
+                      },
+                    ).toList(),
+                  ))
+            : Container(
                 alignment: Alignment.center,
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Column(
                   children: [
-                    Image.asset('assets/img/not-found.png',
-                        width: 100.0, height: 100.0),
+                    const SpinKitRing(color: Colors.blue),
                     Text(
-                      "Pemantauan tidak ditemukan",
+                      "Memuat",
                       style: TextStyle(color: MyColor.level1, fontSize: 18),
                     )
                   ],
                 ))
-            : Expanded(
-                child: GridView.count(
-                primary: false,
-                padding: const EdgeInsets.all(5),
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                crossAxisCount: 2,
-                childAspectRatio: 0.8,
-                children: monitor.reversed.map<Widget>(
-                  (r) {
-                    return MotherCalendarCard(
-                      type: "Monitor",
-                      refresher: refresher,
-                      monitor: r,
-                    );
-                  },
-                ).toList(),
-              ))
       ],
     );
   }
