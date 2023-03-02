@@ -103,7 +103,7 @@ class BoxMonitoringChild extends StatelessWidget {
                     context,
                     MaterialPageRoute(builder: (context) {
                       return type == "Monitor"
-                          ? FacilityMonitorDetail(childData.patientId)
+                          ? FacilityMonitorDetailChild(childData.patientId)
                           : FacilityChildRecordDetail(childData.patientId);
                     }),
                   )

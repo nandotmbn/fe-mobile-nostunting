@@ -98,7 +98,7 @@ class BoxMonitoringMom extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            FacilityMonitorDetail(childData.patientId)),
+                            FacilityMonitorDetailMother(childData.patientId)),
                   )
                 },
                 child: Container(

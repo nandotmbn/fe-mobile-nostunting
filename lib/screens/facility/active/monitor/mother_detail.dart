@@ -3,16 +3,18 @@ import 'package:no_stunting/views/facility/active/monitor/calendar.dart';
 // import 'package:no_stunting/views/facility/active/measure/record.dart';
 import 'package:no_stunting/widgets/base_scaffold.dart';
 
-class FacilityMonitorDetail extends StatefulWidget {
+class FacilityMonitorDetailMother extends StatefulWidget {
   final String _id;
   // ignore: use_key_in_widget_constructors
-  const FacilityMonitorDetail(this._id);
+  const FacilityMonitorDetailMother(this._id);
 
   @override
-  State<FacilityMonitorDetail> createState() => _FacilityMonitorDetailState();
+  State<FacilityMonitorDetailMother> createState() =>
+      _FacilityMonitorDetailMotherState();
 }
 
-class _FacilityMonitorDetailState extends State<FacilityMonitorDetail> {
+class _FacilityMonitorDetailMotherState
+    extends State<FacilityMonitorDetailMother> {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(FacilityMonitorCalendar(

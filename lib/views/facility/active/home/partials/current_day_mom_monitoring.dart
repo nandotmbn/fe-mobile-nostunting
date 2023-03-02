@@ -3,6 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:no_stunting/constant/color.dart';
+import 'package:no_stunting/screens/facility/active/monitor/child_detail.dart';
+import 'package:no_stunting/screens/facility/active/monitor/child_record_detail.dart';
+import 'package:no_stunting/screens/facility/active/monitor/mother_detail.dart';
 import 'package:no_stunting/services/facility_monitor.dart';
 
 FacilityMonitorService monitorService = FacilityMonitorService();
@@ -87,7 +90,28 @@ class _BoxMonitoringMomState extends State<BoxMonitoringMom> {
             Container(
               alignment: Alignment.centerRight,
               child: InkWell(
-                onTap: () => {},
+                onTap: () => {
+                  if (widget.type == "Ibu")
+                    {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return FacilityMonitorDetailMother(
+                              widget.data["patientId"]);
+                        }),
+                      )
+                    }
+                  else if (widget.type == "Adik")
+                    {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return FacilityMonitorDetailChild(
+                              widget.data["patientId"]);
+                        }),
+                      )
+                    }
+                },
                 child: Container(
                   decoration: BoxDecoration(
                       color: MyColor.level2,

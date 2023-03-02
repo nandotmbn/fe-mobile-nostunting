@@ -1,14 +1,10 @@
 // ignore_for_file: must_be_immutable, use_key_in_widget_constructors, no_leading_underscores_for_local_identifiers, unused_local_variable, prefer_is_empty
 
-import 'dart:convert';
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:no_stunting/constant/color.dart';
 import 'package:no_stunting/services/facility_monitor.dart';
 import 'package:no_stunting/views/facility/active/monitor/partials/calendar_monitoring_card_list.dart';
-import 'package:no_stunting/views/mother/active/home/partials/tips_card.dart';
 import 'package:no_stunting/widgets/skeleton.dart';
 
 FacilityMonitorService facilityService = FacilityMonitorService();

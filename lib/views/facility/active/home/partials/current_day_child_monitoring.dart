@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:no_stunting/constant/color.dart';
+import 'package:no_stunting/screens/facility/active/monitor/child_record_detail.dart';
 
 class BoxMonitoringChild extends StatefulWidget {
   dynamic data;
@@ -85,7 +86,15 @@ class _BoxMonitoringChildState extends State<BoxMonitoringChild> {
             Container(
               alignment: Alignment.centerRight,
               child: InkWell(
-                onTap: () => {},
+                onTap: () => {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) {
+                      return FacilityChildRecordDetail(
+                          widget.data["patientId"]);
+                    }),
+                  )
+                },
                 child: Container(
                   decoration: BoxDecoration(
                       color: MyColor.level2,
