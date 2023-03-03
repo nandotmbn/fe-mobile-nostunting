@@ -26,19 +26,23 @@ class _MotherHomeViewState extends State<MotherHomeView> {
     });
     var resultData = await motherService.getData();
     if (resultData["monitor"] == null) {
-      setState(() {
-        facility = resultData["facility"];
-        mother = resultData["mother"];
-        monitor = [];
-        isLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          facility = resultData["facility"];
+          mother = resultData["mother"];
+          monitor = [];
+          isLoading = false;
+        });
+      }
     } else {
-      setState(() {
-        mother = resultData["mother"];
-        facility = resultData["facility"];
-        monitor = resultData["monitor"];
-        isLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          mother = resultData["mother"];
+          facility = resultData["facility"];
+          monitor = resultData["monitor"];
+          isLoading = false;
+        });
+      }
     }
   }
 

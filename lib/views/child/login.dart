@@ -1,4 +1,4 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe
+// ignore_for_file: import_of_legacy_library_into_null_safe, must_be_immutable, use_key_in_widget_constructors
 
 import 'dart:convert';
 
@@ -21,7 +21,8 @@ const storage = FlutterSecureStorage();
 FacilityMonitorService monitorService = FacilityMonitorService();
 
 class FormLoginChild extends StatelessWidget {
-  const FormLoginChild({super.key});
+  String fcmToken = "";
+  FormLoginChild({required this.fcmToken});
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +43,19 @@ class FormLoginChild extends StatelessWidget {
                         fontSize: 32,
                         fontWeight: FontWeight.w700,
                         color: Color.fromARGB(255, 25, 47, 35)))),
-            const Align(
-                alignment: Alignment.centerLeft, child: FormLoginChildField())
+            Align(
+                alignment: Alignment.centerLeft,
+                child: FormLoginChildField(
+                  fcmToken: fcmToken,
+                ))
           ])),
     );
   }
 }
 
 class FormLoginChildField extends StatefulWidget {
-  const FormLoginChildField({super.key});
-
+  String fcmToken = "";
+  FormLoginChildField({required this.fcmToken});
   @override
   // ignore: library_private_types_in_public_api
   _FormLoginChildFieldState createState() => _FormLoginChildFieldState();
@@ -194,6 +198,7 @@ class _FormLoginChildFieldState extends State<FormLoginChildField> {
                       body: jsonEncode(<String, String>{
                         'identifier': serialNumber,
                         'password': password,
+                        'fcmtoken': widget.fcmToken
                       }),
                     );
 

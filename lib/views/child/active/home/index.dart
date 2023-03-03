@@ -27,21 +27,29 @@ class _ChildHomeViewState extends State<ChildHomeView> {
     });
     var resultData = await childService.getData();
     if (resultData["monitor"] == null && resultData["measure"] == null) {
-      setState(() {
-        facility = resultData["facility"];
-      });
+      if (mounted) {
+        setState(() {
+          facility = resultData["facility"];
+        });
+      }
     } else if (resultData["monitor"] == null) {
-      setState(() {
-        facility = resultData["facility"];
-      });
+      if (mounted) {
+        setState(() {
+          facility = resultData["facility"];
+        });
+      }
     } else if (resultData["measure"] == null) {
-      setState(() {
-        facility = resultData["facility"];
-      });
+      if (mounted) {
+        setState(() {
+          facility = resultData["facility"];
+        });
+      }
     } else {
-      setState(() {
-        facility = resultData["facility"];
-      });
+      if (mounted) {
+        setState(() {
+          facility = resultData["facility"];
+        });
+      }
     }
 
     List<String> ids = [];
@@ -52,9 +60,11 @@ class _ChildHomeViewState extends State<ChildHomeView> {
     List<dynamic> cards_ = [];
 
     if (resultData["monitor"] == null) {
-      setState(() {
-        monitor = [];
-      });
+      if (mounted) {
+        setState(() {
+          monitor = [];
+        });
+      }
     } else {
       for (var ob in resultData["monitor"].reversed) {
         bool flag = false;
@@ -70,9 +80,11 @@ class _ChildHomeViewState extends State<ChildHomeView> {
       }
     }
     if (resultData["measure"] == null) {
-      setState(() {
-        measure = [];
-      });
+      if (mounted) {
+        setState(() {
+          measure = [];
+        });
+      }
     } else {
       for (var ob in resultData["measure"].reversed) {
         bool flag = false;
@@ -88,19 +100,21 @@ class _ChildHomeViewState extends State<ChildHomeView> {
       }
     }
 
-    setState(() {
-      child = resultData["child"];
-      monitor = cards;
-      measure = cards_;
-      isLoading = false;
-    });
+    if (mounted) {
+      setState(() {
+        child = resultData["child"];
+        monitor = cards;
+        measure = cards_;
+        isLoading = false;
+      });
+    }
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    getChildHome();
     super.initState();
+    getChildHome();
   }
 
   @override

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "130575278558",
+    "project_id": "nostunting",
+    "storage_bucket": "nostunting.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:130575278558:android:5f61b9b479881763a03d4f",
+        "android_client_info": {
+          "package_name": "com.example.no_stunting"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "130575278558-iucj5k5u2s38gmnui83u5jmgjeittfb7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKJlHuq4m6bOUeN-8klhMMjop028w3hj0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "130575278558-iucj5k5u2s38gmnui83u5jmgjeittfb7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

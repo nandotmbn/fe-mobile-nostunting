@@ -9,9 +9,9 @@ const storage = FlutterSecureStorage();
 
 class FacilityHomeService {
   Future<dynamic> getData() async {
-    var date__ = DateFormat("yyyy-MM-dd").format(DateTime.now());
+    var date = DateFormat("yyyy-MM-dd").format(DateTime.now());
     var newDate =
-        DateTime.parse(date__).add(const Duration(hours: -7)).toIso8601String();
+        DateTime.parse(date).add(const Duration(hours: -7)).toIso8601String();
     String? jwt = await storage.read(key: "jwtFacility");
     Map<String, String> requestHeaders = {
       'Content-type': 'application/json',

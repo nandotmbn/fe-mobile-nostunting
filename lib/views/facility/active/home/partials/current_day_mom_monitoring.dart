@@ -167,8 +167,8 @@ class _FacilityCurrentDayMomMonitoringState
   @override
   void initState() {
     // TODO: implement initState
-    getMasterRoles();
     super.initState();
+    getMasterRoles();
   }
 
   @override
@@ -189,7 +189,7 @@ class _FacilityCurrentDayMomMonitoringState
               data: mon,
             );
           }
-          // if (mon) {}
+          return const SizedBox.shrink();
         }).toList(),
       ),
     );

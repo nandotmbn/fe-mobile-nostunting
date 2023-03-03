@@ -1,4 +1,4 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe
+// ignore_for_file: import_of_legacy_library_into_null_safe, use_key_in_widget_constructors, must_be_immutable
 
 import 'dart:convert';
 
@@ -19,7 +19,8 @@ const storage = FlutterSecureStorage();
 FacilityMonitorService monitorService = FacilityMonitorService();
 
 class FormLogin extends StatelessWidget {
-  const FormLogin({super.key});
+  String fcmToken = "";
+  FormLogin({required this.fcmToken});
 
   @override
   Widget build(BuildContext context) {
@@ -40,15 +41,19 @@ class FormLogin extends StatelessWidget {
                         fontSize: 32,
                         fontWeight: FontWeight.w700,
                         color: Color.fromARGB(255, 25, 47, 35)))),
-            const Align(
-                alignment: Alignment.centerLeft, child: FormLoginField())
+            Align(
+                alignment: Alignment.centerLeft,
+                child: FormLoginField(
+                  fcmToken: fcmToken,
+                ))
           ])),
     );
   }
 }
 
 class FormLoginField extends StatefulWidget {
-  const FormLoginField({super.key});
+  String fcmToken = "";
+  FormLoginField({required this.fcmToken});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -81,6 +86,7 @@ class _FormLoginFieldState extends State<FormLoginField> {
 
   void loginChecker(BuildContext context) async {
     String? jwt = await storage.read(key: "jwtFacility");
+    print(jwt);
     if (jwt != null) {
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
@@ -192,6 +198,7 @@ class _FormLoginFieldState extends State<FormLoginField> {
                       body: jsonEncode(<String, String>{
                         'identifier': serialNumber,
                         'password': password,
+                        'fcmtoken': widget.fcmToken,
                       }),
                     );
 
@@ -199,7 +206,6 @@ class _FormLoginFieldState extends State<FormLoginField> {
                       var data = jsonDecode(response.body);
                       String rolesUser =
                           jsonDecode(response.body)["Data"]["rolesId"];
-
                       if (rolesUser != facilityRolesId) {
                         setState(() {
                           message = "Anda bukan admin fasilitas kesehatan";

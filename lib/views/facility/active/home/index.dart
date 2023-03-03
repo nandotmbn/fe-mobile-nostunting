@@ -16,9 +16,7 @@ import 'package:no_stunting/views/facility/active/home/partials/facility_info.da
 FacilityHomeService facilityService = FacilityHomeService();
 
 class FacilityHomeView extends StatefulWidget {
-  final int selectedIndex;
-  final Function setSelectedIndex;
-  const FacilityHomeView(this.selectedIndex, this.setSelectedIndex);
+  const FacilityHomeView();
 
   @override
   State<FacilityHomeView> createState() => _FacilityHomeViewState();
@@ -108,8 +106,8 @@ class _FacilityHomeViewState extends State<FacilityHomeView> {
 
   @override
   void initState() {
-    getFacilityHome();
     super.initState();
+    getFacilityHome();
   }
 
   @override

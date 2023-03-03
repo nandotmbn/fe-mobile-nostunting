@@ -1,4 +1,4 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe
+// ignore_for_file: import_of_legacy_library_into_null_safe, must_be_immutable, use_key_in_widget_constructors
 
 import 'dart:convert';
 
@@ -20,7 +20,8 @@ const storage = FlutterSecureStorage();
 FacilityMonitorService monitorService = FacilityMonitorService();
 
 class FormLoginMother extends StatelessWidget {
-  const FormLoginMother({super.key});
+  String fcmToken = "";
+  FormLoginMother({required this.fcmToken});
 
   @override
   Widget build(BuildContext context) {
@@ -41,15 +42,19 @@ class FormLoginMother extends StatelessWidget {
                         fontSize: 32,
                         fontWeight: FontWeight.w700,
                         color: Color.fromARGB(255, 25, 47, 35)))),
-            const Align(
-                alignment: Alignment.centerLeft, child: FormLoginMotherField())
+            Align(
+                alignment: Alignment.centerLeft,
+                child: FormLoginMotherField(
+                  fcmToken: fcmToken,
+                ))
           ])),
     );
   }
 }
 
 class FormLoginMotherField extends StatefulWidget {
-  const FormLoginMotherField({super.key});
+  String fcmToken = "";
+  FormLoginMotherField({required this.fcmToken});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -94,30 +99,38 @@ class _FormLoginMotherFieldState extends State<FormLoginMotherField> {
   }
 
   void setLoading() {
-    setState(() {
-      isLoading = !isLoading;
-    });
+    if (mounted) {
+      setState(() {
+        isLoading = !isLoading;
+      });
+    }
   }
 
   void setSerialNumber(String serialNum) {
-    setState(() {
-      serialNumber = serialNum;
-    });
+    if (mounted) {
+      setState(() {
+        serialNumber = serialNum;
+      });
+    }
   }
 
   void setPassword(String passwordInput) {
-    setState(() {
-      password = passwordInput;
-    });
+    if (mounted) {
+      setState(() {
+        password = passwordInput;
+      });
+    }
   }
 
   void getMasterRoles() async {
     var response = await monitorService.getMasterRolesData();
     for (var res in response) {
       if (res["name"] == "Mother") {
-        setState(() {
-          facilityRolesId = res["_id"];
-        });
+        if (mounted) {
+          setState(() {
+            facilityRolesId = res["_id"];
+          });
+        }
       }
     }
   }
@@ -193,6 +206,7 @@ class _FormLoginMotherFieldState extends State<FormLoginMotherField> {
                       body: jsonEncode(<String, String>{
                         'identifier': serialNumber,
                         'password': password,
+                        'fcmtoken': widget.fcmToken
                       }),
                     );
 
