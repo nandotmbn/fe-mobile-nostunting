@@ -31,26 +31,34 @@ class _FacilityHomeViewState extends State<FacilityHomeView> {
   void getFacilityHome() async {
     var resultData = await facilityService.getData();
     if (resultData["monitor"] == null && resultData["measure"] == null) {
-      setState(() {
-        totalService = 0;
-        facility = resultData["facility"];
-      });
+      if (mounted) {
+        setState(() {
+          totalService = 0;
+          facility = resultData["facility"];
+        });
+      }
     } else if (resultData["monitor"] == null) {
-      setState(() {
-        totalService = resultData["measure"].length;
-        facility = resultData["facility"];
-      });
+      if (mounted) {
+        setState(() {
+          totalService = resultData["measure"].length;
+          facility = resultData["facility"];
+        });
+      }
     } else if (resultData["measure"] == null) {
-      setState(() {
-        totalService = resultData["monitor"].length;
-        facility = resultData["facility"];
-      });
+      if (mounted) {
+        setState(() {
+          totalService = resultData["monitor"].length;
+          facility = resultData["facility"];
+        });
+      }
     } else {
-      setState(() {
-        totalService =
-            resultData["monitor"].length + resultData["measure"].length;
-        facility = resultData["facility"];
-      });
+      if (mounted) {
+        setState(() {
+          totalService =
+              resultData["monitor"].length + resultData["measure"].length;
+          facility = resultData["facility"];
+        });
+      }
     }
 
     List<String> ids = [];
@@ -97,11 +105,13 @@ class _FacilityHomeViewState extends State<FacilityHomeView> {
       }
     }
 
-    setState(() {
-      monitor = cards;
-      measure = cards_;
-      isLoading = false;
-    });
+    if (mounted) {
+      setState(() {
+        monitor = cards;
+        measure = cards_;
+        isLoading = false;
+      });
+    }
   }
 
   @override

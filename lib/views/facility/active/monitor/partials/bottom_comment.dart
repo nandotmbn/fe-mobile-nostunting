@@ -26,7 +26,7 @@ class _FacilityMonitorCommentBottomState
 
   void getPreviousComment() async {
     var result = await facilityService.getPreviousComment(
-        patientId: widget.monitor.patientId, postId: widget.monitor.id);
+        patientId: widget.monitor['patientId'], postId: widget.monitor['_id']);
 
     _controller.text = result["content"];
     _controller.selection = TextSelection.fromPosition(
@@ -38,11 +38,11 @@ class _FacilityMonitorCommentBottomState
       isLoading = true;
     });
     var result = await facilityService.postComment(
-        patientId: widget.monitor.patientId,
-        postId: widget.monitor.id,
+        patientId: widget.monitor['patientId'],
+        postId: widget.monitor['_id'],
         comment: _controller.text.toString());
 
-    _controller.text = result["content"];
+    // _controller.text = result["content"];
     setState(() {
       isLoading = false;
     });

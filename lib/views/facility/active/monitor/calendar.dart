@@ -9,53 +9,53 @@ import 'package:no_stunting/widgets/skeleton.dart';
 
 FacilityMonitorService facilityService = FacilityMonitorService();
 
-class MonitorPatientDataById {
-  String id, patientId, createdAt, content;
-  bool isChecked;
+// class MonitorPatientDataById {
+//   String id, patientId, createdAt, content;
+//   bool isChecked;
 
-  MonitorPatientDataById(
-      this.id, this.patientId, this.createdAt, this.isChecked, this.content);
+//   MonitorPatientDataById(
+//       this.id, this.patientId, this.createdAt, this.isChecked, this.content);
 
-  factory MonitorPatientDataById.fromJson(dynamic json) {
-    return MonitorPatientDataById(
-      json['_id'] as String,
-      json['patientId'] as String,
-      json['createdAt'] as String,
-      json['isChecked'] as bool,
-      json['content'] as String,
-    );
-  }
+//   factory MonitorPatientDataById.fromJson(dynamic json) {
+//     return MonitorPatientDataById(
+//       json['_id'] as String,
+//       json['patientId'] as String,
+//       json['createdAt'] as String,
+//       json['isChecked'] as bool,
+//       json['content'] as String,
+//     );
+//   }
 
-  @override
-  String toString() {
-    return '{ $id, $patientId, $createdAt, $isChecked, $content}';
-  }
-}
+//   @override
+//   String toString() {
+//     return '{ $id, $patientId, $createdAt, $isChecked, $content}';
+//   }
+// }
 
-class RecordPatientDataById {
-  String id, patientId, createdAt;
-  bool isChecked;
-  num height, weight;
+// class RecordPatientDataById {
+//   String id, patientId, createdAt;
+//   bool isChecked;
+//   num height, weight;
 
-  RecordPatientDataById(this.id, this.patientId, this.createdAt, this.isChecked,
-      this.height, this.weight);
+//   RecordPatientDataById(this.id, this.patientId, this.createdAt, this.isChecked,
+//       this.height, this.weight);
 
-  factory RecordPatientDataById.fromJson(dynamic json) {
-    return RecordPatientDataById(
-      json['_id'] as String,
-      json['patientId'] as String,
-      json['createdAt'] as String,
-      json['isChecked'] as bool,
-      json['height'] as num,
-      json['weight'] as num,
-    );
-  }
+//   factory RecordPatientDataById.fromJson(dynamic json) {
+//     return RecordPatientDataById(
+//       json['_id'] as String,
+//       json['patientId'] as String,
+//       json['createdAt'] as String,
+//       json['isChecked'] as bool,
+//       json['height'] as num,
+//       json['weight'] as num,
+//     );
+//   }
 
-  @override
-  String toString() {
-    return '{ $id, $patientId, $createdAt, $isChecked, $height, $weight}';
-  }
-}
+//   @override
+//   String toString() {
+//     return '{ $id, $patientId, $createdAt, $isChecked, $height, $weight}';
+//   }
+// }
 
 class FacilityMonitorCalendar extends StatefulWidget {
   String id, role, type;
@@ -84,15 +84,9 @@ class _FacilityMonitorCalendarState extends State<FacilityMonitorCalendar> {
       _count += 1;
     }
 
-    List<MonitorPatientDataById> tagObjs = resultData[widget.type]
-        .map<MonitorPatientDataById>(
-            (tagJson) => MonitorPatientDataById.fromJson(tagJson))
-        .toList();
+    List<dynamic> tagObjs = resultData[widget.type].toList();
 
-    List<RecordPatientDataById> tagObjs2 = resultData[widget.type]
-        .map<RecordPatientDataById>(
-            (tagJson) => RecordPatientDataById.fromJson(tagJson))
-        .toList();
+    List<dynamic> tagObjs2 = resultData[widget.type].toList();
 
     setState(() {
       user = resultData["User"];

@@ -29,8 +29,8 @@ class _CardMonitoringChildState extends State<CardMonitoringChild> {
     String type = widget.type == "Record" ? "record" : "calendar";
     var result = await facilityService.toggleChecked(
         type: type,
-        patientId: widget.monitor.patientId,
-        postId: widget.monitor.id);
+        patientId: widget.monitor['patientId'],
+        postId: widget.monitor['_id']);
 
     setState(() {
       isChecked = result["isChecked"];
@@ -57,7 +57,7 @@ class _CardMonitoringChildState extends State<CardMonitoringChild> {
               child: const Text('Ya'),
               onPressed: () async {
                 var result = await facilityService.deleteMeasureByID(
-                    postId: widget.monitor.id);
+                    postId: widget.monitor['_id']);
                 if (result["data"] == "Record successfully deleted!") {
                   widget.refresher();
                   Navigator.of(context).pop();
@@ -79,7 +79,7 @@ class _CardMonitoringChildState extends State<CardMonitoringChild> {
   @override
   void initState() {
     setState(() {
-      isChecked = widget.monitor.isChecked;
+      isChecked = widget.monitor['isChecked'];
     });
     super.initState();
   }
@@ -87,11 +87,11 @@ class _CardMonitoringChildState extends State<CardMonitoringChild> {
   @override
   Widget build(BuildContext context) {
     String convertedDate = DateFormat('yMMMMd').format(DateFormat("yyyy-MM-dd")
-        .parse(DateTime.parse(widget.monitor.createdAt)
+        .parse(DateTime.parse(widget.monitor['createdAt'])
             .add(const Duration(hours: 7))
             .toString()));
     String convertedTime = DateFormat('HH:mm')
-        .format(DateTime.parse(widget.monitor.createdAt)
+        .format(DateTime.parse(widget.monitor['createdAt'])
             .add(const Duration(hours: 7)))
         .toString();
 
@@ -153,7 +153,7 @@ class _CardMonitoringChildState extends State<CardMonitoringChild> {
                                 Expanded(
                                   flex: 1,
                                   child: Text(
-                                    widget.monitor.content,
+                                    widget.monitor['content'],
                                     style: TextStyle(
                                         color: MyColor.level4, wordSpacing: 2),
                                   ),
@@ -182,7 +182,7 @@ class _CardMonitoringChildState extends State<CardMonitoringChild> {
                                                   wordSpacing: 2),
                                             ),
                                             Text(
-                                              "${widget.monitor.height} cm",
+                                              "${widget.monitor['height']} cm",
                                               style: TextStyle(
                                                   fontSize: 30,
                                                   color: MyColor.level4,
@@ -203,7 +203,7 @@ class _CardMonitoringChildState extends State<CardMonitoringChild> {
                                                   wordSpacing: 2),
                                             ),
                                             Text(
-                                              "${widget.monitor.weight} Kg",
+                                              "${widget.monitor['weight']} Kg",
                                               style: TextStyle(
                                                   fontSize: 30,
                                                   color: MyColor.level4,
@@ -224,23 +224,26 @@ class _CardMonitoringChildState extends State<CardMonitoringChild> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  InkWell(
-                    onTap: (() {
-                      _showMyDialog();
-                    }),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 6, horizontal: 6),
-                      margin: const EdgeInsets.symmetric(horizontal: 2),
-                      decoration: BoxDecoration(
-                          color: Colors.redAccent,
-                          borderRadius: BorderRadius.circular(8)),
-                      child: Text(
-                        "Hapus",
-                        style: TextStyle(color: MyColor.level4, fontSize: 12),
-                      ),
-                    ),
-                  ),
+                  widget.type != "Record"
+                      ? const SizedBox.shrink()
+                      : InkWell(
+                          onTap: (() {
+                            _showMyDialog();
+                          }),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 6, horizontal: 6),
+                            margin: const EdgeInsets.symmetric(horizontal: 2),
+                            decoration: BoxDecoration(
+                                color: Colors.redAccent,
+                                borderRadius: BorderRadius.circular(8)),
+                            child: Text(
+                              "Hapus",
+                              style: TextStyle(
+                                  color: MyColor.level4, fontSize: 12),
+                            ),
+                          ),
+                        ),
                   InkWell(
                     onTap: (() {
                       showModalBottomSheet(

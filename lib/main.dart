@@ -9,6 +9,7 @@ import 'package:no_stunting/firebase_options.dart';
 import 'package:no_stunting/screens/child/login.dart';
 import 'package:no_stunting/screens/choose_roles/choose_roles.dart';
 import 'package:no_stunting/services/notification_services.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 NotificationsService notificationsService = NotificationsService();
 
@@ -27,7 +28,8 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 void main() async {
   void mainCloudMessagingInit() async {
-    WidgetsFlutterBinding.ensureInitialized();
+    WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+    FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
@@ -50,7 +52,6 @@ void main() async {
         RemoteNotification? notification = message.notification;
 
         if (notification != null && android != null) {
-          print("MASUK");
           notificationsService.sendNotification(
               notification.title.toString(), notification.body.toString());
         }
@@ -61,6 +62,9 @@ void main() async {
   mainCloudMessagingInit();
 
   runApp(const MyApp());
+  Future.delayed(const Duration(seconds: 2), () {
+    FlutterNativeSplash.remove();
+  });
 }
 
 class MyApp extends StatefulWidget {

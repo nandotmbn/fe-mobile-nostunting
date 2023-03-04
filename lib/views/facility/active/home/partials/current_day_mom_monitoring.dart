@@ -152,14 +152,18 @@ class _FacilityCurrentDayMomMonitoringState
 
     for (var res in response) {
       if (res["name"] == "Mother") {
-        setState(() {
-          motherId = res["_id"];
-        });
+        if (mounted) {
+          setState(() {
+            motherId = res["_id"];
+          });
+        }
       }
       if (res["name"] == "Child") {
-        setState(() {
-          childId = res["_id"];
-        });
+        if (mounted) {
+          setState(() {
+            childId = res["_id"];
+          });
+        }
       }
     }
   }

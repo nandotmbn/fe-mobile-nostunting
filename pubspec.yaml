@@ -54,6 +54,7 @@ dependencies:
   device_info_plus: ^8.1.0
   flutter_timezone: ^1.0.4
   image: ^4.0.15
+  flutter_native_splash: ^2.2.18
 
 dev_dependencies:
   flutter_test:

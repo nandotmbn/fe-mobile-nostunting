@@ -8,7 +8,7 @@ import 'package:no_stunting/screens/facility/active/monitor/child_record_detail.
 import 'package:no_stunting/views/facility/active/monitor/index.dart';
 
 class BoxMonitoringChild extends StatelessWidget {
-  MonitorPatientData childData;
+  dynamic childData;
   String type;
 
   BoxMonitoringChild(this.childData, this.type);
@@ -16,12 +16,12 @@ class BoxMonitoringChild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String convertedDate = DateFormat('yMMMMd').format(DateFormat("yyyy-MM-dd")
-        .parse(DateTime.parse(childData.createdAt)
+        .parse(DateTime.parse(childData['createdAt'])
             .add(const Duration(hours: 7))
             .toString()));
     String convertedTime = DateFormat('HH:mm')
-        .format(
-            DateTime.parse(childData.createdAt).add(const Duration(hours: 7)))
+        .format(DateTime.parse(childData['createdAt'])
+            .add(const Duration(hours: 7)))
         .toString();
     return Container(
         height: 160,
@@ -65,9 +65,11 @@ class BoxMonitoringChild extends StatelessWidget {
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          childData.isChecked ? "Sudah di cek" : "Belum di cek",
+                          childData['isChecked']
+                              ? "Sudah di cek"
+                              : "Belum di cek",
                           style: TextStyle(
-                              color: childData.isChecked
+                              color: childData['isChecked']
                                   ? MyColor.level2
                                   : Colors.red,
                               fontStyle: FontStyle.italic,
@@ -83,7 +85,7 @@ class BoxMonitoringChild extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Adik ${childData.firstName} ${childData.lastName}',
+                          'Adik ${childData['patient'][0]['firstName']} ${childData['patient'][0]['lastName']}',
                           style: TextStyle(
                               color: MyColor.level1,
                               fontSize: 14,
@@ -103,8 +105,10 @@ class BoxMonitoringChild extends StatelessWidget {
                     context,
                     MaterialPageRoute(builder: (context) {
                       return type == "Monitor"
-                          ? FacilityMonitorDetailChild(childData.patientId)
-                          : FacilityChildRecordDetail(childData.patientId);
+                          ? FacilityMonitorDetailChild(
+                              childData['patient'][0]['_id'])
+                          : FacilityChildRecordDetail(
+                              childData['patient'][0]['_id']);
                     }),
                   )
                 },

@@ -120,9 +120,11 @@ class _FormLoginFieldState extends State<FormLoginField> {
     var response = await monitorService.getMasterRolesData();
     for (var res in response) {
       if (res["name"] == "Facility") {
-        setState(() {
-          facilityRolesId = res["_id"];
-        });
+        if (mounted) {
+          setState(() {
+            facilityRolesId = res["_id"];
+          });
+        }
       }
     }
   }

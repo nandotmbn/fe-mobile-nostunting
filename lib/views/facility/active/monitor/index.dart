@@ -64,7 +64,7 @@ class _FacilityMonitorViewState extends State<FacilityMonitorView> {
 
   DateTime _dateTime = DateTime.utc(1970, 1, 1);
 
-  List<MonitorPatientData> monitorPatientData = [];
+  List<dynamic> monitorPatientData = [];
 
   void getMasterData() async {
     var resultData = await facilityService.getMasterRolesData();
@@ -110,24 +110,21 @@ class _FacilityMonitorViewState extends State<FacilityMonitorView> {
         monitorPatientData = [];
       });
     }
-    List<MonitorPatientData> tagObjs = resultData
-        .map<MonitorPatientData>(
-            (tagJson) => MonitorPatientData.fromJson(tagJson))
-        .toList();
+    List<dynamic> tagObjs = resultData.toList();
 
     List<String> ids = [];
 
-    List<MonitorPatientData> cards = [];
+    List<dynamic> cards = [];
 
     for (var ob in tagObjs.reversed) {
       bool flag = false;
       for (var id in ids) {
-        if (id == ob.patientId) {
+        if (id == ob['patient'][0]['_id']) {
           flag = true;
         }
       }
       if (flag == false) {
-        ids.add(ob.patientId);
+        ids.add(ob['patient'][0]['_id']);
         cards.add(ob);
       }
     }
@@ -362,7 +359,7 @@ class _FacilityMonitorViewState extends State<FacilityMonitorView> {
                       children: dropdownValueType == "Kalender"
                           ? monitorPatientData.map(
                               (r) {
-                                if (r.typeId == childId) {
+                                if (r['patientTypeId'] == childId) {
                                   return BoxMonitoringChild(r, "Monitor");
                                 } else {
                                   return BoxMonitoringMom(r);

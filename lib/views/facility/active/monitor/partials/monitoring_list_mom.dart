@@ -7,18 +7,18 @@ import 'package:no_stunting/screens/facility/active/monitor/mother_detail.dart';
 import 'package:no_stunting/views/facility/active/monitor/index.dart';
 
 class BoxMonitoringMom extends StatelessWidget {
-  MonitorPatientData childData;
+  dynamic childData;
 
   BoxMonitoringMom(this.childData);
   @override
   Widget build(BuildContext context) {
     String convertedDate = DateFormat('yMMMMd').format(DateFormat("yyyy-MM-dd")
-        .parse(DateTime.parse(childData.createdAt)
+        .parse(DateTime.parse(childData['createdAt'])
             .add(const Duration(hours: 7))
             .toString()));
     String convertedTime = DateFormat('HH:mm')
-        .format(
-            DateTime.parse(childData.createdAt).add(const Duration(hours: 7)))
+        .format(DateTime.parse(childData['createdAt'])
+            .add(const Duration(hours: 7)))
         .toString();
     return Container(
         decoration: BoxDecoration(
@@ -60,9 +60,11 @@ class BoxMonitoringMom extends StatelessWidget {
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          childData.isChecked ? "Sudah di cek" : "Belum di cek",
+                          childData['isChecked']
+                              ? "Sudah di cek"
+                              : "Belum di cek",
                           style: TextStyle(
-                              color: childData.isChecked
+                              color: childData['isChecked']
                                   ? MyColor.level2
                                   : Colors.red,
                               fontStyle: FontStyle.italic,
@@ -78,7 +80,7 @@ class BoxMonitoringMom extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Ibu ${childData.firstName} ${childData.lastName}',
+                          'Ibu ${childData['patient'][0]['firstName']} ${childData['patient'][0]['lastName']}',
                           style: TextStyle(
                               color: MyColor.level1,
                               fontSize: 14,
@@ -97,8 +99,8 @@ class BoxMonitoringMom extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            FacilityMonitorDetailMother(childData.patientId)),
+                        builder: (context) => FacilityMonitorDetailMother(
+                            childData['patient'][0]['_id'])),
                   )
                 },
                 child: Container(
