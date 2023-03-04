@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:intl/intl.dart';
 import 'package:no_stunting/constant/color.dart';
 import 'package:no_stunting/services/facility_monitor.dart';
 import 'package:no_stunting/views/facility/active/monitor/partials/calendar_monitoring_card_list.dart';
@@ -72,6 +73,7 @@ class _FacilityMonitorCalendarState extends State<FacilityMonitorCalendar> {
   int monitorCount = 0;
   bool isLoading = true;
   List<dynamic> monitorPatientData = [];
+  double age = 0.0;
   void getAllData() async {
     setState(() {
       isLoading = true;
@@ -92,6 +94,10 @@ class _FacilityMonitorCalendarState extends State<FacilityMonitorCalendar> {
       user = resultData["User"];
       monitorCount = _count;
       monitorPatientData = widget.type == "Monitor" ? tagObjs : tagObjs2;
+      age = DateTime.parse(resultData["User"]["bornAt"])
+              .difference(DateTime.now())
+              .inDays /
+          -30;
       isLoading = false;
     });
   }
@@ -160,6 +166,17 @@ class _FacilityMonitorCalendarState extends State<FacilityMonitorCalendar> {
                                       fontStyle: FontStyle.italic),
                                 )
                               : SkeletonCustom(height: 15, width: 120),
+                          widget.role == "Adik"
+                              ? user["firstName"] != ""
+                                  ? Text(
+                                      'Usia: ${age.toString()} bulan / ${(age / 12).toStringAsFixed(1)} tahun',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: MyColor.level4,
+                                          fontStyle: FontStyle.italic),
+                                    )
+                                  : SkeletonCustom(height: 15, width: 120)
+                              : const SizedBox.shrink(),
                           Container(
                               margin: const EdgeInsets.only(top: 12),
                               child: Text(

@@ -248,11 +248,11 @@ class _FacilityMeasureRecordFormFieldState
                                 RecordFormHead(
                                     title: "Berat badan",
                                     content:
-                                        '${(value[2] * 256 + value[3]) / 1000} Kg'),
+                                        '${((value[2] * 256 + value[3]) / 1000).toStringAsFixed(2)} Kg'),
                                 RecordFormHead(
                                     title: "Tinggi badan",
                                     content:
-                                        '${(value[6] * 256 + value[7]) / 10} cm'),
+                                        '${((value[6] * 256 + value[7]) / 10).toStringAsFixed(2)} cm'),
                               ],
                             );
                           })),

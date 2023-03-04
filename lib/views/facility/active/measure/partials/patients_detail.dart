@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:no_stunting/constant/color.dart';
 import 'package:no_stunting/services/facility_measure.dart';
 import 'package:no_stunting/widgets/skeleton.dart';
@@ -20,13 +21,22 @@ class _FacilityMeasurePatientDetailState
     extends State<FacilityMeasurePatientDetail> {
   dynamic userData = "";
   bool isLoading = true;
+  String convertedDate = "";
+  double age = 0.0;
 
   void getPatientData() async {
     Future.delayed(const Duration(milliseconds: 1000), () async {
       dynamic data = await facilityService.getPatientData(id: widget._id);
+      String _convertedDate = DateFormat('yMMMMd').format(
+          DateFormat("yyyy-MM-dd")
+              .parse(DateTime.parse(data["bornAt"]).toString()));
       setState(() {
         userData = data;
+        userData = data;
+        convertedDate = _convertedDate;
         isLoading = false;
+        age = DateTime.parse(data["bornAt"]).difference(DateTime.now()).inDays /
+            -30;
       });
     });
   }
@@ -64,7 +74,7 @@ class _FacilityMeasurePatientDetailState
                                 height: 15,
                               )
                             : Text(
-                                'Adik ${userData["firstName"]} ${userData["lastName"]}',
+                                'Nama: Adik ${userData["firstName"]} ${userData["lastName"]}',
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 20,
@@ -72,35 +82,67 @@ class _FacilityMeasurePatientDetailState
                               ),
                       ),
                       Container(
+                        margin: const EdgeInsets.only(top: 14),
                         alignment: Alignment.centerLeft,
-                        margin: const EdgeInsets.symmetric(vertical: 8),
                         child: isLoading
                             ? SkeletonCustom(
                                 width: 900,
                                 height: 15,
                               )
                             : Text(
-                                '${userData["identifier"]}',
+                                'NIK: ${userData["identifier"]}',
                                 style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                ),
                               ),
                       ),
                       Container(
+                        margin: const EdgeInsets.only(top: 8),
                         alignment: Alignment.centerLeft,
-                        margin: const EdgeInsets.symmetric(vertical: 8),
                         child: isLoading
                             ? SkeletonCustom(
                                 width: 900,
                                 height: 15,
                               )
                             : Text(
-                                '${userData["address"]}',
+                                'Tanggal Lahir: $convertedDate',
                                 style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal),
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                ),
+                              ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 8),
+                        alignment: Alignment.centerLeft,
+                        child: isLoading
+                            ? SkeletonCustom(
+                                width: 900,
+                                height: 15,
+                              )
+                            : Text(
+                                'Usia: ${age.toString()} bulan / ${(age / 12).toStringAsFixed(1)} tahun',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                ),
+                              ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 8),
+                        alignment: Alignment.centerLeft,
+                        child: isLoading
+                            ? SkeletonCustom(
+                                width: 900,
+                                height: 15,
+                              )
+                            : Text(
+                                'Alamat: ${userData["address"]}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                ),
                               ),
                       )
                     ],

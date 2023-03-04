@@ -107,6 +107,7 @@ class _FacilityMonitorViewState extends State<FacilityMonitorView> {
     );
     if (resultData == null) {
       return setState(() {
+        isLoading = false;
         monitorPatientData = [];
       });
     }
@@ -355,7 +356,7 @@ class _FacilityMonitorViewState extends State<FacilityMonitorView> {
                       crossAxisSpacing: 5,
                       mainAxisSpacing: 5,
                       crossAxisCount: 2,
-                      childAspectRatio: 1.8,
+                      childAspectRatio: 1.6,
                       children: dropdownValueType == "Kalender"
                           ? monitorPatientData.map(
                               (r) {

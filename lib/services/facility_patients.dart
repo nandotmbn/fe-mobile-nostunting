@@ -27,13 +27,16 @@ class FacilityPatientsService {
     }
   }
 
-  Future<dynamic> registerPatient(
-      {String firstname = "",
-      String lastname = "",
-      String identifier = "",
-      String password = "",
-      String rolesid = "",
-      String address = ""}) async {
+  Future<dynamic> registerPatient({
+    String firstname = "",
+    String lastname = "",
+    String identifier = "",
+    String password = "",
+    String rolesid = "",
+    String address = "",
+    String date = "",
+    bool ismale = false,
+  }) async {
     String? jwt = await storage.read(key: "jwtFacility");
     Map<String, String> requestHeaders = {
       'Content-type': 'application/json',
@@ -42,13 +45,15 @@ class FacilityPatientsService {
     };
     final response = await http.post(Uri.parse('$URL_ENDPOINT/auth/register'),
         headers: requestHeaders,
-        body: jsonEncode(<String, String>{
+        body: jsonEncode(<String, dynamic>{
           "firstname": firstname,
           "lastname": lastname,
           "identifier": identifier,
           "password": password,
           "rolesid": rolesid,
-          "address": address
+          "address": address,
+          "bornat": date,
+          "ismale": ismale
         }));
     if (response.statusCode == 201) {
       return jsonDecode(response.body)["Data"];
@@ -63,6 +68,8 @@ class FacilityPatientsService {
       String identifier = "",
       String rolesid = "",
       String address = "",
+      String date = "",
+      bool ismale = false,
       String id = ""}) async {
     String? jwt = await storage.read(key: "jwtFacility");
     Map<String, String> requestHeaders = {
@@ -72,11 +79,13 @@ class FacilityPatientsService {
     };
     final response = await http.put(Uri.parse('$URL_ENDPOINT/auth/me/$id'),
         headers: requestHeaders,
-        body: jsonEncode(<String, String>{
+        body: jsonEncode(<String, dynamic>{
           "firstname": firstname,
           "lastname": lastname,
           "identifier": identifier,
           "rolesid": rolesid,
+          "bornat": date,
+          "ismale": ismale,
           "address": address
         }));
     if (response.statusCode == 202) {

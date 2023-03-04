@@ -22,7 +22,7 @@ class _FaciliityMeasureRecordViewState
       padding: const EdgeInsets.only(top: 10),
       child: Column(children: [
         Expanded(
-          flex: 2,
+          flex: 3,
           child: FacilityMeasurePatientDetail(widget._id),
         ),
         Expanded(
