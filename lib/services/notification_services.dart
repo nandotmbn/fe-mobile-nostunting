@@ -17,8 +17,8 @@ class NotificationsService {
 
   void sendNotification(String title, String body) async {
     AndroidNotificationDetails androidNotificationDetails =
-        const AndroidNotificationDetails('-', 'Show Popup',
-            importance: Importance.high, priority: Priority.high);
+        const AndroidNotificationDetails('channelId', 'channelName',
+            importance: Importance.max, priority: Priority.max);
     NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
     await _flutterLocalNotificationsPlugin.show(

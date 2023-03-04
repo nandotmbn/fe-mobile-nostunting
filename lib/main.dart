@@ -36,11 +36,11 @@ void main() async {
     // ignore: unused_local_variable
     NotificationSettings settings = await messaging.requestPermission(
       alert: true,
-      announcement: true,
+      announcement: false,
       badge: true,
-      carPlay: true,
-      criticalAlert: true,
-      provisional: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
       sound: true,
     );
 
@@ -50,6 +50,7 @@ void main() async {
         RemoteNotification? notification = message.notification;
 
         if (notification != null && android != null) {
+          print("MASUK");
           notificationsService.sendNotification(
               notification.title.toString(), notification.body.toString());
         }
