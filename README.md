@@ -78,4 +78,30 @@ Visual Studio Code will be top performance for Flutter Development when you add 
 
 ![image image](/readme/1.PNG)
 
+Then, open this repository in Visual Studio Code and open [/lib/main.dart](/lib/main.dart).
+
+At the bottom toolbar, you will see *Connected Device Tool*
+
+![image image](/readme/2.PNG)
+
+Click it, and you can choose your device.
+
+Then you can press **F5** from your keyboard.
+
 ## How to build apk file
+
+Well, in flutter, you only need to write command `flutter build apk`.
+
+```ps
+PS D:\Google DSC Lead\GDSC Solution Challenge\NoStunting\fe-no-stunting> flutter build apk
+
+ Building with sound null safety 
+
+Parameter format not correct -
+Running Gradle task 'assembleRelease'...                           55.7s
+√  Built build\app\outputs\flutter-apk\app-release.apk (23.8MB).
+```
+
+When process already finished, you can open [build\app\outputs\flutter-apk\app-release.apk](build\app\outputs\flutter-apk\app-release.apk)
+
+And install it on your Android Devices.
