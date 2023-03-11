@@ -169,7 +169,7 @@ class _FacilityMonitorCalendarState extends State<FacilityMonitorCalendar> {
                           widget.role == "Adik"
                               ? user["firstName"] != ""
                                   ? Text(
-                                      'Usia: ${age.toString()} bulan / ${(age / 12).toStringAsFixed(1)} tahun',
+                                      'Usia: ${age.toStringAsFixed(1)} bulan / ${(age / 12).toStringAsFixed(1)} tahun',
                                       style: TextStyle(
                                           fontSize: 16,
                                           color: MyColor.level4,
